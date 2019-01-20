@@ -13,7 +13,9 @@
     "target": "es5",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@env/*": ["./src/environments/*"]
+      "@env/*": ["./src/environments/*"],
+      "@helpers/*": ["./src/app/helpers/*"],
+      "@features/*": ["./src/app/features/*"]
     },
     "lib": ["es2018", "dom"]
   }
