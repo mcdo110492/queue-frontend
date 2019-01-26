@@ -55,6 +55,7 @@ const MATERIAL_MODULES: any[] = [
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, MATERIAL_MODULES]
+  imports: [CommonModule, MATERIAL_MODULES],
+  exports: [MATERIAL_MODULES]
 })
 export class MaterialCompModule {}

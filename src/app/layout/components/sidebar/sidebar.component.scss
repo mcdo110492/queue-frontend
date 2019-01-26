@@ -1,0 +1,60 @@
+$background: rgba(36, 47, 61, 0.98);
+$text-color: rgb(148, 159, 172);
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 240px;
+  background: $background;
+}
+
+.sidenav-toolbar {
+  display: flex;
+  height: 55px;
+  background: $background;
+  justify-content: center;
+}
+
+.sidenav-logo {
+  width: auto;
+  height: 2.8em;
+}
+
+.mat-nav-list a {
+  height: 50px;
+  color: $text-color;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+
+  .mat-list-icon {
+    font-size: 20px;
+  }
+}
+
+.mat-nav-list :hover {
+  background: linear-gradient(
+    90deg,
+    rgba(23, 119, 205, 1) 0%,
+    rgba(46, 145, 199, 1) 43%,
+    rgba(66, 175, 145, 1) 100%
+  );
+  * {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.active {
+  background: rgb(23, 119, 205);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 119, 205, 1) 0%,
+    rgba(46, 145, 199, 1) 43%,
+    rgba(66, 175, 145, 1) 100%
+  );
+  * {
+    color: rgb(255, 255, 255);
+  }
+}

@@ -27,14 +27,14 @@ import { LoginModule } from "@features/login/login.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    StoreRouterConnectingModule.forRoot({
-      serializer: CustomRouteSerializer,
-      navigationActionTiming: NavigationActionTiming.PostActivation
-    }),
+    // StoreRouterConnectingModule.forRoot({
+    //   serializer: CustomRouteSerializer,
+    //   navigationActionTiming: NavigationActionTiming.PostActivation
+    // }),
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production
-      ? StoreDevtoolsModule.instrument({ maxAge: 25 })
+      ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true })
       : [],
     LayoutModule,
     LoginModule

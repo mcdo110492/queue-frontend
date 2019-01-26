@@ -15,6 +15,7 @@
     "paths": {
       "@env/*": ["./src/environments/*"],
       "@helpers/*": ["./src/app/helpers/*"],
+      "@material/*": ["./src/app/material-comp/*"],
       "@features/*": ["./src/app/features/*"]
     },
     "lib": ["es2018", "dom"]
