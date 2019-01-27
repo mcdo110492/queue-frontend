@@ -16,6 +16,7 @@
       "@env/*": ["./src/environments/*"],
       "@helpers/*": ["./src/app/helpers/*"],
       "@material/*": ["./src/app/material-comp/*"],
+      "@ui-formly/*": ["./src/app/ui-formly/*"],
       "@features/*": ["./src/app/features/*"]
     },
     "lib": ["es2018", "dom"]

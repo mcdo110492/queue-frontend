@@ -1,4 +1,5 @@
 import { ConfigOption } from "@ngx-formly/core";
+import { SuffixWrapperComponent } from "./wrappers";
 
 function minLenghtValidationMessage(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -29,5 +30,6 @@ export const config: ConfigOption = {
     { name: "maxLength", message: maxLengthValidationMessage },
     { name: "min", message: minValidationMessage },
     { name: "max", message: maxValidationMessage }
-  ]
+  ],
+  wrappers: [{ name: "suffix", component: SuffixWrapperComponent }]
 };

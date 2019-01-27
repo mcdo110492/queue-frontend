@@ -2,18 +2,23 @@
   <mat-card class="login">
     <img class="login-logo" src="./assets/csab-logo.png" alt="Logo Text" />
     <h3 class="login-text">Login</h3>
-    <form class="login-form" novalidate>
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder="Please input your username" autofocus />
-        <mat-icon matSuffix>account_circle</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Please input your password" />
-        <mat-icon matSuffix>lock</mat-icon>
-      </mat-form-field>
-      <button type="button" routerLink="/app" mat-raised-button color="primary">
+    <form
+      class="login-form"
+      [formGroup]="loginForm"
+      (submit)="authenticate()"
+      novalidate
+    >
+      <formly-form
+        [form]="loginForm"
+        [fields]="formFields"
+        [model]="model"
+      ></formly-form>
+      <button
+        [disabled]="loginForm.invalid"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
         LOGIN
       </button>
     </form>

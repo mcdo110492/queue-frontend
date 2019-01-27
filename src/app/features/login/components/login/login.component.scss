@@ -30,12 +30,11 @@
   letter-spacing: 5px;
 }
 
-.login-form > * {
-  width: 100%;
-  padding: 0px 10px 10px 0px;
-}
-
-.mat-form-field {
-  width: 90%;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
   font-size: 14px;
+  margin-bottom: 5px;
+  justify-content: center;
 }
