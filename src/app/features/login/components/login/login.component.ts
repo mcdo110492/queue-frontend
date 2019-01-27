@@ -2,8 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { FormlyFieldConfig } from "@ngx-formly/core";
-
 import { loginFormFields } from "@features/login/schemas";
+
+import { Store } from "@ngrx/store";
+import { AddUserCredentials } from "@user-store/store/action";
+import { State } from "@user-store/store/state";
 
 @Component({
   selector: "csab-login",
@@ -16,8 +19,15 @@ export class LoginComponent {
   formFields: FormlyFieldConfig[] = loginFormFields;
 
   authenticate() {
-    console.log(this.model);
+    let credentials = {
+      username: this.model.username,
+      name: "Name",
+      role: 1,
+      token: "Token Exists",
+      profileImage: "default.jpg"
+    };
+    this.store.dispatch(new AddUserCredentials(credentials));
   }
 
-  constructor() {}
+  constructor(private store: Store<State>) {}
 }

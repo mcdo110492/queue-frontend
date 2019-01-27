@@ -17,7 +17,8 @@
       "@helpers/*": ["./src/app/helpers/*"],
       "@material/*": ["./src/app/material-comp/*"],
       "@ui-formly/*": ["./src/app/ui-formly/*"],
-      "@features/*": ["./src/app/features/*"]
+      "@features/*": ["./src/app/features/*"],
+      "@user-store/*": ["./src/app/user-store/*"]
     },
     "lib": ["es2018", "dom"]
   }
