@@ -4,6 +4,7 @@ import { storeFreeze } from "ngrx-store-freeze";
 import { environment } from "@env/environment";
 
 export interface State {
+  router: any;
 }
 
 export const reducers: ActionReducerMap<State> = {
