@@ -25,6 +25,10 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS
+} from "@angular/material/snack-bar";
 
 const MATERIAL_MODULES: any[] = [
   MatButtonModule,
@@ -50,12 +54,16 @@ const MATERIAL_MODULES: any[] = [
   MatTooltipModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
   declarations: [],
   imports: [CommonModule, MATERIAL_MODULES],
-  exports: [MATERIAL_MODULES]
+  exports: [MATERIAL_MODULES],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }
+  ]
 })
 export class MaterialCompModule {}

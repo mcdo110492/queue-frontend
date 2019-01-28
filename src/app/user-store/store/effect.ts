@@ -4,6 +4,7 @@ import { ActionTypes, Authenticate, AddUserCredentials } from "./action";
 import { UserService } from "@user-store/services/user.service";
 import { switchMap, map, catchError } from "rxjs/operators";
 import { Observable, of } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable()
 export class UserEffects {
@@ -19,6 +20,12 @@ export class UserEffects {
             alert("Incorrect username or password");
           }
 
+          this.snakBar.open("Incorrect username or password", "ok", {
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            panelClass: ["snack-bar-bg-info"]
+          });
+
           console.log(error);
           return of();
         })
@@ -26,5 +33,9 @@ export class UserEffects {
     })
   );
 
-  constructor(private actions$: Actions, private service: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private service: UserService,
+    private snakBar: MatSnackBar
+  ) {}
 }

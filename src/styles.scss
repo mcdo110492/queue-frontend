@@ -13,3 +13,36 @@ body {
 }
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.snack-bar-bg-danger {
+  background-color: rgb(231, 6, 6);
+  color: #fafafa;
+
+  .mat-simple-snackbar-action {
+    color: #fafafa;
+  }
+}
+
+.snack-bar-bg-success {
+  background-color: rgba(22, 143, 52, 0.938);
+  color: #fafafa;
+  .mat-simple-snackbar-action {
+    color: #fafafa;
+  }
+}
+
+.snack-bar-bg-warning {
+  background-color: rgb(250, 229, 40);
+  color: #000000;
+  .mat-simple-snackbar-action {
+    color: #000000;
+  }
+}
+
+.snack-bar-bg-info {
+  background-color: rgb(54, 247, 253);
+  color: #000000;
+  .mat-simple-snackbar-action {
+    color: #000000;
+  }
+}
