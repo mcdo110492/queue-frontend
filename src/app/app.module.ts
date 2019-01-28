@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -15,7 +16,10 @@ import {
 } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { reducers, metaReducers } from "./store/reducers";
-import { CustomRouteSerializer } from "@helpers/custom-route-serializer/custom-route-serializer";
+import {
+  CustomRouteSerializer,
+  httpInterceptorsProvider
+} from "@helpers/index";
 
 import { LayoutModule } from "./layout/layout.module";
 import { UserStoreModule } from "./user-store/user-store.module";
@@ -25,15 +29,16 @@ import { LoginModule } from "@features/login/login.module";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    // StoreRouterConnectingModule.forRoot({
-    //   serializer: CustomRouteSerializer,
-    //   navigationActionTiming: NavigationActionTiming.PostActivation
-    // }),
     EffectsModule.forRoot([]),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomRouteSerializer,
+      navigationActionTiming: NavigationActionTiming.PostActivation
+    }),
+
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true })
       : [],
@@ -41,7 +46,7 @@ import { LoginModule } from "@features/login/login.module";
     LoginModule,
     UserStoreModule
   ],
-  providers: [],
+  providers: [httpInterceptorsProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { MaterialCompModule } from "@material/material-comp.module";
 import { UiFormlyModule } from "@ui-formly/ui-formly.module";
 
 import * as fromComponents from "./components";
+import * as fromServices from "./services";
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -14,6 +15,7 @@ import * as fromComponents from "./components";
     RouterModule.forChild([]),
     MaterialCompModule,
     UiFormlyModule
-  ]
+  ],
+  providers: [...fromServices.services]
 })
 export class LoginModule {}
