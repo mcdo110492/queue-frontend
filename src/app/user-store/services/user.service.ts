@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "@env/environment";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { UserModel } from "@user-store/models";
+import { Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -21,6 +22,18 @@ export class UserService {
           const { id, username, name, role, image_path } = user;
           return { id, username, name, role, image_path, token };
         })
+      );
+  }
+
+  clientRouteGuard(): Observable<boolean> {
+    return this.http
+      .post<{ payload: string }>(
+        `${this.baseApi}/api/auth/client/route/guard`,
+        null
+      )
+      .pipe(
+        map(() => true),
+        catchError(() => of(false))
       );
   }
 

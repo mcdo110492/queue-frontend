@@ -1,10 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
-import { ActionTypes, Authenticate, AddUserCredentials } from "./action";
+import {
+  ActionTypes,
+  Authenticate,
+  AddUserCredentials,
+  RemoveUserCredentials
+} from "./action";
 import { UserService } from "@user-store/services/user.service";
-import { switchMap, map, catchError } from "rxjs/operators";
+import { switchMap, map, catchError, tap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackBarHelperService } from "@helpers/snack-bar-helper/snack-bar-helper.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UserEffects {
@@ -16,26 +22,47 @@ export class UserEffects {
       return this.service.authenticate(credentials).pipe(
         map(user => new AddUserCredentials(user)),
         catchError(error => {
-          if (error.status == 401) {
-            alert("Incorrect username or password");
-          }
-
-          this.snakBar.open("Incorrect username or password", "ok", {
-            horizontalPosition: "center",
-            verticalPosition: "top",
-            panelClass: ["snack-bar-bg-info"]
-          });
-
-          console.log(error);
+          this.snackHelper.authSnackErr(error.status);
           return of();
         })
       );
     })
   );
 
+  @Effect({ dispatch: false })
+  addNewUserCredentials$: Observable<any> = this.actions$.pipe(
+    ofType(ActionTypes.ADD_USER_CREDENTIALS),
+    tap(() => {
+      this.router.navigate(["/app"]);
+    })
+  );
+
+  @Effect()
+  logout$: Observable<any> = this.actions$.pipe(
+    ofType(ActionTypes.LOG_OUT),
+    switchMap(() => {
+      return this.service.logout().pipe(
+        map(() => new RemoveUserCredentials()),
+        catchError(error => {
+          this.snackHelper.authSnackErr(error.status);
+          return of();
+        })
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  removeUserCredentials: Observable<any> = this.actions$.pipe(
+    ofType(ActionTypes.REMOVE_USER_CREDENTIALS),
+    map(() => {
+      this.router.navigate(["/login"]);
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private service: UserService,
-    private snakBar: MatSnackBar
+    private snackHelper: SnackBarHelperService,
+    private router: Router
   ) {}
 }

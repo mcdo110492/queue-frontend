@@ -15,6 +15,7 @@
     "paths": {
       "@env/*": ["./src/environments/*"],
       "@helpers/*": ["./src/app/helpers/*"],
+      "@guards/*": ["./src/app/guards/*"],
       "@material/*": ["./src/app/material-comp/*"],
       "@ui-formly/*": ["./src/app/ui-formly/*"],
       "@features/*": ["./src/app/features/*"],
