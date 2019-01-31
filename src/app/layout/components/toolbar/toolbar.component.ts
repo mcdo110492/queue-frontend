@@ -4,6 +4,9 @@ import { Store } from "@ngrx/store";
 import * as fromState from "./../../store/state";
 import * as fromActions from "./../../store/action";
 
+import * as fromUserState from "@user-store/store/state";
+import * as fromUserActions from "@user-store/store/action";
+
 @Component({
   selector: "csab-toolbar",
   templateUrl: "./toolbar.component.html",
@@ -15,5 +18,12 @@ export class ToolbarComponent {
     this.store.dispatch(new fromActions.ToggleSidenav());
   }
 
-  constructor(private store: Store<fromState.State>) {}
+  logout() {
+    this.userStore.dispatch(new fromUserActions.Logout());
+  }
+
+  constructor(
+    private store: Store<fromState.State>,
+    private userStore: Store<fromUserState.State>
+  ) {}
 }
