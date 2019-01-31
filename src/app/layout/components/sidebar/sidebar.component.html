@@ -11,14 +11,18 @@
     </mat-toolbar>
 
     <mat-nav-list>
-      <a mat-list-item routerLink="/login" class="active">
-        <mat-icon matListIcon>folder</mat-icon>
-        <p matLine>Login</p>
-      </a>
-      <a mat-list-item routerLink="/app">
-        <mat-icon matListIcon>folder</mat-icon>
-        <p matLine>Content</p>
-      </a>
+      <ng-container *ngFor="let nav of (sidebarLinks$ | async)">
+        <h3 *ngIf="nav.isHeader" mat-subheader>{{ nav.title }}</h3>
+        <a
+          *ngIf="!nav.isHeader"
+          mat-list-item
+          [routerLink]="nav.link"
+          routerLinkActive="active"
+        >
+          <mat-icon matListIcon>{{ nav.icon }}</mat-icon>
+          <p matLine>{{ nav.title }}</p>
+        </a>
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
 

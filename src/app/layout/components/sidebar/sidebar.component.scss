@@ -1,5 +1,9 @@
-$background: rgba(36, 47, 61, 0.98);
-$text-color: rgb(148, 159, 172);
+$background-sidebar: rgba(36, 47, 61, 0.98);
+$text-default-color: rgb(148, 159, 172);
+$text-white-color: rgb(255, 255, 255);
+$bg1: rgba(23, 119, 205, 1);
+$bg2: rgba(46, 145, 199, 1);
+$bg3: rgba(66, 175, 145, 1);
 
 .sidenav-container {
   height: 100%;
@@ -7,13 +11,13 @@ $text-color: rgb(148, 159, 172);
 
 .sidenav {
   width: 240px;
-  background: $background;
+  background: $background-sidebar;
 }
 
 .sidenav-toolbar {
   display: flex;
   height: 55px;
-  background: $background;
+  background: $background-sidebar;
   justify-content: center;
 }
 
@@ -24,7 +28,7 @@ $text-color: rgb(148, 159, 172);
 
 .mat-nav-list a {
   height: 50px;
-  color: $text-color;
+  color: $text-default-color;
   font-size: 15px;
   font-weight: bold;
   letter-spacing: 1.2px;
@@ -34,27 +38,21 @@ $text-color: rgb(148, 159, 172);
   }
 }
 
-.mat-nav-list :hover {
-  background: linear-gradient(
-    90deg,
-    rgba(23, 119, 205, 1) 0%,
-    rgba(46, 145, 199, 1) 43%,
-    rgba(66, 175, 145, 1) 100%
-  );
+.mat-nav-list a:hover {
+  background: linear-gradient(90deg, $bg1 0%, $bg2 43%, $bg3 100%);
   * {
-    color: rgb(255, 255, 255);
+    color: $text-white-color;
   }
 }
 
 .active {
   background: rgb(23, 119, 205);
-  background: linear-gradient(
-    90deg,
-    rgba(23, 119, 205, 1) 0%,
-    rgba(46, 145, 199, 1) 43%,
-    rgba(66, 175, 145, 1) 100%
-  );
+  background: linear-gradient(90deg, $bg1 0%, $bg2 43%, $bg3 100%);
   * {
-    color: rgb(255, 255, 255);
+    color: $text-white-color;
   }
+}
+
+.mat-subheader {
+  color: $text-default-color;
 }

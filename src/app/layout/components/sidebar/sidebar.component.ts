@@ -7,6 +7,8 @@ import { Store } from "@ngrx/store";
 import * as fromState from "./../../store/state";
 import * as fromSelectors from "./../../store/selectors";
 
+import { SidenavMetadataModel } from "./../../models";
+
 @Component({
   selector: "csab-sidebar",
   templateUrl: "./sidebar.component.html",
@@ -15,6 +17,7 @@ import * as fromSelectors from "./../../store/selectors";
 })
 export class SidebarComponent {
   isSideNavToggle$: Observable<boolean>;
+  sidebarLinks$: Observable<SidenavMetadataModel[]>;
   isHandset$: Observable<boolean> = this.breakpointObservers
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
@@ -25,6 +28,9 @@ export class SidebarComponent {
   ) {
     this.isSideNavToggle$ = this.store.select(
       fromSelectors.selectLayoutSidenavIsToggle
+    );
+    this.sidebarLinks$ = this.store.select(
+      fromSelectors.selectSidebarLinksByRole
     );
   }
 }
