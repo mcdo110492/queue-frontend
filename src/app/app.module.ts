@@ -6,6 +6,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+
 import { environment } from "@env/environment.ts";
 
 import { StoreModule } from "@ngrx/store";
@@ -16,6 +18,7 @@ import {
 } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { reducers, metaReducers } from "./store/reducers";
+import { RouterExtendsEffects } from "./store/router-extends/effect";
 import {
   CustomRouteSerializer,
   httpInterceptorsProvider
@@ -33,7 +36,7 @@ import { LoginModule } from "@features/login/login.module";
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([RouterExtendsEffects]),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomRouteSerializer,
       navigationActionTiming: NavigationActionTiming.PostActivation
@@ -44,7 +47,8 @@ import { LoginModule } from "@features/login/login.module";
       : [],
     LayoutModule,
     LoginModule,
-    UserStoreModule
+    UserStoreModule,
+    MatProgressBarModule
   ],
   providers: [httpInterceptorsProvider],
   bootstrap: [AppComponent]
