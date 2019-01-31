@@ -14,6 +14,12 @@ body {
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 .snack-bar-bg-danger {
   background-color: rgb(231, 6, 6);
   color: #fafafa;

@@ -16,6 +16,7 @@
       "@env/*": ["./src/environments/*"],
       "@helpers/*": ["./src/app/helpers/*"],
       "@guards/*": ["./src/app/guards/*"],
+      "@animations/*": ["./src/app/animations/*"],
       "@material/*": ["./src/app/material-comp/*"],
       "@ui-formly/*": ["./src/app/ui-formly/*"],
       "@features/*": ["./src/app/features/*"],

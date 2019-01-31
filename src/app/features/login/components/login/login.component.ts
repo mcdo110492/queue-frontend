@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { FormlyFieldConfig } from "@ngx-formly/core";
@@ -13,7 +13,7 @@ import { State } from "@user-store/store/state";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"]
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginForm: FormGroup = new FormGroup({});
   model: any = {};
   formFields: FormlyFieldConfig[] = loginFormFields;
@@ -21,6 +21,12 @@ export class LoginComponent {
   authenticate() {
     const credentials = { ...this.model };
     this.store.dispatch(new Authenticate(credentials));
+  }
+
+  ngOnDestroy() {
+    //reset the model and form
+    this.loginForm.reset();
+    this.model = {};
   }
 
   constructor(private store: Store<State>) {}
