@@ -15,6 +15,7 @@
     "paths": {
       "@env/*": ["./src/environments/*"],
       "@helpers/*": ["./src/app/helpers/*"],
+      "@shared/*": ["./src/app/shared/*"],
       "@guards/*": ["./src/app/guards/*"],
       "@animations/*": ["./src/app/animations/*"],
       "@material/*": ["./src/app/material-comp/*"],

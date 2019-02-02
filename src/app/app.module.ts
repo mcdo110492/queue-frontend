@@ -27,9 +27,10 @@ import {
 import { LayoutModule } from "./layout/layout.module";
 import { UserStoreModule } from "./user-store/user-store.module";
 import { LoginModule } from "@features/login/login.module";
+import * as fromComponents from "./components";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ...fromComponents.componetns],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

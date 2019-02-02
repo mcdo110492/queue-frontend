@@ -45,7 +45,7 @@ $bg3: rgba(66, 175, 145, 1);
   }
 }
 
-.active {
+.mat-nav-list a.active {
   background: rgb(23, 119, 205);
   background: linear-gradient(90deg, $bg1 0%, $bg2 43%, $bg3 100%);
   * {
@@ -55,4 +55,9 @@ $bg3: rgba(66, 175, 145, 1);
 
 .mat-subheader {
   color: $text-default-color;
+}
+
+.mat-sidenav-content {
+  height: 100%;
+  overflow-x: hidden;
 }

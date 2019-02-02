@@ -3,33 +3,33 @@ import { SidenavMetadataModel } from "./../models";
 export const ADMINISTRATOR_LINKS: SidenavMetadataModel[] = [
   {
     isHeader: false,
-    link: "/dashboard",
+    link: "/app/dashboard",
     title: "Dashboard",
     icon: "dashboard"
   },
   { isHeader: true, link: "", title: "Counter" },
   {
     isHeader: false,
-    link: "/counter/list",
+    link: "/app/counter/list",
     title: "Counter List",
     icon: "view_list"
   },
   {
     isHeader: false,
-    link: "/counter/user",
+    link: "/app/counter/user",
     title: "Assigned User",
     icon: "supervised_user_circle"
   },
   { isHeader: true, link: "", title: "Queueing" },
   {
     isHeader: false,
-    link: "/queue/token/list",
+    link: "/app/queue/token/list",
     title: "Token List",
     icon: "assignment"
   },
   {
     isHeader: false,
-    link: "/queue/token/reports",
+    link: "/app/queue/token/reports",
     title: "Reports",
     icon: "assessment"
   },
@@ -49,15 +49,20 @@ export const ADMINISTRATOR_LINKS: SidenavMetadataModel[] = [
   { isHeader: true, link: "", title: "Advertisement" },
   {
     isHeader: false,
-    link: "/announcements",
+    link: "/app/announcements",
     title: "Announcements",
     icon: "announcement"
   },
-  { isHeader: false, link: "/media/ads", title: "Media Ads", icon: "live_tv" },
+  {
+    isHeader: false,
+    link: "/app/media/ads",
+    title: "Media Ads",
+    icon: "live_tv"
+  },
   { isHeader: true, link: "", title: "Settings" },
   {
     isHeader: false,
-    link: "/settings/profile",
+    link: "/app/settings/profile",
     title: "Profile Settings",
     icon: "settings"
   }
