@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "queue-frontend"
+  "defaultProject": "queue-frontend",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
