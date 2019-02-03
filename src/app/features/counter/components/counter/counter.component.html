@@ -1,9 +1,11 @@
-<csab-page-title pageTitle="Counter List"></csab-page-title>
+<csab-page-title pageTitle="Counter List">
+  <button type="button" mat-raised-button color="primary">
+    <mat-icon>add</mat-icon>Add New Counter
+  </button>
+</csab-page-title>
 
-<csab-search-bar
-  placeholder="Search by Name"
-  (searchTerms)="onkeyup($event)"
-></csab-search-bar>
+<csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
+</csab-search-bar>
 
 <csab-table
   [displayedColumns]="displayedColumns"
