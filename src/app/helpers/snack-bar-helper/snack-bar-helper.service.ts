@@ -24,18 +24,15 @@ export class SnackBarHelperService {
         message = "You gone too far";
         break;
       case 422:
-        message = "Form data invalid";
-        break;
-      case 500:
-        message = "Unable to connect to the server";
+        message = "You' re data is not valid";
         break;
       default:
-        message = "Hi";
+        message = "Unable to connect to the server";
         break;
     }
 
     return this.snackBar.open(message, "OK", {
-      horizontalPosition: "left",
+      horizontalPosition: "right",
       verticalPosition: "top",
       panelClass: ["snack-bar-bg-danger"]
     });

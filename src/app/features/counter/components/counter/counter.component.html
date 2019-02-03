@@ -1,8 +1,15 @@
 <csab-page-title pageTitle="Counter List"></csab-page-title>
 
-<mat-card>
-  <csab-search-bar
-    placeholder="Search by Name"
-    (searchTerms)="onkeyup($event)"
-  ></csab-search-bar>
-</mat-card>
+<csab-search-bar
+  placeholder="Search by Name"
+  (searchTerms)="onkeyup($event)"
+></csab-search-bar>
+
+<csab-table
+  [displayedColumns]="displayedColumns"
+  [columns]="columns"
+  [data]="datas$ | async"
+  [searchTerms]="searchTerms"
+  [isLoading]="isLoading$ | async"
+  (update)="update($event)"
+></csab-table>
