@@ -1,0 +1,19 @@
+<csab-page-title pageTitle="Assigned Counter to User List">
+  <button type="button" mat-raised-button color="primary" (click)="create()">
+    <mat-icon>add</mat-icon>Assign User to Counter
+  </button>
+</csab-page-title>
+
+<mat-card class="mat-elevation-z8">
+  <csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
+  </csab-search-bar>
+</mat-card>
+
+<csab-table
+  [displayedColumns]="displayedColumns"
+  [columns]="columns"
+  [data]="datas$ | async"
+  [searchTerms]="searchTerms"
+  [isLoading]="isLoading$ | async"
+  (update)="update($event)"
+></csab-table>

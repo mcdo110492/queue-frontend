@@ -22,8 +22,18 @@ export class CounterComponent implements OnInit {
   datas$: Observable<CounterModel[]>;
   displayedColumns: string[] = ["counter_name", "position", "update"];
   columns: TableColumn[] = [
-    { name: "counter_name", label: "Name", isBtn: false },
-    { name: "position", label: "Position", isBtn: false },
+    {
+      name: "counter_name",
+      label: "Name",
+      isBtn: false,
+      cell: (elem: any) => `${elem.counter_name}`
+    },
+    {
+      name: "position",
+      label: "Position",
+      isBtn: false,
+      cell: (elem: any) => `${elem.position}`
+    },
     {
       name: "update",
       label: "Update",

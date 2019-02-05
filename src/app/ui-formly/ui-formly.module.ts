@@ -8,10 +8,11 @@ import { FormlyModule } from "@ngx-formly/core";
 import { FormlyMaterialModule } from "@ngx-formly/material";
 
 import { config } from "./config";
-import { SuffixWrapperComponent } from "./wrappers";
+import * as fromWrappers from "./wrappers";
+import * as fromTemplates from "./templates";
 
 @NgModule({
-  declarations: [SuffixWrapperComponent],
+  declarations: [...fromWrappers.wrappers, ...fromTemplates.templates],
   imports: [
     CommonModule,
     ReactiveFormsModule,

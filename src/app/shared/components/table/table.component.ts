@@ -24,7 +24,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() displayedColumns: string[];
   @Input() columns: TableColumn[];
   @Input() data: any[];
-  @Input() searchTerms: string;
+  @Input() searchTerms: string = "";
   @Input() isLoading: boolean = false;
   @Output("update") tblBtnClick = new EventEmitter<any>();
   dataSource = new MatTableDataSource();
@@ -38,9 +38,33 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.dataSource.filterPredicate = (data: any, filter: string): boolean => {
+      const accumulator = (currentTerm, key) => {
+        return nestedFilterCheck(currentTerm, data, key);
+      };
+      const dataStr = Object.keys(data)
+        .reduce(accumulator, "")
+        .toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    };
+
+    const nestedFilterCheck = (search, data, key) => {
+      if (typeof data[key] === "object") {
+        for (const k in data[key]) {
+          if (data[key][k] !== null) {
+            search = nestedFilterCheck(search, data[key], k);
+          }
+        }
+      } else {
+        search += data[key];
+      }
+      return search;
+    };
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSource.filter = this.searchTerms;
   }
 
   btnClick(id: number | string) {

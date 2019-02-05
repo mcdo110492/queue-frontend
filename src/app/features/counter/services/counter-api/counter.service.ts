@@ -31,5 +31,6 @@ export class CounterService {
       model
     );
   }
+
   constructor(private http: HttpClient) {}
 }

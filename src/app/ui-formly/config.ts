@@ -1,5 +1,6 @@
 import { ConfigOption } from "@ngx-formly/core";
 import { SuffixWrapperComponent } from "./wrappers";
+import { CounterOptionsComponent } from "./templates";
 
 function minLenghtValidationMessage(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -23,6 +24,10 @@ function maxValidationMessage(err, field) {
   } characters`;
 }
 
+function isNotAvailable(err, field) {
+  return `This is not available anymore. Choose another one`;
+}
+
 export const config: ConfigOption = {
   validationMessages: [
     { name: "required", message: "This field is required" },
@@ -30,7 +35,9 @@ export const config: ConfigOption = {
     { name: "maxLength", message: maxLengthValidationMessage },
     { name: "min", message: minValidationMessage },
     { name: "max", message: maxValidationMessage },
-    { name: "isUnique", message: "This field must be unique" }
+    { name: "isUnique", message: "This field must be unique" },
+    { name: "isNotAvailable", message: isNotAvailable }
   ],
-  wrappers: [{ name: "suffix", component: SuffixWrapperComponent }]
+  wrappers: [{ name: "suffix", component: SuffixWrapperComponent }],
+  types: [{ name: "counterOptions", component: CounterOptionsComponent }]
 };

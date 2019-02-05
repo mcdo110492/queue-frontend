@@ -24,6 +24,11 @@ const routes: Routes = [
         path: "counter/list",
         loadChildren: "src/app/features/counter/counter.module#CounterModule"
       },
+      {
+        path: "counter/assigned/user",
+        loadChildren:
+          "src/app/features/counter-user/counter-user.module#CounterUserModule"
+      },
       { path: "**", component: PageNotFoundComponent }
     ]
   },
