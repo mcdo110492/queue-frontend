@@ -18,7 +18,7 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <span *ngIf="!column.isBtn">
-          {{ element[column.name] }}
+          {{ column.cell(element) }}
         </span>
         <button
           *ngIf="column.isBtn"
