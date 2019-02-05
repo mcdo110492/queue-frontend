@@ -16,7 +16,7 @@ export const ADMINISTRATOR_LINKS: SidenavMetadataModel[] = [
   },
   {
     isHeader: false,
-    link: "/app/counter/user",
+    link: "/app/counter/assigned/user",
     title: "Assigned User",
     icon: "supervised_user_circle"
   },
