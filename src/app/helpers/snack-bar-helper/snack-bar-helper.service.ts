@@ -40,7 +40,7 @@ export class SnackBarHelperService {
 
   customSnackBar(message: string, type: SnackPanelType, action?: string) {
     return this.snackBar.open(message, action, {
-      horizontalPosition: "left",
+      horizontalPosition: "right",
       verticalPosition: "top",
       panelClass: [`snack-bar-bg-${type}`]
     });

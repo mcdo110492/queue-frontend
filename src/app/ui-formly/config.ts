@@ -29,7 +29,8 @@ export const config: ConfigOption = {
     { name: "minlength", message: minLenghtValidationMessage },
     { name: "maxLength", message: maxLengthValidationMessage },
     { name: "min", message: minValidationMessage },
-    { name: "max", message: maxValidationMessage }
+    { name: "max", message: maxValidationMessage },
+    { name: "isUnique", message: "This field must be unique" }
   ],
   wrappers: [{ name: "suffix", component: SuffixWrapperComponent }]
 };

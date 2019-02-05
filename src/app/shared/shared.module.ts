@@ -13,7 +13,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatButtonModule } from "@angular/material/button";
 
 import * as fromComponents from "./components";
-import { TableComponent } from "./components/table/table.component";
 
 const MATERIAL_MODULES: any[] = [
   MatToolbarModule,
@@ -29,7 +28,7 @@ const MATERIAL_MODULES: any[] = [
 ];
 
 @NgModule({
-  declarations: [...fromComponents.components, TableComponent],
+  declarations: [...fromComponents.components],
   imports: [CommonModule, FormsModule, ...MATERIAL_MODULES],
   exports: [...fromComponents.components]
 })

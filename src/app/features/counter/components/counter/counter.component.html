@@ -1,11 +1,13 @@
 <csab-page-title pageTitle="Counter List">
-  <button type="button" mat-raised-button color="primary">
+  <button type="button" mat-raised-button color="primary" (click)="create()">
     <mat-icon>add</mat-icon>Add New Counter
   </button>
 </csab-page-title>
 
-<csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
-</csab-search-bar>
+<mat-card class="mat-elevation-z8">
+  <csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
+  </csab-search-bar>
+</mat-card>
 
 <csab-table
   [displayedColumns]="displayedColumns"

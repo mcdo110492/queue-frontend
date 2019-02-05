@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 
 import { Store } from "@ngrx/store";
 import * as fromCounterReducer from "./../../store/reducers/counter.reducer";
@@ -9,11 +10,13 @@ import { CounterModel } from "./../../models/counter.model";
 import { Observable } from "rxjs";
 
 import { TableColumn } from "@shared/models/table.model";
+import { CounterFormComponent } from "../counter-form/counter-form.component";
 
 @Component({
   selector: "csab-counter",
   templateUrl: "./counter.component.html",
-  styleUrls: ["./counter.component.scss"]
+  styleUrls: ["./counter.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterComponent implements OnInit {
   datas$: Observable<CounterModel[]>;
@@ -38,11 +41,31 @@ export class CounterComponent implements OnInit {
     this.searchTerms = ev;
   }
 
-  update(ev: string | number) {
-    console.log(ev);
+  create() {
+    this.openFormDialog();
   }
 
-  constructor(private store: Store<fromCounterReducer.State>) {
+  update(id: string | number) {
+    this.store.dispatch(new fromCounterActions.SelectCounterModel(id));
+
+    this.openFormDialog();
+  }
+
+  openFormDialog() {
+    const dialogRef = this.dialog.open(CounterFormComponent, {
+      width: "auto",
+      id: "counter-form-dialog"
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.store.dispatch(new fromCounterActions.SelectCounterModel(null));
+    });
+  }
+
+  constructor(
+    private store: Store<fromCounterReducer.State>,
+    private dialog: MatDialog
+  ) {
     this.store.dispatch(new fromCounterActions.LoadCounters());
     this.datas$ = this.store.select(fromCounterSelectors.selectAllCounter);
     this.isLoading$ = this.store.select(

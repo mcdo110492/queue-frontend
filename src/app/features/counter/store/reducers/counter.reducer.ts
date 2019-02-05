@@ -3,8 +3,9 @@ import { CounterModel } from "./../../models/counter.model";
 import { CounterActions, CounterActionTypes } from "../actions/counter.actions";
 
 export interface State extends EntityState<CounterModel> {
-  selectedCounterId: number | null;
+  selectedCounterId: number | string;
   isLoading: boolean;
+  isSaving: boolean;
 }
 
 export const adapter: EntityAdapter<CounterModel> = createEntityAdapter<
@@ -13,7 +14,8 @@ export const adapter: EntityAdapter<CounterModel> = createEntityAdapter<
 
 export const initialState: State = adapter.getInitialState({
   selectedCounterId: null,
-  isLoading: false
+  isLoading: false,
+  isSaving: false
 });
 
 export function reducer(state = initialState, action: CounterActions): State {
@@ -22,7 +24,10 @@ export function reducer(state = initialState, action: CounterActions): State {
       return { ...state, isLoading: true };
     }
     case CounterActionTypes.ADD_COUNTER: {
-      return adapter.addOne(action.payload.counter, state);
+      return adapter.addOne(action.payload.counter, {
+        ...state,
+        isSaving: false
+      });
     }
     case CounterActionTypes.ADD_COUNTERS: {
       return adapter.addMany(action.payload.counters, {
@@ -31,12 +36,25 @@ export function reducer(state = initialState, action: CounterActions): State {
       });
     }
     case CounterActionTypes.UPDATE_COUNTER: {
-      return adapter.updateOne(action.payload.counter, state);
+      const { payload } = action;
+      return adapter.updateOne(payload.counter, {
+        ...state,
+        isSaving: false
+      });
     }
     case CounterActionTypes.CLEAR_COUNTERS: {
       return adapter.removeAll({ ...state, selectedCounterId: null });
     }
-
+    case CounterActionTypes.CREATE_NEW_COUNTER_MODEL:
+    case CounterActionTypes.UPDATE_COUNTER_MODEL: {
+      return { ...state, isSaving: true };
+    }
+    case CounterActionTypes.SELECT_COUNTER_MODEL: {
+      return { ...state, selectedCounterId: action.payload };
+    }
+    case CounterActionTypes.ON_SERVER_ERROR: {
+      return { ...state, isSaving: false, isLoading: false };
+    }
     default:
       return state;
   }
@@ -60,3 +78,5 @@ export const selectAllCounters = selectAll;
 export const selectCounterTotal = selectTotal;
 
 export const selectIsLoading = (state: State) => state.isLoading;
+
+export const selectIsSaving = (state: State) => state.isSaving;

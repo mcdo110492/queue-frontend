@@ -7,7 +7,11 @@ export enum CounterActionTypes {
   ADD_COUNTER = "[Counter] Add Counter",
   ADD_COUNTERS = "[Counter] Add Counters",
   UPDATE_COUNTER = "[Counter] Update Counter",
-  CLEAR_COUNTERS = "[Counter] Clear Counters"
+  CLEAR_COUNTERS = "[Counter] Clear Counters",
+  CREATE_NEW_COUNTER_MODEL = "[Counter] Create New Counter Model",
+  UPDATE_COUNTER_MODEL = "[Counter] Update Counter Model",
+  SELECT_COUNTER_MODEL = "[Counter] Select Counter Model",
+  ON_SERVER_ERROR = "[Counter] On Server Error"
 }
 
 export class LoadCounters implements Action {
@@ -33,9 +37,33 @@ export class ClearUsers implements Action {
   readonly type = CounterActionTypes.CLEAR_COUNTERS;
 }
 
+export class CreateNewCounterModel implements Action {
+  readonly type = CounterActionTypes.CREATE_NEW_COUNTER_MODEL;
+  constructor(public payload: CounterModel) {}
+}
+
+export class UpdateCounterModel implements Action {
+  readonly type = CounterActionTypes.UPDATE_COUNTER_MODEL;
+  constructor(public payload: CounterModel) {}
+}
+
+export class SelectCounterModel implements Action {
+  readonly type = CounterActionTypes.SELECT_COUNTER_MODEL;
+  constructor(public payload: number | string) {}
+}
+
+export class OnServerError implements Action {
+  readonly type = CounterActionTypes.ON_SERVER_ERROR;
+  constructor(public payload: any) {}
+}
+
 export type CounterActions =
   | LoadCounters
   | AddCounter
   | AddCounters
   | UpdateCounter
-  | ClearUsers;
+  | ClearUsers
+  | CreateNewCounterModel
+  | UpdateCounterModel
+  | SelectCounterModel
+  | OnServerError;

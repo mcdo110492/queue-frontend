@@ -40,3 +40,8 @@ export const selectCounterIsLoading = createSelector(
   selectCounterState,
   fromCounter.selectIsLoading
 );
+
+export const selectCounterIsSaving = createSelector(
+  selectCounterState,
+  fromCounter.selectIsSaving
+);
