@@ -1,0 +1,25 @@
+<div
+  id="print-area"
+  class="print-content"
+  *ngIf="(issueTokenData$ | async) as token"
+>
+  <p class="date-text">{{ token.created_at | date: "medium" }}</p>
+  <div mat-dialog-content>
+    <h1 class="page-title">Colegio San Agustin - Bacolod</h1>
+    <h2 class="ticket-title">Ticket Number</h2>
+    <p class="ticket-number">{{ token.ticket_number }}</p>
+    <h3 class="ticket-priority-text" *ngIf="token.priority == 1">Priority</h3>
+    <div class="footer">
+      <div class="footer-content">
+        <mat-icon class="footer-icon">people</mat-icon>
+        <p class="footer-text">People in waiting</p>
+        <p class="footer-number">{{ token.people_in_waiting }}</p>
+      </div>
+      <div class="footer-content">
+        <mat-icon class="footer-icon">access_time</mat-icon>
+        <p class="footer-text">waiting time</p>
+        <p class="footer-number">{{ token.estimated_waiting_time }}</p>
+      </div>
+    </div>
+  </div>
+</div>

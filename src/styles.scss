@@ -52,3 +52,12 @@ router-outlet ~ * {
     color: #000000;
   }
 }
+
+@page {
+  size: 4in 4in;
+  margin: 0;
+}
+
+#print-issue-token-dialog {
+  box-shadow: none !important;
+}

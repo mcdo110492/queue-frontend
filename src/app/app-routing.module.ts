@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { PageNotFoundComponent } from "./components";
 
-import { MainContentComponent } from "./layout/components";
+import { MainContentComponent, DisplayComponent } from "./layout/components";
 import { LoginComponent } from "@features/login/components";
 import { AuthGuard, LoginGuard } from "@guards/index";
 
@@ -28,6 +28,18 @@ const routes: Routes = [
         path: "counter/assigned/user",
         loadChildren:
           "src/app/features/counter-user/counter-user.module#CounterUserModule"
+      },
+      { path: "**", component: PageNotFoundComponent }
+    ]
+  },
+  {
+    path: "display",
+    component: DisplayComponent,
+    children: [
+      {
+        path: "issue/token",
+        loadChildren:
+          "src/app/features/issue-token/issue-token.module#IssueTokenModule"
       },
       { path: "**", component: PageNotFoundComponent }
     ]
