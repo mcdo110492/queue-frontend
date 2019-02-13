@@ -12,9 +12,14 @@ import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatButtonModule } from "@angular/material/button";
 
+import { VgCoreModule } from "videogular2/core";
+import { VgControlsModule } from "videogular2/controls";
+import { VgOverlayPlayModule } from "videogular2/overlay-play";
+import { VgBufferingModule } from "videogular2/buffering";
+
 import * as fromComponents from "./components";
 
-const MATERIAL_MODULES: any[] = [
+const CUSTOM_MODULES: any[] = [
   MatToolbarModule,
   MatIconModule,
   MatFormFieldModule,
@@ -24,12 +29,17 @@ const MATERIAL_MODULES: any[] = [
   MatSortModule,
   MatCardModule,
   MatProgressSpinnerModule,
-  MatButtonModule
+  MatButtonModule,
+
+  VgCoreModule,
+  VgControlsModule,
+  VgOverlayPlayModule,
+  VgBufferingModule
 ];
 
 @NgModule({
   declarations: [...fromComponents.components],
-  imports: [CommonModule, FormsModule, ...MATERIAL_MODULES],
+  imports: [CommonModule, FormsModule, ...CUSTOM_MODULES],
   exports: [...fromComponents.components]
 })
 export class SharedModule {}

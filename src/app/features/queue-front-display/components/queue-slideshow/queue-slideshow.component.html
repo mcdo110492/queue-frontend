@@ -1,0 +1,6 @@
+<div class="ads-player">
+  <csab-media-player
+    *ngIf="(playListCount$ | async) > 0"
+    [playlists]="playlists$ | async"
+  ></csab-media-player>
+</div>

@@ -41,6 +41,11 @@ const routes: Routes = [
         loadChildren:
           "src/app/features/issue-token/issue-token.module#IssueTokenModule"
       },
+      {
+        path: "front/queue",
+        loadChildren:
+          "src/app/features/queue-front-display/queue-front-display.module#QueueFrontDisplayModule"
+      },
       { path: "**", component: PageNotFoundComponent }
     ]
   },
