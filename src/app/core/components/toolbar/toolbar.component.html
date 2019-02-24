@@ -1,0 +1,20 @@
+<mat-toolbar class="mat-elevation-z8 app-toolbar">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="toggleSidebar()"
+  >
+    <mat-icon aria-label="Sidebar toggle icon">menu</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button
+    type="button"
+    aria-label="Logout"
+    mat-stroked-button
+    color="warn"
+    (click)="logout()"
+  >
+    LOGOUT
+  </button>
+</mat-toolbar>

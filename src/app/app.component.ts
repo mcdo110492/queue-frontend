@@ -1,10 +1,13 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { fadeAnimation } from "@animations/fade.animation";
+
+import { Observable } from "rxjs";
 
 import { Store } from "@ngrx/store";
-import { State } from "./store/router-extends/state";
-import { SelectIsRouteLoading } from "./store/router-extends/selector";
-import { Observable } from "rxjs";
+
+import * as fromRouterState from "@core/state/reducers/router-extends.reducer";
+import * as fromRouterSelectors from "@core/state/selectors/router-extends.selector";
+
+import { fadeAnimation } from "@animations/fade.animation";
 
 @Component({
   selector: "csab-root",
@@ -26,7 +29,9 @@ import { Observable } from "rxjs";
 export class AppComponent {
   isRouteLoader: Observable<boolean>;
 
-  constructor(private store: Store<State>) {
-    this.isRouteLoader = this.store.select(SelectIsRouteLoading);
+  constructor(private store: Store<fromRouterState.State>) {
+    this.isRouteLoader = this.store.select(
+      fromRouterSelectors.SelectIsRouteLoading
+    );
   }
 }

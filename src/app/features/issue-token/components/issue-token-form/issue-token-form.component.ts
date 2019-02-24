@@ -8,11 +8,12 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
+
 import { Store } from "@ngrx/store";
-import * as fromIssueTokenStoreReducer from "./../../store/reducers/issue-token.reducer";
-import * as fromIssueTokenStoreActions from "./../../store/actions/issue-token.actions";
-import * as fromIssueTokenStoreSelector from "./../../store/selectors/issue-token.selector";
-import { IssueTokenPrintDialogComponent } from "../issue-token-print-dialog/issue-token-print-dialog.component";
+
+import * as fromIssueTokenStoreReducer from "@features/issue-token/state/reducers/issue-token.reducer";
+import * as fromIssueTokenStoreActions from "@features/issue-token/state/actions/issue-token.actions";
+import * as fromIssueTokenStoreSelector from "@features/issue-token/state/selectors/issue-token.selector";
 
 @Component({
   selector: "csab-issue-token-form",
@@ -24,7 +25,9 @@ export class IssueTokenFormComponent {
   isSaving$: Observable<boolean>;
   priorityColor: string = "primary";
   ticketTypeText: string = "Would you like to get a ticket";
+
   @ViewChild("alertIssueDialog") alertIssueDialog: TemplateRef<any>;
+
   generateTicket(status: number) {
     if (status === 1) {
       this.priorityColor = "accent";

@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="date">
+    <mat-icon>calendar_today</mat-icon>
+    {{ date | date: "EEEE, MMM d, y" }}
+  </div>
+
+  <div class="time">
+    <mat-icon>access_time</mat-icon>
+    {{ time | async | date: "h:mm:ss a" }}
+  </div>
+</div>

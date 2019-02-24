@@ -2,22 +2,21 @@ import { Component, ChangeDetectionStrategy, Input } from "@angular/core";
 
 import { VgAPI } from "videogular2/core";
 
-import { MediaPlayerModel } from "./media-player.model";
+import { MediaPlayerModel } from "./models/media-player.model";
 
 @Component({
   selector: "csab-media-player",
   templateUrl: "./media-player.component.html",
-  styleUrls: ["./media-player.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaPlayerComponent {
-  @Input() playlists: MediaPlayerModel[];
+  @Input() sources: MediaPlayerModel[];
   api: VgAPI;
   currentIndex: number = 0;
   currentItem: MediaPlayerModel;
 
   onPlayerReady(api: VgAPI) {
-    this.currentItem = this.playlists[this.currentIndex];
+    this.currentItem = this.sources[this.currentIndex];
     this.api = api;
     this.api
       .getDefaultMedia()
@@ -34,13 +33,11 @@ export class MediaPlayerComponent {
   nextVideo() {
     this.currentIndex++;
 
-    if (this.currentIndex == this.playlists.length) {
+    if (this.currentIndex == this.sources.length) {
       this.currentIndex = 0;
     }
 
-    this.currentItem = this.playlists[this.currentIndex];
+    this.currentItem = this.sources[this.currentIndex];
     this.api.play();
   }
-
-  constructor() {}
 }

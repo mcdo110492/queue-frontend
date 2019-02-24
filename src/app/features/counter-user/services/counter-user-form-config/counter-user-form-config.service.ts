@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
-import { Store } from "@ngrx/store";
-import * as fromCounterUserReducer from "./../../store/reducers/counter-user.reducer";
-import * as fromCounterUserSelector from "./../../store/selectors/counter-user.select";
-
 import { FormlyFieldConfig } from "@ngx-formly/core";
+
 import { map } from "rxjs/operators";
 
-import { UniqueValidatorService } from "@helpers/unique-validator/unique-validator.service";
+import { Store } from "@ngrx/store";
+import * as fromCounterUserReducer from "@features/counter-user/state/reducers/counter-user.reducer";
+import * as fromCounterUserSelector from "@features/counter-user/state/selectors/counter-user.select";
+
+import { UniqueValidatorService } from "@core/services/unique-validator/unique-validator.service";
 
 @Injectable()
 export class CounterUserFormConfigService {
@@ -46,7 +47,7 @@ export class CounterUserFormConfigService {
           validation: [
             (control: FormControl) =>
               this.service
-                .validateUnique(url, "counter_id", control.value, id)
+                .backendValidate(url, "counter_id", control.value, id)
                 .pipe(
                   map(isNotAvailable =>
                     isNotAvailable ? null : { isNotAvailable: false }
@@ -76,7 +77,7 @@ export class CounterUserFormConfigService {
           validation: [
             (control: FormControl) =>
               this.service
-                .validateUnique(url, "user_id", control.value, id)
+                .backendValidate(url, "user_id", control.value, id)
                 .pipe(
                   map(isNotAvailable =>
                     isNotAvailable ? null : { isNotAvailable: false }

@@ -1,12 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
   selector: "csab-issue-token-view",
-  templateUrl: "./issue-token-view.component.html",
-  styleUrls: ["./issue-token-view.component.scss"]
+  template: `
+    <csab-issue-token-form></csab-issue-token-form>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IssueTokenViewComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class IssueTokenViewComponent {}

@@ -1,27 +1,28 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+
 import { MatDialog } from "@angular/material/dialog";
 
-import { Store } from "@ngrx/store";
-import * as fromCounterReducer from "./../../store/reducers/counter.reducer";
-import * as fromCounterActions from "./../../store/actions/counter.actions";
-import * as fromCounterSelectors from "./../../store/selectors/counter.select";
-
-import { CounterModel } from "./../../models/counter.model";
 import { Observable } from "rxjs";
 
-import { TableColumn } from "@shared/models/table.model";
-import { CounterFormComponent } from "../counter-form/counter-form.component";
+import { Store } from "@ngrx/store";
+import * as fromCounterReducer from "@features/counter/state/reducers/counter.reducer";
+import * as fromCounterActions from "@features/counter/state/actions/counter.actions";
+import * as fromCounterSelectors from "@features/counter/state/selectors/counter.select";
+
+import { CounterModel } from "@features/counter/models/counter.model";
+import { CustomMatTableModel } from "@shared/components/custom-mat-table/models/custom-mat-table.model";
+
+import { CounterFormComponent } from "@features/counter/components/counter-form/counter-form.component";
 
 @Component({
   selector: "csab-counter",
   templateUrl: "./counter.component.html",
-  styleUrls: ["./counter.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterComponent implements OnInit {
   datas$: Observable<CounterModel[]>;
   displayedColumns: string[] = ["counter_name", "position", "update"];
-  columns: TableColumn[] = [
+  columns: CustomMatTableModel[] = [
     {
       name: "counter_name",
       label: "Name",

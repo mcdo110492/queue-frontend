@@ -1,0 +1,20 @@
+<div class="media-container">
+  <ng-container *ngIf="!(isLoading$ | async); else loading">
+    <csab-media-player
+      *ngIf="(isLoaded$ | async)"
+      [sources]="sources$ | async"
+    ></csab-media-player>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loader-overlay">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        strokeWidth="5"
+        diameter="70"
+      >
+      </mat-progress-spinner>
+    </div>
+  </ng-template>
+</div>

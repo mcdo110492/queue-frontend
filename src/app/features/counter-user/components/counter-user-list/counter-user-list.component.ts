@@ -1,27 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 
-import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import * as fromCounterUserReducer from "./../../store/reducers/counter-user.reducer";
-import * as fromCounterUserActions from "./../../store/actions/counter-user.actions";
-import * as fromCounterUserSelectors from "./../../store/selectors/counter-user.select";
 
-import { TableColumn } from "@shared/models/table.model";
+import { Store } from "@ngrx/store";
+import * as fromCounterUserReducer from "@features/counter-user/state/reducers/counter-user.reducer";
+import * as fromCounterUserActions from "@features/counter-user/state/actions/counter-user.actions";
+import * as fromCounterUserSelectors from "@features/counter-user/state/selectors/counter-user.select";
 
-import { CounterUserModel } from "./../../models";
-import { CounterUserFormComponent } from "./../counter-user-form/counter-user-form.component";
+import { CustomMatTableModel } from "@shared/components/custom-mat-table/models/custom-mat-table.model";
+import { CounterUserModel } from "@features/counter-user/models";
+
+import { CounterUserFormComponent } from "@features/counter-user/components/counter-user-form/counter-user-form.component";
 
 @Component({
   selector: "csab-counter-user-list",
   templateUrl: "./counter-user-list.component.html",
-  styleUrls: ["./counter-user-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterUserListComponent {
   datas$: Observable<CounterUserModel[]>;
   displayedColumns: string[] = ["counter_name", "username", "update"];
-  columns: TableColumn[] = [
+  columns: CustomMatTableModel[] = [
     {
       name: "counter_name",
       label: "Counter",

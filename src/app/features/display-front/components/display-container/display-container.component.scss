@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.mat-card {
+  padding: 0;
+}
+
+.left-container {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-now-serving {
+  flex: 1;
+}
+
+.display-media {
+  flex: 0 0 30%;
+}
+
+.counter-card {
+  flex: 1;
+}
+
+.right-footer-container {
+  flex: 0 0 10%;
+  display: flex;
+  flex-direction: row;
+  z-index: 99999;
+}
+
+.display-clock {
+  flex: 0 0 30%;
+}
+
+.display-news {
+  flex: 1;
+}

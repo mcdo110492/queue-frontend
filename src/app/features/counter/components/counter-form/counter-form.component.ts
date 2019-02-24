@@ -1,22 +1,22 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+
 import { FormlyFieldConfig } from "@ngx-formly/core";
-
-import { Store } from "@ngrx/store";
-import * as fromCounterReducer from "./../../store/reducers/counter.reducer";
-import * as fromCounterActions from "./../../store/actions/counter.actions";
-import * as fromCounterSelectors from "./../../store/selectors/counter.select";
-
 import { CounterFormConfigService } from "@features/counter/services";
+
 import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
-import { CounterModel } from "./../../../counter/models/counter.model";
+import { Store } from "@ngrx/store";
+import * as fromCounterReducer from "@features/counter/state/reducers/counter.reducer";
+import * as fromCounterActions from "@features/counter/state/actions/counter.actions";
+import * as fromCounterSelectors from "@features/counter/state/selectors/counter.select";
+
+import { CounterModel } from "@features/counter/models/counter.model";
 
 @Component({
   selector: "csab-counter-form",
   templateUrl: "./counter-form.component.html",
-  styleUrls: ["./counter-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterFormComponent implements OnInit {

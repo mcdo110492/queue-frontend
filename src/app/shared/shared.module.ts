@@ -1,16 +1,22 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule } from "@angular/material/icon";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
+
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
-import { MatCardModule } from "@angular/material/card";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatListModule } from "@angular/material/list";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { VgCoreModule } from "videogular2/core";
 import { VgControlsModule } from "videogular2/controls";
@@ -19,18 +25,25 @@ import { VgBufferingModule } from "videogular2/buffering";
 
 import * as fromComponents from "./components";
 
-const CUSTOM_MODULES: any[] = [
-  MatToolbarModule,
-  MatIconModule,
-  MatFormFieldModule,
-  MatInputModule,
+const MATERIAL_MODULES: any[] = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatCardModule,
-  MatProgressSpinnerModule,
+  MatIconModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+  MatChipsModule,
+  MatListModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatSnackBarModule
+];
 
+const VIDEOGULAR_MODULES: any[] = [
   VgCoreModule,
   VgControlsModule,
   VgOverlayPlayModule,
@@ -38,8 +51,13 @@ const CUSTOM_MODULES: any[] = [
 ];
 
 @NgModule({
-  declarations: [...fromComponents.components],
-  imports: [CommonModule, FormsModule, ...CUSTOM_MODULES],
-  exports: [...fromComponents.components]
+  declarations: [...fromComponents.COMPONENTS],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ...MATERIAL_MODULES,
+    ...VIDEOGULAR_MODULES
+  ],
+  exports: [...fromComponents.COMPONENTS, ...MATERIAL_MODULES]
 })
 export class SharedModule {}

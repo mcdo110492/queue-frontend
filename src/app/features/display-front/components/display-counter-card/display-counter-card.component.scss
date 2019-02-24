@@ -1,0 +1,64 @@
+$primary-color: #22252c;
+$accent-color: #3f3250;
+$warn-color: #e14658;
+$white-text: #ffffff;
+
+.container {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.counter-card {
+  flex: 0 0 80%;
+  width: 420px;
+  margin-top: 20px;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.card-1 {
+  flex: 0 0 50%;
+}
+
+.card-2 {
+  flex: 0 0 50%;
+}
+
+.header {
+  font-size: 2vw;
+}
+
+.body {
+  font-size: 8vw;
+}
+
+.primary-card {
+  background-color: $primary-color;
+  color: $white-text;
+}
+
+.accent-card {
+  background-color: $accent-color;
+  color: $white-text;
+}
+
+.warn-card {
+  background-color: $warn-color;
+  color: $white-text;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1920px) {
+  .counter-card {
+    height: 250px;
+  }
+}

@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+
 import { environment } from "@env/environment";
+
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 import {
   CounterUserModel,
   CounterUserReponseGetModel,
   CounterUserResponseCreateUpdateModel
-} from "./../../models";
+} from "@features/counter-user/models";
 import { CounterModel, CounterReponseGetModel } from "@features/counter/models";
-import { UserModel } from "@user-store/models";
-import { map } from "rxjs/operators";
+import { UserStateModel } from "@core/models";
 
 @Injectable()
 export class CounterUserApiService {
@@ -18,7 +20,7 @@ export class CounterUserApiService {
 
   getCounters(): Observable<CounterUserReponseGetModel> {
     return this.http.get<CounterUserReponseGetModel>(
-      `${this.baseApi}/api/counters/users`
+      `${this.baseApi}/counters/users`
     );
   }
 
@@ -26,7 +28,7 @@ export class CounterUserApiService {
     model: CounterUserModel
   ): Observable<CounterUserResponseCreateUpdateModel> {
     return this.http.post<CounterUserResponseCreateUpdateModel>(
-      `${this.baseApi}/api/counters/users`,
+      `${this.baseApi}/counters/users`,
       model
     );
   }
@@ -35,20 +37,20 @@ export class CounterUserApiService {
     model: CounterUserModel
   ): Observable<CounterUserResponseCreateUpdateModel> {
     return this.http.put<CounterUserResponseCreateUpdateModel>(
-      `${this.baseApi}/api/counters/users/${model.id}`,
+      `${this.baseApi}/counters/users/${model.id}`,
       model
     );
   }
 
   loadCounters(): Observable<CounterModel[]> {
     return this.http
-      .get<CounterReponseGetModel>(`${this.baseApi}/api/counters`)
+      .get<CounterReponseGetModel>(`${this.baseApi}/counters`)
       .pipe(map(response => response.payload.data));
   }
 
-  loadUsers(): Observable<UserModel[]> {
+  loadUsers(): Observable<UserStateModel[]> {
     return this.http
-      .get<{ payload: { data: UserModel[] } }>(`${this.baseApi}/api/users`)
+      .get<{ payload: { data: UserStateModel[] } }>(`${this.baseApi}/users`)
       .pipe(map(response => response.payload.data));
   }
 

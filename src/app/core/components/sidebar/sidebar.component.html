@@ -1,0 +1,32 @@
+<mat-sidenav-container class="sidebar-container">
+  <mat-sidenav
+    class="sidebar mat-elevation-z3"
+    fixedInViewPort="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="isToggle$ | async"
+  >
+    <mat-toolbar class="sidebar-toolbar mat-elevation-z3">
+      <img class="sidebar-logo" src="./assets/csab-logo.png" alt="Logo" />
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <ng-container *ngFor="let link of (sidebarLinks$ | async)">
+        <h3 *ngIf="link.isHeader" mat-subheader>{{ link.title }}</h3>
+        <a
+          *ngIf="!link.isHeader"
+          mat-list-item
+          [routerLink]="link.link"
+          routerLinkActive="active"
+        >
+          <mat-icon matListIcon>{{ link.icon }}</mat-icon>
+          <p matLine>{{ link.title }}</p>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="mat-sidebar-content">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

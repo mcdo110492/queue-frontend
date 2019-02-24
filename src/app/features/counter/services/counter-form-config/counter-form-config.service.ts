@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { UniqueValidatorService } from "@helpers/unique-validator/unique-validator.service";
+
 import { FormlyFieldConfig } from "@ngx-formly/core";
+
 import { map } from "rxjs/operators";
+
+import { UniqueValidatorService } from "@core/services/unique-validator/unique-validator.service";
 
 @Injectable()
 export class CounterFormConfigService {
@@ -36,7 +39,7 @@ export class CounterFormConfigService {
           validation: [
             (control: FormControl) =>
               this.service
-                .validateUnique(url, "counter_name", control.value, id)
+                .backendValidate(url, "counter_name", control.value, id)
                 .pipe(map(isUnique => (isUnique ? null : { isUnique: false })))
           ]
         },
@@ -61,7 +64,7 @@ export class CounterFormConfigService {
           validation: [
             (control: FormControl) =>
               this.service
-                .validateUnique(url, "position", control.value, id)
+                .backendValidate(url, "position", control.value, id)
                 .pipe(map(isUnique => (isUnique ? null : { isUnique: false })))
           ]
         }

@@ -14,6 +14,7 @@
     "typeRoots": ["node_modules/@types"],
     "paths": {
       "@env/*": ["./src/environments/*"],
+      "@core/*": ["./src/app/core/*"],
       "@helpers/*": ["./src/app/helpers/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@guards/*": ["./src/app/guards/*"],

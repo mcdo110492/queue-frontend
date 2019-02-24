@@ -1,9 +1,9 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  EventEmitter,
   Input,
-  Output,
-  EventEmitter
+  Output
 } from "@angular/core";
 
 @Component({
@@ -15,8 +15,10 @@ import {
 export class SearchBarComponent {
   @Input() placeholder: string;
   @Output() searchTerms = new EventEmitter<string>();
+
   searchText: string = "";
-  onKey() {
+
+  keyStrokes() {
     this.searchTerms.emit(this.searchText);
   }
 }

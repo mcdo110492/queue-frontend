@@ -1,17 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+
 import { FormlyFieldConfig } from "@ngx-formly/core";
-
-import { Store } from "@ngrx/store";
-import * as fromCounterUserReducer from "./../../store/reducers/counter-user.reducer";
-import * as fromCounterUserActions from "./../../store/actions/counter-user.actions";
-import * as fromCounterUserSelectors from "./../../store/selectors/counter-user.select";
-
 import { CounterUserFormConfigService } from "@features/counter-user/services";
+
 import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
 import { CounterUserModel } from "@features/counter-user/models";
+
+import { Store } from "@ngrx/store";
+import * as fromCounterUserReducer from "@features/counter-user/state/reducers/counter-user.reducer";
+import * as fromCounterUserActions from "@features/counter-user/state/actions/counter-user.actions";
+import * as fromCounterUserSelectors from "@features/counter-user/state/selectors/counter-user.select";
 
 @Component({
   selector: "csab-counter-user-form",

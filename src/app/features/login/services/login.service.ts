@@ -1,15 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+
 import { environment } from "@env/environment";
+
 import { map } from "rxjs/operators";
-import { UserModel } from "@user-store/models";
+
+import { UserStateModel } from "@core/models";
 
 @Injectable()
 export class LoginService {
   baseApi: string = environment.baseApi;
   authenticate(credentials: { username: string; password: string }) {
     return this.http
-      .post<{ payload: { user: UserModel; token: string } }>(
+      .post<{ payload: { user: UserStateModel; token: string } }>(
         `${this.baseApi}/api/auth/login`,
         credentials
       )

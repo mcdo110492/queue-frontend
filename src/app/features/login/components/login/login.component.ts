@@ -5,8 +5,8 @@ import { FormlyFieldConfig } from "@ngx-formly/core";
 import { loginFormFields } from "@features/login/schemas";
 
 import { Store } from "@ngrx/store";
-import { Authenticate } from "@user-store/store/action";
-import { State } from "@user-store/store/state";
+import * as fromUserActions from "@core/state/actions/user.action";
+import * as fromUserState from "@core/state/reducers/user.reducer";
 
 @Component({
   selector: "csab-login",
@@ -20,7 +20,7 @@ export class LoginComponent implements OnDestroy {
 
   authenticate() {
     const credentials = { ...this.model };
-    this.store.dispatch(new Authenticate(credentials));
+    this.store.dispatch(new fromUserActions.Authenticate(credentials));
   }
 
   ngOnDestroy() {
@@ -29,5 +29,5 @@ export class LoginComponent implements OnDestroy {
     this.model = {};
   }
 
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<fromUserState.State>) {}
 }

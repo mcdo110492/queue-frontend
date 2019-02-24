@@ -3,9 +3,10 @@ import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
+
 import { Store } from "@ngrx/store";
-import * as fromStoreIssueTokenReducer from "./../../store/reducers/issue-token.reducer";
-import * as fromStoreIssueTokenSelector from "./../../store/selectors/issue-token.selector";
+import * as fromStoreIssueTokenReducer from "@features/issue-token/state/reducers/issue-token.reducer";
+import * as fromStoreIssueTokenSelector from "@features/issue-token/state/selectors/issue-token.selector";
 
 import { IssueTokenModel } from "@features/issue-token/models";
 

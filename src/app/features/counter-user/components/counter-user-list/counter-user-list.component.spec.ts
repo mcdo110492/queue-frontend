@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CounterUserListComponent } from './counter-user-list.component';
+import { CounterUserListComponent } from "./counter-user-list.component";
 
-describe('CounterUserListComponent', () => {
+describe("CounterUserListComponent", () => {
   let component: CounterUserListComponent;
   let fixture: ComponentFixture<CounterUserListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CounterUserListComponent ]
-    })
-    .compileComponents();
+      declarations: [CounterUserListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('CounterUserListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

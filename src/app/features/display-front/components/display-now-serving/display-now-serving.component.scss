@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #22252c;
+  color: #ffffffea;
+}
+
+.now-serving {
+  font-size: 3vw;
+  margin-top: 0.2em;
+  font-weight: 500;
+}
+
+.ticket {
+  font-size: 1.5vw;
+  margin-top: 0.2em;
+}
+
+.number {
+  font-size: 15vw;
+}
+
+.priority {
+  font-size: 1vw;
+}
+
+.counter {
+  font-size: 2vw;
+  font-weight: 400;
+  margin-top: 10px;
+}
