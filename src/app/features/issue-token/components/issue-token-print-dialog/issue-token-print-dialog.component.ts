@@ -23,7 +23,7 @@ export class IssueTokenPrintDialogComponent implements OnInit {
     setTimeout(() => {
       window.print();
       this.dialogRef.close();
-    }, 100);
+    }, 150);
   }
 
   constructor(

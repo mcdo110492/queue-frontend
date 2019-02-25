@@ -21,7 +21,7 @@ export class IssueTokenApiService {
     data: IssueTokenDataModel
   ): Observable<IssueTokenResponseModel> {
     return this.http.post<IssueTokenResponseModel>(
-      `${this.baseApi}/api/tickets/generate`,
+      `${this.baseApi}/tickets/generate`,
       data
     );
   }
