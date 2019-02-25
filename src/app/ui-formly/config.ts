@@ -25,7 +25,7 @@ function maxValidationMessage(err, field) {
 }
 
 function isNotAvailable(err, field) {
-  return `This is not available anymore. Choose another one`;
+  return `This is not available anymore. Please select or choose another one`;
 }
 
 export const config: ConfigOption = {

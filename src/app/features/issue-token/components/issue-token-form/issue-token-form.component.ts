@@ -31,10 +31,10 @@ export class IssueTokenFormComponent {
   generateTicket(status: number) {
     if (status === 1) {
       this.priorityColor = "accent";
-      this.ticketTypeText = "Would you like to get a priority ticket";
+      this.ticketTypeText = "Would you like to get a priority token";
     } else {
       this.priorityColor = "primary";
-      this.ticketTypeText = "Would you like to get a ticket";
+      this.ticketTypeText = "Would you like to get a token";
     }
 
     const dialogRef = this.dialog.open(this.alertIssueDialog, {
