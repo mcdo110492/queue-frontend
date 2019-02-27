@@ -1,0 +1,30 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title>On Queue Token(s)</mat-card-title>
+  </mat-card-header>
+  <mat-chip-list class="chip-list">
+    <mat-chip class="chips" color="primary" selected>Normal</mat-chip>
+    <mat-chip class="chips" color="accent" selected>Priority</mat-chip>
+  </mat-chip-list>
+  <mat-card-content class="card-content">
+    <mat-list>
+      <mat-list-item *ngFor="let queue of queues">
+        <mat-icon [color]="checkPriority(queue.priority)" mat-list-icon
+          >queue</mat-icon
+        >
+        <div class="token" [class.priority]="queue.priority" mat-line>
+          # {{ queue.ticket_number }}
+        </div>
+        <button
+          mat-icon-button
+          [color]="checkPriority(queue.priority)"
+          matTooltip="Call this token"
+          matTooltipPosition="before"
+        >
+          <mat-icon aria-label="Call">call</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

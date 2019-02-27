@@ -10,6 +10,8 @@ export class SidebarlinkService {
   createLinks(role: number): SideBarLinksModel[] {
     if (role === 1) {
       return fromSidebarLinks.ADMINISTRATOR_LINKS;
+    } else if (role === 2) {
+      return fromSidebarLinks.COUNTER_LINKS;
     }
   }
 }

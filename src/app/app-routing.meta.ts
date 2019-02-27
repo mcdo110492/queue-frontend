@@ -32,6 +32,11 @@ export const APP_ROUTES: Routes = [
         loadChildren:
           "src/app/features/counter-user/counter-user.module#CounterUserModule"
       },
+      {
+        path: "queue/my/counter",
+        loadChildren:
+          "src/app/features/my-counter/my-counter.module#MyCounterModule"
+      },
       { path: "**", component: PageNotFoundComponent }
     ]
   },

@@ -23,6 +23,12 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
   { isHeader: true, link: "", title: "Queueing" },
   {
     isHeader: false,
+    link: "/app/queue/my/counter",
+    title: "My Counter",
+    icon: "collections"
+  },
+  {
+    isHeader: false,
     link: "/app/queue/token/list",
     title: "Token List",
     icon: "assignment"
@@ -60,6 +66,13 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
     icon: "live_tv"
   },
   { isHeader: true, link: "", title: "Settings" },
+
+  {
+    isHeader: false,
+    link: "/app/settings/system",
+    title: "System Settings",
+    icon: "power_settings_new"
+  },
   {
     isHeader: false,
     link: "/app/settings/profile",

@@ -27,9 +27,12 @@ export class SidebarComponent implements OnInit {
     private breakPointObserver: BreakpointObserver,
     private store: Store<fromLayoutState.State>
   ) {
-    this.isHandset$ = this.breakPointObserver
-      .observe(Breakpoints.Handset)
-      .pipe(map(res => res.matches));
+    this.isHandset$ = this.breakPointObserver.observe(Breakpoints.Handset).pipe(
+      map(res => {
+        this.store.dispatch(new fromLayoutActions.ToggleSidenav());
+        return res.matches;
+      })
+    );
     this.isToggle$ = this.store.select(fromLayouSelectors.SelectIsToggle);
     this.sidebarLinks$ = this.store.select(
       fromLayouSelectors.SelectSidebarLinks
