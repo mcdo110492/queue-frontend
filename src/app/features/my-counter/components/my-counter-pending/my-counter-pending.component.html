@@ -9,7 +9,7 @@
   <mat-card-content class="card-content">
     <mat-list>
       <!-- Priority Token -->
-      <mat-list-item *ngFor="let prio of (priorities | async)">
+      <mat-list-item *ngFor="let prio of (priorityTokens$ | async)">
         <mat-icon [color]="checkPriority(prio.priority)" mat-list-icon
           >queue</mat-icon
         >
@@ -21,14 +21,15 @@
           [color]="checkPriority(prio.priority)"
           matTooltip="Call this token"
           matTooltipPosition="before"
-          (click)="callTokenPriority(prio)"
+          [disabled]="isCalling$ | async"
+          (click)="callToken(prio)"
         >
           <mat-icon aria-label="Call">call</mat-icon>
         </button>
         <mat-divider></mat-divider>
       </mat-list-item>
       <!-- Normal Token -->
-      <mat-list-item *ngFor="let queue of (queues | async)">
+      <mat-list-item *ngFor="let queue of (normalTokens$ | async)">
         <mat-icon [color]="checkPriority(queue.priority)" mat-list-icon
           >queue</mat-icon
         >
@@ -40,6 +41,7 @@
           [color]="checkPriority(queue.priority)"
           matTooltip="Call this token"
           matTooltipPosition="before"
+          [disabled]="isCalling$ | async"
           (click)="callToken(queue)"
         >
           <mat-icon aria-label="Call">call</mat-icon>

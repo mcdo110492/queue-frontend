@@ -5,7 +5,7 @@
         mat-raised-button
         color="primary"
         (click)="callNext()"
-        [disabled]="(queueLength$ | async) == 0 && (prioLength$ | async) == 0"
+        [disabled]="(pendingTokenCount$ | async) === 0 || (isCalling$ | async)"
       >
         <mat-icon>call</mat-icon>
         Call Next

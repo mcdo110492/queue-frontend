@@ -7,21 +7,19 @@ import { SharedModule } from "@shared/shared.module";
 
 import * as fromComponents from "./components";
 import * as fromServices from "./services";
+import * as fromFacades from "./facades";
 
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import * as fromState from "./state";
-import * as fromEffectsState from "./state/effects";
+import { NgxsModule } from "@ngxs/store";
+import { TokenState } from "./state/token.state";
 
 @NgModule({
   declarations: [...fromComponents.COMPONENTS],
   imports: [
     CommonModule,
     MyCounterRoutingModule,
-    SharedModule,
-    StoreModule.forFeature("myCounter", fromState.reducers),
-    EffectsModule.forFeature([...fromEffectsState.EFFECTS])
+    NgxsModule.forFeature([TokenState]),
+    SharedModule
   ],
-  providers: [...fromServices.SERVICES]
+  providers: [...fromServices.services, ...fromFacades.facades]
 })
 export class MyCounterModule {}

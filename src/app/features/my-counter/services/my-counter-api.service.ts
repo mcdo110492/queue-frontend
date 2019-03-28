@@ -13,11 +13,9 @@ interface ResponseResource {
 export class MyCounterApiService {
   private baseApi: string = environment.baseApi;
 
-  getNowPending(priority: number) {
-    const data = { priority };
-    return this.http.post<{ payload: { data: TokenModel[] } }>(
-      `${this.baseApi}/tickets/pending`,
-      data
+  getNowPending() {
+    return this.http.get<{ payload: { data: TokenModel[] } }>(
+      `${this.baseApi}/tickets/pending`
     );
   }
 

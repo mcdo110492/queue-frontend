@@ -26,6 +26,7 @@ import { VgOverlayPlayModule } from "videogular2/overlay-play";
 import { VgBufferingModule } from "videogular2/buffering";
 
 import * as fromComponents from "./components";
+import * as fromServices from "./services";
 
 const MATERIAL_MODULES: any[] = [
   MatTableModule,
@@ -62,6 +63,8 @@ const VIDEOGULAR_MODULES: any[] = [
     ...MATERIAL_MODULES,
     ...VIDEOGULAR_MODULES
   ],
-  exports: [...fromComponents.COMPONENTS, ...MATERIAL_MODULES]
+  exports: [...fromComponents.COMPONENTS, ...MATERIAL_MODULES],
+  entryComponents: [...fromComponents.ENTRY_COMPONENTS],
+  providers: [...fromServices.services]
 })
 export class SharedModule {}

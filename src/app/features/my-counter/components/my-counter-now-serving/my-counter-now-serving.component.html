@@ -1,8 +1,5 @@
 <mat-card class="container" *ngIf="(nowServing$ | async) as serving">
-  <div
-    class="loader-overlay"
-    *ngIf="(isLoading$ | async) || (isPriorityLoading$ | async)"
-  >
+  <div class="loader-overlay" *ngIf="(isLoading$ | async)">
     <mat-progress-spinner
       color="primary"
       mode="indeterminate"
@@ -12,10 +9,10 @@
     </mat-progress-spinner>
   </div>
   <div class="now-serving-title">
-    <ng-container *ngIf="serving.status == 1">
+    <ng-container *ngIf="!(isServing$ | async)">
       Calling
     </ng-container>
-    <ng-container *ngIf="serving.status != 1">
+    <ng-container *ngIf="(isServing$ | async)">
       Now Serving
     </ng-container>
   </div>
@@ -33,7 +30,7 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="btnDisabled(serving.id)"
+      [disabled]="(isServing$ | async) || btnDisabled(serving)"
       (click)="callAgainToken(serving)"
     >
       <mat-icon>call</mat-icon>
@@ -41,17 +38,8 @@
     </button>
     <button
       mat-raised-button
-      color="accent"
-      [disabled]="btnDisabled(serving.id)"
-      (click)="backToQueue(serving)"
-    >
-      <mat-icon>add_to_queue</mat-icon>
-      Back to Queue
-    </button>
-    <button
-      mat-raised-button
       color="primary"
-      [disabled]="btnDisabled(serving.id)"
+      [disabled]="(isServing$ | async) || btnDisabled(serving)"
       (click)="serveToken(serving)"
     >
       <mat-icon>play_arrow</mat-icon>
@@ -60,7 +48,7 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="serving.status != 2"
+      [disabled]="!(isServing$ | async) || btnDisabled(serving)"
       (click)="completeToken(serving)"
     >
       <mat-icon>thumb_up</mat-icon>
@@ -69,11 +57,20 @@
     <button
       mat-raised-button
       color="warn"
-      [disabled]="btnDisabled(serving)"
-      (click)="stopToken(serving.id)"
+      [disabled]="!(isServing$ | async) || btnDisabled(serving)"
+      (click)="stopToken(serving)"
     >
       <mat-icon>stop</mat-icon>
       Stop
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="(isServing$ | async) || btnDisabled(serving)"
+      (click)="backToQueue(serving)"
+    >
+      <mat-icon>add_to_queue</mat-icon>
+      Back to Queue
     </button>
   </div>
 </mat-card>

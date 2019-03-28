@@ -1,16 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 
-import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 
 import { ActivityLogModel } from "@features/my-counter/models";
 import { CustomMatTableModel } from "@shared/components/custom-mat-table/models/custom-mat-table.model";
 
 import { TABLE_COLUMNS } from "./my-counter-list.column";
-
-import * as fromActivityLogsState from "@features/my-counter/state/activity-logs/activity-logs.reducer";
-import * as fromActivityLogsActions from "@features/my-counter/state/activity-logs/activity-logs.actions";
-import * as fromActivityLogsSelectors from "@features/my-counter/state/activity-logs/activity-logs.selector";
 
 @Component({
   selector: "csab-my-counter-list",
@@ -30,16 +25,9 @@ export class MyCounterListComponent implements OnInit {
   isLoading$: Observable<boolean>;
   searchTerms: string;
 
-  ngOnInit() {
-    this.store.dispatch(new fromActivityLogsActions.LoadActivityLogs());
-  }
+  ngOnInit() {}
 
-  constructor(private store: Store<fromActivityLogsState.State>) {
-    this.isLoading$ = this.store.select(
-      fromActivityLogsSelectors.selectIsLogLoading
-    );
-    this.datas$ = this.store.select(
-      fromActivityLogsSelectors.selectAllActivityLog
-    );
+  constructor() {
+    this.datas$ = of([]);
   }
 }
