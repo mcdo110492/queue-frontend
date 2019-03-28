@@ -76,3 +76,15 @@ router-outlet ~ * {
   align-items: center;
   justify-content: center;
 }
+
+.primary-text {
+  color: #3f51b5;
+}
+
+.accent-text {
+  color: #ff4081;
+}
+
+.warn-text {
+  color: #f44336;
+}

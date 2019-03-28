@@ -6,6 +6,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 import { UiFormlyModule } from "@ui-formly/ui-formly.module";
 
@@ -17,7 +18,8 @@ const MATERIAL_MODULES: any[] = [
   MatInputModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

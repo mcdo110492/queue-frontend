@@ -8,18 +8,20 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { throwIfAlreadyLoaded } from "./guards/module-import-guard";
 import { environment } from "@env/environment";
 
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { NgxsModule } from "@ngxs/store";
 import {
-  StoreRouterConnectingModule,
-  NavigationActionTiming
-} from "@ngrx/router-store";
+  NgxsRouterPluginModule,
+  RouterStateSerializer
+} from "@ngxs/router-plugin";
+import { NgxsDispatchPluginModule } from "@ngxs-labs/dispatch-decorator";
+import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+
+import { AuthState } from "./state/auth.state";
+import { LayoutState } from "./state/layout.state";
 
 import * as fromComponents from "./components";
 import * as fromClasses from "./class";
-import { reducers, metaReducers } from "./state/reducers";
-import * as fromStateEffects from "./state/effects";
 
 import { NoopInterceptorService } from "./services/noop-interceptor/noop-interceptor.service";
 
@@ -31,14 +33,15 @@ import { SharedModule } from "@shared/shared.module";
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([...fromStateEffects.EFFECTS]),
-    !environment.production
-      ? StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true })
-      : [],
-    StoreRouterConnectingModule.forRoot({
-      serializer: fromClasses.CustomRouteSerializer,
-      navigationActionTiming: NavigationActionTiming.PostActivation
+    NgxsModule.forRoot([AuthState, LayoutState], {
+      developmentMode: !environment.production
+    }),
+    NgxsRouterPluginModule.forRoot(),
+    NgxsDispatchPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({ key: ["auth.user"] }),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production,
+      maxAge: 10
     }),
     LoginModule,
     SharedModule
@@ -49,7 +52,11 @@ import { SharedModule } from "@shared/shared.module";
       useClass: NoopInterceptorService,
       multi: true
     },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+    {
+      provide: RouterStateSerializer,
+      useClass: fromClasses.CustomRouteSerializer
+    }
   ]
 })
 export class CoreModule {

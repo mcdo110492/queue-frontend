@@ -12,6 +12,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -37,6 +38,7 @@ const MATERIAL_MODULES: any[] = [
   MatCardModule,
   MatDialogModule,
   MatProgressSpinnerModule,
+  MatProgressBarModule,
   MatChipsModule,
   MatListModule,
   MatToolbarModule,

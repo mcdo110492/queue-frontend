@@ -4,9 +4,9 @@ import { FormGroup } from "@angular/forms";
 import { FormlyFieldConfig } from "@ngx-formly/core";
 import { loginFormFields } from "@features/login/schemas";
 
-import { Store } from "@ngrx/store";
-import * as fromUserActions from "@core/state/actions/user.action";
-import * as fromUserState from "@core/state/reducers/user.reducer";
+import { AuthFacadesService } from "@core/facades/auth-facades.service";
+
+import { Observable } from "rxjs";
 
 @Component({
   selector: "csab-login",
@@ -14,13 +14,15 @@ import * as fromUserState from "@core/state/reducers/user.reducer";
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnDestroy {
+  isAuthenticating$: Observable<boolean>;
+
   loginForm: FormGroup = new FormGroup({});
   model: any = {};
   formFields: FormlyFieldConfig[] = loginFormFields;
 
   authenticate() {
     const credentials = { ...this.model };
-    this.store.dispatch(new fromUserActions.Authenticate(credentials));
+    this.facade.authenticate(credentials);
   }
 
   ngOnDestroy() {
@@ -29,5 +31,7 @@ export class LoginComponent implements OnDestroy {
     this.model = {};
   }
 
-  constructor(private store: Store<fromUserState.State>) {}
+  constructor(private facade: AuthFacadesService) {
+    this.isAuthenticating$ = this.facade.isAuthenticating$;
+  }
 }

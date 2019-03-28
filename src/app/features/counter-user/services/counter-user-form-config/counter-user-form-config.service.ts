@@ -3,17 +3,23 @@ import { FormControl } from "@angular/forms";
 
 import { FormlyFieldConfig } from "@ngx-formly/core";
 
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
-import { Store } from "@ngrx/store";
-import * as fromCounterUserReducer from "@features/counter-user/state/reducers/counter-user.reducer";
-import * as fromCounterUserSelector from "@features/counter-user/state/selectors/counter-user.select";
 
 import { UniqueValidatorService } from "@core/services/unique-validator/unique-validator.service";
 
+import { CounterModel } from "@features/counter/models";
+import { UserStateModel } from "@core/models";
+
 @Injectable()
 export class CounterUserFormConfigService {
-  generateFields(id: number): FormlyFieldConfig[] {
+  generateFields(
+    id: number,
+    options: {
+      counters$: Observable<CounterModel[]>;
+      users$: Observable<UserStateModel[]>;
+    }
+  ): FormlyFieldConfig[] {
     const url: string = "counters/users/validate";
     const fields: FormlyFieldConfig[] = [
       {
@@ -33,9 +39,7 @@ export class CounterUserFormConfigService {
           valueProp: "id",
           labelProp: "counter_name",
           placeholder: "Select",
-          options: this.store.select(
-            fromCounterUserSelector.selectCounterOptions
-          ),
+          options: options.counters$,
           required: true,
           appearance: "outline"
         },
@@ -66,7 +70,7 @@ export class CounterUserFormConfigService {
           labelProp: "username",
           valueProp: "id",
           required: true,
-          options: this.store.select(fromCounterUserSelector.selectUserOptions),
+          options: options.users$,
           appearance: "outline"
         },
         modelOptions: {
@@ -91,8 +95,5 @@ export class CounterUserFormConfigService {
     return fields;
   }
 
-  constructor(
-    private service: UniqueValidatorService,
-    private store: Store<fromCounterUserReducer.State>
-  ) {}
+  constructor(private service: UniqueValidatorService) {}
 }

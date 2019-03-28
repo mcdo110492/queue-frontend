@@ -4,13 +4,8 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Store } from "@ngrx/store";
-
-import * as fromLayoutActions from "@core/state/actions/layout.action";
-import * as fromLayoutState from "@core/state/reducers/layout.reducer";
-import * as fromLayouSelectors from "@core/state/selectors/layout.selector";
-
 import { SideBarLinksModel } from "@core/models";
+import { LayoutFacadesService } from "@core/facades/layout-facades.service";
 
 @Component({
   selector: "csab-sidebar",
@@ -25,21 +20,19 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private breakPointObserver: BreakpointObserver,
-    private store: Store<fromLayoutState.State>
+    private facade: LayoutFacadesService
   ) {
     this.isHandset$ = this.breakPointObserver.observe(Breakpoints.Handset).pipe(
       map(res => {
-        this.store.dispatch(new fromLayoutActions.ToggleSidenav());
+        this.facade.toggleSidebar();
         return res.matches;
       })
     );
-    this.isToggle$ = this.store.select(fromLayouSelectors.SelectIsToggle);
-    this.sidebarLinks$ = this.store.select(
-      fromLayouSelectors.SelectSidebarLinks
-    );
+    this.isToggle$ = this.facade.isToggle$;
+    this.sidebarLinks$ = this.facade.links$;
   }
 
   ngOnInit() {
-    this.store.dispatch(new fromLayoutActions.CreateLinks());
+    this.facade.generateUserLinks();
   }
 }

@@ -1,3 +1,79 @@
-<p>
-  my-counter-now-serving works!
-</p>
+<mat-card class="container" *ngIf="(nowServing$ | async) as serving">
+  <div
+    class="loader-overlay"
+    *ngIf="(isLoading$ | async) || (isPriorityLoading$ | async)"
+  >
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      strokeWidth="3"
+      diameter="50"
+    >
+    </mat-progress-spinner>
+  </div>
+  <div class="now-serving-title">
+    <ng-container *ngIf="serving.status == 1">
+      Calling
+    </ng-container>
+    <ng-container *ngIf="serving.status != 1">
+      Now Serving
+    </ng-container>
+  </div>
+  <div class="token-title">Token</div>
+  <div
+    class="token-number"
+    [ngClass]="{
+      'primary-text': !serving.priority,
+      'accent-text': serving.priority
+    }"
+  >
+    #{{ serving.ticket_number }}
+  </div>
+  <div class="actions">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="btnDisabled(serving.id)"
+      (click)="callAgainToken(serving)"
+    >
+      <mat-icon>call</mat-icon>
+      Call Again
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="btnDisabled(serving.id)"
+      (click)="backToQueue(serving)"
+    >
+      <mat-icon>add_to_queue</mat-icon>
+      Back to Queue
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="btnDisabled(serving.id)"
+      (click)="serveToken(serving)"
+    >
+      <mat-icon>play_arrow</mat-icon>
+      Serve/Process
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="serving.status != 2"
+      (click)="completeToken(serving)"
+    >
+      <mat-icon>thumb_up</mat-icon>
+      Complete & Finish
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      [disabled]="btnDisabled(serving)"
+      (click)="stopToken(serving.id)"
+    >
+      <mat-icon>stop</mat-icon>
+      Stop
+    </button>
+  </div>
+</mat-card>

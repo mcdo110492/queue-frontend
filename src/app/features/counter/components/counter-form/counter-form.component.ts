@@ -7,12 +7,8 @@ import { CounterFormConfigService } from "@features/counter/services";
 import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
-import { Store } from "@ngrx/store";
-import * as fromCounterReducer from "@features/counter/state/reducers/counter.reducer";
-import * as fromCounterActions from "@features/counter/state/actions/counter.actions";
-import * as fromCounterSelectors from "@features/counter/state/selectors/counter.select";
-
 import { CounterModel } from "@features/counter/models/counter.model";
+import { CounterFacadeService } from "@features/counter/facades/counter-facade.service";
 
 @Component({
   selector: "csab-counter-form",
@@ -32,15 +28,14 @@ export class CounterFormComponent implements OnInit {
   save() {
     const model = { ...this.model };
     if (model.id) {
-      this.store.dispatch(new fromCounterActions.UpdateCounterModel(model));
+      this.facade.editCounter({ counter: model });
     } else {
-      this.store.dispatch(new fromCounterActions.CreateNewCounterModel(model));
+      this.facade.createCounter({ counter: model });
     }
   }
 
   ngOnInit() {
-    this.store
-      .select(fromCounterSelectors.selectCurrentCounter)
+    this.facade.selectedCounter$
       .pipe(
         take(1),
         filter(Boolean)
@@ -54,10 +49,8 @@ export class CounterFormComponent implements OnInit {
 
   constructor(
     private fieldService: CounterFormConfigService,
-    private store: Store<fromCounterReducer.State>
+    private facade: CounterFacadeService
   ) {
-    this.isSaving$ = this.store.select(
-      fromCounterSelectors.selectCounterIsSaving
-    );
+    this.isSaving$ = this.facade.isSaving$;
   }
 }

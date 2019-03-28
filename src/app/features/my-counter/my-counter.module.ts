@@ -9,7 +9,9 @@ import * as fromComponents from "./components";
 import * as fromServices from "./services";
 
 import { StoreModule } from "@ngrx/store";
-import * as fromMyCounterReducer from "./state/reducers";
+import { EffectsModule } from "@ngrx/effects";
+import * as fromState from "./state";
+import * as fromEffectsState from "./state/effects";
 
 @NgModule({
   declarations: [...fromComponents.COMPONENTS],
@@ -17,7 +19,8 @@ import * as fromMyCounterReducer from "./state/reducers";
     CommonModule,
     MyCounterRoutingModule,
     SharedModule,
-    StoreModule.forFeature("myCounter", fromMyCounterReducer.reducers)
+    StoreModule.forFeature("myCounter", fromState.reducers),
+    EffectsModule.forFeature([...fromEffectsState.EFFECTS])
   ],
   providers: [...fromServices.SERVICES]
 })

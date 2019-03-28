@@ -1,11 +1,7 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Router, Event, NavigationStart } from "@angular/router";
 
-import { Observable } from "rxjs";
-
-import { Store } from "@ngrx/store";
-
-import * as fromRouterState from "@core/state/reducers/router-extends.reducer";
-import * as fromRouterSelectors from "@core/state/selectors/router-extends.selector";
+import { Observable, of } from "rxjs";
 
 import { fadeAnimation } from "@animations/fade.animation";
 
@@ -29,9 +25,13 @@ import { fadeAnimation } from "@animations/fade.animation";
 export class AppComponent {
   isRouteLoader: Observable<boolean>;
 
-  constructor(private store: Store<fromRouterState.State>) {
-    this.isRouteLoader = this.store.select(
-      fromRouterSelectors.SelectIsRouteLoading
-    );
+  constructor(private router: Router) {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.isRouteLoader = of(true);
+      } else {
+        this.isRouteLoader = of(false);
+      }
+    });
   }
 }

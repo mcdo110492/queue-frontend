@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.now-serving-title {
+  font-size: 1.5vw;
+  margin-top: 0.2em;
+  font-weight: 500;
+}
+
+.token-title {
+  font-size: 1vw;
+  margin-top: 0.2em;
+  font-weight: 400;
+}
+
+.token-number {
+  font-size: 8vw;
+}
+
+.actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}

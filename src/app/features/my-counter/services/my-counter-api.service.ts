@@ -6,16 +6,18 @@ import { environment } from "@env/environment";
 import { TokenModel, ActivityLogModel } from "../models";
 
 interface ResponseResource {
-  payload: { message?: string; data: ActivityLogModel[] };
+  payload: { message?: string; data: ActivityLogModel };
 }
 
 @Injectable()
 export class MyCounterApiService {
   private baseApi: string = environment.baseApi;
 
-  getNowPending() {
-    return this.http.get<{ payload: { data: TokenModel[] } }>(
-      `${this.baseApi}/tickets/pending`
+  getNowPending(priority: number) {
+    const data = { priority };
+    return this.http.post<{ payload: { data: TokenModel[] } }>(
+      `${this.baseApi}/tickets/pending`,
+      data
     );
   }
 
@@ -29,6 +31,14 @@ export class MyCounterApiService {
     const data = { ticket_id };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/call`,
+      data
+    );
+  }
+
+  callAgainToken(ticket_id: number) {
+    const data = { ticket_id };
+    return this.http.post<ResponseResource>(
+      `${this.baseApi}/tickets/call/again`,
       data
     );
   }

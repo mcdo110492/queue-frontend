@@ -1,5 +1,17 @@
 <div class="container">
   <div class="left-container">
+    <csab-page-title pageTitle="My Counter">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="callNext()"
+        [disabled]="(queueLength$ | async) == 0 && (prioLength$ | async) == 0"
+      >
+        <mat-icon>call</mat-icon>
+        Call Next
+      </button>
+    </csab-page-title>
+
     <div class="now-serving-container">
       <csab-my-counter-now-serving></csab-my-counter-now-serving>
     </div>

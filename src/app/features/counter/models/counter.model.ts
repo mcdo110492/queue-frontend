@@ -1,5 +1,5 @@
 export interface CounterModel {
-  id: number;
+  id: number | string;
   counter_name: string;
   position: number;
 }

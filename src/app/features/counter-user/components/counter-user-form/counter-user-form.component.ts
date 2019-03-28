@@ -8,11 +8,10 @@ import { Observable } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
 import { CounterUserModel } from "@features/counter-user/models";
+import { CounterUserFacadeService } from "@features/counter-user/facades/counter-user-facade.service";
 
-import { Store } from "@ngrx/store";
-import * as fromCounterUserReducer from "@features/counter-user/state/reducers/counter-user.reducer";
-import * as fromCounterUserActions from "@features/counter-user/state/actions/counter-user.actions";
-import * as fromCounterUserSelectors from "@features/counter-user/state/selectors/counter-user.select";
+import { CounterModel } from "@features/counter/models";
+import { UserStateModel } from "@core/models";
 
 @Component({
   selector: "csab-counter-user-form",
@@ -29,13 +28,17 @@ export class CounterUserFormComponent implements OnInit {
   };
   fields: FormlyFieldConfig[];
   isSaving$: Observable<boolean>;
+  counters$: Observable<CounterModel[]>;
+  users$: Observable<UserStateModel[]>;
 
   ngOnInit() {
-    this.isSaving$ = this.store.select(
-      fromCounterUserSelectors.selectCounterUserIsSaving
-    );
-    this.store
-      .select(fromCounterUserSelectors.selectCurrentCounterUser)
+    this.isSaving$ = this.facade.isSaving$;
+    this.counters$ = this.facade.counters$;
+    this.users$ = this.facade.users$;
+
+    let options = { counters$: this.counters$, users$: this.users$ };
+
+    this.facade.selectedCounterUser$
       .pipe(
         take(1),
         filter(Boolean)
@@ -45,27 +48,23 @@ export class CounterUserFormComponent implements OnInit {
         this.model = { ...this.model, id, counter_id, user_id };
       });
 
-    this.fields = this.service.generateFields(this.model.id);
+    this.fields = this.service.generateFields(this.model.id, options);
   }
 
   save() {
     const model = { ...this.model };
     if (model.id) {
-      this.store.dispatch(
-        new fromCounterUserActions.UpdateCounterUserModel(model)
-      );
+      this.facade.edit({ counterUser: model });
     } else {
-      this.store.dispatch(
-        new fromCounterUserActions.CreateNewCounterUserModel(model)
-      );
+      this.facade.create({ counterUser: model });
     }
   }
 
   constructor(
     private service: CounterUserFormConfigService,
-    private store: Store<fromCounterUserReducer.State>
+    private facade: CounterUserFacadeService
   ) {
-    this.store.dispatch(new fromCounterUserActions.LoadCounterOptions());
-    this.store.dispatch(new fromCounterUserActions.LoadUserOptions());
+    this.facade.loadCounterOptions();
+    this.facade.loadUserOptions();
   }
 }

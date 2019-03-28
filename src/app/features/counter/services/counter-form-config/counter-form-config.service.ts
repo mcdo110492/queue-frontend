@@ -9,7 +9,7 @@ import { UniqueValidatorService } from "@core/services/unique-validator/unique-v
 
 @Injectable()
 export class CounterFormConfigService {
-  generateFields(id: number): FormlyFieldConfig[] {
+  generateFields(id: number | string): FormlyFieldConfig[] {
     const url: string = "counters/validate";
     const fields: FormlyFieldConfig[] = [
       {

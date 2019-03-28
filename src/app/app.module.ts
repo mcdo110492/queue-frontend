@@ -10,6 +10,9 @@ import { CoreModule } from "@core/core.module";
 
 import { AppComponent } from "./app.component";
 
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,7 +21,9 @@ import { AppComponent } from "./app.component";
     HttpClientModule,
     AppRoutingModule,
     MatProgressBarModule,
-    CoreModule
+    CoreModule,
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([])
   ],
   bootstrap: [AppComponent]
 })

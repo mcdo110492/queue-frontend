@@ -9,9 +9,6 @@
       "projectType": "application",
       "prefix": "csab",
       "schematics": {
-        "@schematics/ngrx:component": {
-          "styleext": "scss"
-        },
         "@schematics/angular:component": {
           "styleext": "scss"
         }
@@ -130,6 +127,6 @@
   },
   "defaultProject": "queue-frontend",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@schematics/angular"
   }
 }

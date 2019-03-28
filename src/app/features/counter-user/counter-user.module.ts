@@ -8,11 +8,10 @@ import { CounterUserRoutingModule } from "./counter-user-routing.module";
 
 import * as fromComponents from "./components";
 import * as fromServices from "./services";
+import * as fromFacades from "./facades";
 
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-
-import * as fromState from "./state";
+import { NgxsModule } from "@ngxs/store";
+import { CounterUserState } from "./state/counter-user.state";
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -21,10 +20,9 @@ import * as fromState from "./state";
     CounterUserRoutingModule,
     SharedModule,
     UiFormlyModule,
-    StoreModule.forFeature("counter-user", fromState.reducer),
-    EffectsModule.forFeature([...fromState.effects])
+    NgxsModule.forFeature([CounterUserState])
   ],
   entryComponents: [...fromComponents.entryComponents],
-  providers: [...fromServices.services]
+  providers: [...fromServices.services, ...fromFacades.facades]
 })
 export class CounterUserModule {}

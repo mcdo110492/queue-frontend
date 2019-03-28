@@ -18,7 +18,7 @@ import { UserStateModel } from "@core/models";
 export class CounterUserApiService {
   private baseApi: string = environment.baseApi;
 
-  getCounters(): Observable<CounterUserReponseGetModel> {
+  getCountersUser(): Observable<CounterUserReponseGetModel> {
     return this.http.get<CounterUserReponseGetModel>(
       `${this.baseApi}/counters/users`
     );

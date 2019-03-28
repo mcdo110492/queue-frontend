@@ -1,6 +1,6 @@
 <mat-card class="container">
   <mat-card-header>
-    <mat-card-title>On Queue Token(s)</mat-card-title>
+    <mat-card-title>Pending Token(s)</mat-card-title>
   </mat-card-header>
   <mat-chip-list class="chip-list">
     <mat-chip class="chips" color="primary" selected>Normal</mat-chip>
@@ -8,7 +8,27 @@
   </mat-chip-list>
   <mat-card-content class="card-content">
     <mat-list>
-      <mat-list-item *ngFor="let queue of queues">
+      <!-- Priority Token -->
+      <mat-list-item *ngFor="let prio of (priorities | async)">
+        <mat-icon [color]="checkPriority(prio.priority)" mat-list-icon
+          >queue</mat-icon
+        >
+        <div class="token" [class.priority]="prio.priority" mat-line>
+          # {{ prio.ticket_number }}
+        </div>
+        <button
+          mat-icon-button
+          [color]="checkPriority(prio.priority)"
+          matTooltip="Call this token"
+          matTooltipPosition="before"
+          (click)="callTokenPriority(prio)"
+        >
+          <mat-icon aria-label="Call">call</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <!-- Normal Token -->
+      <mat-list-item *ngFor="let queue of (queues | async)">
         <mat-icon [color]="checkPriority(queue.priority)" mat-list-icon
           >queue</mat-icon
         >
@@ -20,6 +40,7 @@
           [color]="checkPriority(queue.priority)"
           matTooltip="Call this token"
           matTooltipPosition="before"
+          (click)="callToken(queue)"
         >
           <mat-icon aria-label="Call">call</mat-icon>
         </button>

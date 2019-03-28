@@ -1,4 +1,10 @@
 <div class="login-container">
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="login-loader"
+    *ngIf="(isAuthenticating$ | async)"
+  ></mat-progress-bar>
   <mat-card class="login">
     <img class="login-logo" src="./assets/csab-logo.png" alt="Logo Text" />
     <h3 class="login-text">Login</h3>

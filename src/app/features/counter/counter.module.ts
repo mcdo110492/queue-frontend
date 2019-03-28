@@ -7,14 +7,11 @@ import { UiFormlyModule } from "@ui-formly/ui-formly.module";
 import { CounterRoutingModule } from "./counter-routing.module";
 
 import * as fromComponents from "./components";
-
-import { StoreModule } from "@ngrx/store";
-import * as fromCounter from "./state/reducers/counter.reducer";
-
-import { EffectsModule } from "@ngrx/effects";
-import { CounterEffects } from "./state/effects/counter.effects";
-
 import * as fromServices from "./services";
+import * as fromFacades from "./facades";
+
+import { NgxsModule } from "@ngxs/store";
+import { CounterState } from "./state/counter.state";
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -22,11 +19,10 @@ import * as fromServices from "./services";
     CommonModule,
     CounterRoutingModule,
     SharedModule,
-    StoreModule.forFeature("counter", fromCounter.reducer),
-    EffectsModule.forFeature([CounterEffects]),
-    UiFormlyModule
+    UiFormlyModule,
+    NgxsModule.forFeature([CounterState])
   ],
-  providers: [...fromServices.services],
+  providers: [...fromServices.services, ...fromFacades.facades],
   entryComponents: [...fromComponents.entryComponents]
 })
 export class CounterModule {}

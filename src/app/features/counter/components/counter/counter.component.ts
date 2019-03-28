@@ -4,10 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
 
-import { Store } from "@ngrx/store";
-import * as fromCounterReducer from "@features/counter/state/reducers/counter.reducer";
-import * as fromCounterActions from "@features/counter/state/actions/counter.actions";
-import * as fromCounterSelectors from "@features/counter/state/selectors/counter.select";
+import { CounterFacadeService } from "@features/counter/facades/counter-facade.service";
 
 import { CounterModel } from "@features/counter/models/counter.model";
 import { CustomMatTableModel } from "@shared/components/custom-mat-table/models/custom-mat-table.model";
@@ -57,8 +54,7 @@ export class CounterComponent implements OnInit {
   }
 
   update(id: string | number) {
-    this.store.dispatch(new fromCounterActions.SelectCounterModel(id));
-
+    this.facade.selectCounter(id);
     this.openFormDialog();
   }
 
@@ -69,18 +65,13 @@ export class CounterComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.store.dispatch(new fromCounterActions.SelectCounterModel(null));
+      this.facade.selectCounter(0);
     });
   }
 
-  constructor(
-    private store: Store<fromCounterReducer.State>,
-    private dialog: MatDialog
-  ) {
-    this.store.dispatch(new fromCounterActions.LoadCounters());
-    this.datas$ = this.store.select(fromCounterSelectors.selectAllCounter);
-    this.isLoading$ = this.store.select(
-      fromCounterSelectors.selectCounterIsLoading
-    );
+  constructor(private facade: CounterFacadeService, private dialog: MatDialog) {
+    this.facade.loadCounters();
+    this.datas$ = this.facade.entities$;
+    this.isLoading$ = this.facade.isLoading$;
   }
 }
