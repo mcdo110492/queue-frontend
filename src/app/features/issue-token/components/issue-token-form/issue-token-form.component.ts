@@ -8,12 +8,9 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-import { Store } from "@ngrx/store";
-
-import * as fromIssueTokenStoreReducer from "@features/issue-token/state/reducers/issue-token.reducer";
-import * as fromIssueTokenStoreActions from "@features/issue-token/state/actions/issue-token.actions";
-import * as fromIssueTokenStoreSelector from "@features/issue-token/state/selectors/issue-token.selector";
+import { IssueTokenFacadeService } from "@features/issue-token/facades/issue-token-facade.service";
 
 @Component({
   selector: "csab-issue-token-form",
@@ -43,20 +40,15 @@ export class IssueTokenFormComponent {
 
     dialogRef.afterClosed().subscribe(isYes => {
       if (isYes) {
-        const payload = { priority: status };
-        this.store.dispatch(
-          new fromIssueTokenStoreActions.GetIssueToken(payload)
-        );
+        this.facade.getToken(status);
       }
     });
   }
 
   constructor(
     private dialog: MatDialog,
-    private store: Store<fromIssueTokenStoreReducer.State>
+    private facade: IssueTokenFacadeService
   ) {
-    this.isSaving$ = this.store.select(
-      fromIssueTokenStoreSelector.selectIssueTokenIsSaving
-    );
+    this.isSaving$ = this.facade.isSaving$;
   }
 }

@@ -8,11 +8,10 @@ import { IssueTokenRoutingModule } from "./issue-token-routing.module";
 
 import * as fromComponents from "./components";
 import * as fromServices from "./services";
+import * as fromFacades from "./facades";
 
-import { StoreModule } from "@ngrx/store";
-import * as fromStoreReducers from "./state/reducers/issue-token.reducer";
-import { EffectsModule } from "@ngrx/effects";
-import * as fromStoreEffects from "./state/effects/issue-token.effects";
+import { NgxsModule } from "@ngxs/store";
+import { IssueTokenState } from "./state/issue-token.state";
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -21,10 +20,9 @@ import * as fromStoreEffects from "./state/effects/issue-token.effects";
     IssueTokenRoutingModule,
     SharedModule,
     UiFormlyModule,
-    StoreModule.forFeature("issue-token", fromStoreReducers.reducer),
-    EffectsModule.forFeature([fromStoreEffects.IssueTokenEffects])
+    NgxsModule.forFeature([IssueTokenState])
   ],
-  providers: [...fromServices.services],
+  providers: [...fromServices.services, ...fromFacades.facades],
   entryComponents: [...fromComponents.entryComponents]
 })
 export class IssueTokenModule {}

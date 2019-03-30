@@ -4,11 +4,10 @@ import { MatDialogRef } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
 
-import { Store } from "@ngrx/store";
-import * as fromStoreIssueTokenReducer from "@features/issue-token/state/reducers/issue-token.reducer";
-import * as fromStoreIssueTokenSelector from "@features/issue-token/state/selectors/issue-token.selector";
-
 import { IssueTokenModel } from "@features/issue-token/models";
+
+import { Select } from "@ngxs/store";
+import { IssueTokenState } from "@features/issue-token/state/issue-token.state";
 
 @Component({
   selector: "csab-issue-token-print-dialog",
@@ -17,7 +16,9 @@ import { IssueTokenModel } from "@features/issue-token/models";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IssueTokenPrintDialogComponent implements OnInit {
-  issueTokenData$: Observable<IssueTokenModel>;
+  @Select(IssueTokenState.generatedToken) issueTokenData$: Observable<
+    IssueTokenModel
+  >;
 
   ngOnInit() {
     setTimeout(() => {
@@ -27,11 +28,6 @@ export class IssueTokenPrintDialogComponent implements OnInit {
   }
 
   constructor(
-    private store: Store<fromStoreIssueTokenReducer.State>,
     private dialogRef: MatDialogRef<IssueTokenPrintDialogComponent>
-  ) {
-    this.issueTokenData$ = this.store.select(
-      fromStoreIssueTokenSelector.selectLastGeneratedIssueToken
-    );
-  }
+  ) {}
 }

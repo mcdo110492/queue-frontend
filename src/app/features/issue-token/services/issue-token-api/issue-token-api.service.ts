@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
 import { IssueTokenModel } from "@features/issue-token/models";
+import { MatDialog } from "@angular/material/dialog";
+import { IssueTokenPrintDialogComponent } from "@features/issue-token/components/issue-token-print-dialog/issue-token-print-dialog.component";
 
 interface IssueTokenDataModel {
   priority: number;
@@ -26,5 +28,14 @@ export class IssueTokenApiService {
     );
   }
 
-  constructor(private http: HttpClient) {}
+  openPrintDialog() {
+    this.dialog.open(IssueTokenPrintDialogComponent, {
+      id: "print-issue-token-dialog",
+      width: "384px",
+      height: "288px",
+      hasBackdrop: false
+    });
+  }
+
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 }
