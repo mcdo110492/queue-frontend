@@ -6,11 +6,12 @@ import {
 } from "@angular/router";
 
 import { Observable, of } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 
 import { UserService } from "@core/services/user/user.service";
 
 import { RouteFacadesService } from "@core/facades/route-facades.service";
+import { AuthFacadesService } from "@core/facades/auth-facades.service";
 
 @Injectable({
   providedIn: "root"
@@ -21,18 +22,19 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.service.backendRouteGuard().pipe(
-      switchMap(isAuthenticated => {
-        if (!isAuthenticated) {
-          this.facade.navigate(["/login"]);
-          return of(false);
-        }
-        return of(true);
+      map(() => true),
+      catchError(() => {
+        console.log("Error Triggered");
+        this.authFacade.revertToDefaultUser();
+        this.routeFacade.navigate(["/login"]);
+        return of(false);
       })
     );
   }
 
   constructor(
     private service: UserService,
-    private facade: RouteFacadesService
+    private routeFacade: RouteFacadesService,
+    private authFacade: AuthFacadesService
   ) {}
 }

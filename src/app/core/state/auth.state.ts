@@ -1,6 +1,11 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 
-import { Authenticate, Logout, AuthFailed } from "./auth.actions";
+import {
+  Authenticate,
+  Logout,
+  AuthFailed,
+  RevertToDefaultUser
+} from "./auth.actions";
 import { UserStateModel } from "@core/models";
 
 import { UserService } from "@core/services/user/user.service";
@@ -16,7 +21,7 @@ export class AuthStateModel {
   user: UserStateModel;
 }
 
-export const defaultUser: UserStateModel = {
+const defaultUserState: UserStateModel = {
   id: 0,
   username: null,
   role: 0,
@@ -29,7 +34,7 @@ export const defaultUser: UserStateModel = {
   name: "auth",
   defaults: {
     isAuthenticating: false,
-    user: defaultUser
+    user: defaultUserState
   }
 })
 export class AuthState {
@@ -52,6 +57,13 @@ export class AuthState {
   @Selector()
   static isAuthenticating(state: AuthStateModel): boolean {
     return state.isAuthenticating;
+  }
+
+  @Action(RevertToDefaultUser)
+  revertToDefaultUser(ctx: StateContext<AuthStateModel>) {
+    produce(ctx, (draft: AuthStateModel) => {
+      draft.user = defaultUserState;
+    });
   }
 
   @Action(Authenticate)
@@ -86,7 +98,7 @@ export class AuthState {
     return this.service.backEndLogout().pipe(
       tap(() => {
         produce(ctx, (draft: AuthStateModel) => {
-          draft.user = defaultUser;
+          draft.user = defaultUserState;
         });
       })
     );

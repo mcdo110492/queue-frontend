@@ -27,14 +27,12 @@ export class UserService {
       );
   }
 
-  backendRouteGuard(): Observable<boolean> {
+  backendRouteGuard() {
     //if success returns http status of 200 with payload "OK" otherwise 402,403,404
-    return this.http
-      .post(`${environment.baseApi}/auth/client/route/guard`, null)
-      .pipe(
-        map(() => true),
-        catchError(() => of(false))
-      );
+    return this.http.post(
+      `${environment.baseApi}/auth/client/route/guard`,
+      null
+    );
   }
 
   backEndLogout() {

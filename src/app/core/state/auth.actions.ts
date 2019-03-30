@@ -11,3 +11,7 @@ export class AuthFailed {
 export class Logout {
   static readonly type = "[Auth] Logout Credentials";
 }
+
+export class RevertToDefaultUser {
+  static readonly type = "[Auth] Revert To Defualt User";
+}

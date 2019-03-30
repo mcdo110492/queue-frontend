@@ -22,7 +22,6 @@ export class LoginGuard implements CanActivate {
       this.roleRedirect.redirect(role);
       return false;
     }
-
     return true;
   }
 

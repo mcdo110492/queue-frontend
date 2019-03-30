@@ -3,7 +3,11 @@ import { Injectable } from "@angular/core";
 import { Select, Store } from "@ngxs/store";
 import { Dispatch } from "@ngxs-labs/dispatch-decorator";
 
-import { Authenticate, Logout } from "./../state/auth.actions";
+import {
+  Authenticate,
+  Logout,
+  RevertToDefaultUser
+} from "./../state/auth.actions";
 import { AuthState } from "./../state/auth.state";
 
 import { Observable } from "rxjs";
@@ -31,6 +35,8 @@ export class AuthFacadesService {
   }) => new Authenticate(credentials);
 
   @Dispatch() logout = () => new Logout();
+
+  @Dispatch() revertToDefaultUser = () => new RevertToDefaultUser();
 
   constructor(private store: Store) {}
 }
