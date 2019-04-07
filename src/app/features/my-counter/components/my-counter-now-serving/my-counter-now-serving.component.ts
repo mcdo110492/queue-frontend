@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 
 import { Observable } from "rxjs";
 
@@ -11,10 +11,11 @@ import { TokenFacadeService } from "@features/my-counter/facades/token-facade.se
   styleUrls: ["./my-counter-now-serving.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyCounterNowServingComponent {
+export class MyCounterNowServingComponent implements OnInit {
   nowServing$: Observable<TokenModel>;
   isLoading$: Observable<boolean>;
   isServing$: Observable<boolean>;
+  timer$: Observable<string>;
 
   btnDisabled(token: TokenModel) {
     if (token.id === 0) {
@@ -44,8 +45,11 @@ export class MyCounterNowServingComponent {
     this.facade.backToQueue(token.id, token.priority);
   }
 
+  ngOnInit() {}
+
   constructor(private facade: TokenFacadeService) {
     this.nowServing$ = this.facade.nowServing$;
     this.isServing$ = this.facade.isServing$;
+    this.timer$ = this.facade.timer$;
   }
 }

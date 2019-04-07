@@ -44,8 +44,7 @@ export class CounterUserFormConfigService {
           appearance: "outline"
         },
         modelOptions: {
-          updateOn: "change",
-          debounce: { default: 500 }
+          updateOn: "blur"
         },
         asyncValidators: {
           validation: [
@@ -74,8 +73,7 @@ export class CounterUserFormConfigService {
           appearance: "outline"
         },
         modelOptions: {
-          updateOn: "change",
-          debounce: { default: 500 }
+          updateOn: "blur"
         },
         asyncValidators: {
           validation: [

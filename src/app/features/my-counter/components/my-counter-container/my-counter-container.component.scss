@@ -8,7 +8,7 @@
 }
 
 .left-container {
-  flex: 1 1 auto;
+  flex: 1;
   margin-right: 10px;
 }
 
@@ -17,10 +17,5 @@
 }
 
 .now-serving-container {
-  flex: 1;
-  margin-bottom: 20px;
-}
-
-.counter-list-container {
   flex: 1;
 }

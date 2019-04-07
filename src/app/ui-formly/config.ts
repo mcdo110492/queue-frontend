@@ -28,6 +28,15 @@ function isNotAvailable(err, field) {
   return `This is not available anymore. Please select or choose another one`;
 }
 
+function showErrorOptions(field) {
+  return (
+    (field.formState.submitted ||
+      field.formControl.touched ||
+      (field.field.validation && field.field.validation.show)) &&
+    !field.formControl.valid
+  );
+}
+
 export const config: ConfigOption = {
   validationMessages: [
     { name: "required", message: "This field is required" },
@@ -39,5 +48,6 @@ export const config: ConfigOption = {
     { name: "isNotAvailable", message: isNotAvailable }
   ],
   wrappers: [{ name: "suffix", component: SuffixWrapperComponent }],
-  types: [{ name: "counterOptions", component: CounterOptionsComponent }]
+  types: [{ name: "counterOptions", component: CounterOptionsComponent }],
+  extras: { showError: showErrorOptions }
 };

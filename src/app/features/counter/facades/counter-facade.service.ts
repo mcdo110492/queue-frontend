@@ -53,7 +53,6 @@ export class CounterFacadeService {
   };
 
   @Dispatch() createCounter = (payload: { counter: CounterModel }) => {
-    this.saving(true);
     return this.api.create(payload.counter).pipe(
       map(result => result.payload.data),
       map(counter => {
@@ -74,7 +73,6 @@ export class CounterFacadeService {
     new SelectCounter(payload);
 
   @Dispatch() editCounter = (payload: { counter: CounterModel }) => {
-    this.saving(true);
     return this.api.update(payload.counter).pipe(
       map(result => result.payload.data),
       map(counter => {

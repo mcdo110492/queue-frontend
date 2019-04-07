@@ -32,8 +32,7 @@ export class CounterFormConfigService {
           minLength: 2
         },
         modelOptions: {
-          updateOn: "change",
-          debounce: { default: 500 }
+          updateOn: "blur"
         },
         asyncValidators: {
           validation: [
@@ -57,8 +56,7 @@ export class CounterFormConfigService {
           min: 1
         },
         modelOptions: {
-          updateOn: "change",
-          debounce: { default: 500 }
+          updateOn: "blur"
         },
         asyncValidators: {
           validation: [

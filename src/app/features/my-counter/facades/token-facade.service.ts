@@ -24,11 +24,14 @@ import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
 import { AlertDialogService } from "@shared/services/alert-dialog/alert-dialog.service";
 
 import { TokenModel } from "../models";
+import { MyCounterTimerService } from "../services/my-counter-timer.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class TokenFacadeService {
+  timer$: Observable<string> = this.timerService.timer$;
+
   @Select(TokenState.isTokenLoading) isTokenLoading$: Observable<boolean>;
   @Select(TokenState.priorityToken) priorityTokens$: Observable<TokenModel[]>;
   @Select(TokenState.normalToken) normalTokens$: Observable<TokenModel[]>;
@@ -36,6 +39,18 @@ export class TokenFacadeService {
   @Select(TokenState.pendingTokenCount) pendingTokenCount$: Observable<number>;
   @Select(TokenState.isServing) isServing$: Observable<boolean>;
   @Select(TokenState.isCalling) isCalling$: Observable<boolean>;
+
+  startTimer() {
+    this.timerService.startTimer();
+  }
+
+  stopTimer() {
+    this.timerService.stopTimer();
+  }
+
+  resetTimer() {
+    this.timerService.resetTimer();
+  }
 
   @Dispatch() isTokenLoading = (isLoading: boolean) =>
     new IsTokenLoading(isLoading);
@@ -57,11 +72,21 @@ export class TokenFacadeService {
     );
   };
 
-  @Dispatch() callToken = (id: number, priority: number) =>
-    new CallToken({ id, priority });
-  @Dispatch() callNext = () => new CallNextToken();
-  @Dispatch() backToQueue = (id: number, priority: number) =>
-    new BackToQueueToken({ id, priority });
+  @Dispatch() callToken = (id: number, priority: number) => {
+    this.startTimer();
+    return new CallToken({ id, priority });
+  };
+
+  @Dispatch() callNext = () => {
+    this.startTimer();
+    return new CallNextToken();
+  };
+
+  @Dispatch() backToQueue = (id: number, priority: number) => {
+    this.resetTimer();
+    this.stopTimer();
+    return new BackToQueueToken({ id, priority });
+  };
 
   @Dispatch() callAgainToken = (id: number) => new OnServerSuccess(id);
 
@@ -73,6 +98,8 @@ export class TokenFacadeService {
     return dialog.afterClosed().pipe(
       map(response => {
         if (response) {
+          this.resetTimer();
+          this.startTimer();
           return new ServeToken(id);
         }
 
@@ -88,6 +115,8 @@ export class TokenFacadeService {
     return dialog.afterClosed().pipe(
       map(response => {
         if (response) {
+          this.resetTimer();
+          this.stopTimer();
           return new FinishToken(id);
         }
 
@@ -103,6 +132,8 @@ export class TokenFacadeService {
     return dialog.afterClosed().pipe(
       map(response => {
         if (response) {
+          this.resetTimer();
+          this.stopTimer();
           return new StopToken(id);
         }
 
@@ -114,6 +145,7 @@ export class TokenFacadeService {
   constructor(
     private api: MyCounterApiService,
     private snackBar: SnackBarService,
-    private alertDialog: AlertDialogService
+    private alertDialog: AlertDialogService,
+    private timerService: MyCounterTimerService
   ) {}
 }

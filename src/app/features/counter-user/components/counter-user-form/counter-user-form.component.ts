@@ -52,11 +52,14 @@ export class CounterUserFormComponent implements OnInit {
   }
 
   save() {
-    const model = { ...this.model };
-    if (model.id) {
-      this.facade.edit({ counterUser: model });
-    } else {
-      this.facade.create({ counterUser: model });
+    this.facade.saving(true);
+    const formData = this.form.value;
+    if (this.form.valid) {
+      if (this.model.id) {
+        this.facade.edit({ counterUser: formData });
+      } else {
+        this.facade.create({ counterUser: formData });
+      }
     }
   }
 

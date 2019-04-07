@@ -26,11 +26,13 @@ export class CounterFormComponent implements OnInit {
   isSaving$: Observable<boolean>;
 
   save() {
-    const model = { ...this.model };
-    if (model.id) {
-      this.facade.editCounter({ counter: model });
-    } else {
-      this.facade.createCounter({ counter: model });
+    if (this.form.valid) {
+      const formData = this.form.value;
+      if (this.model.id) {
+        this.facade.editCounter({ counter: formData });
+      } else {
+        this.facade.createCounter({ counter: formData });
+      }
     }
   }
 

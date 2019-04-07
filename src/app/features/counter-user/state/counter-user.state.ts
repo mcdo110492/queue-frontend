@@ -90,7 +90,7 @@ export class CounterUserState {
   }
 
   @Action(IsSaving)
-  issaving(ctx: StateContext<CounterUserStateModel>, { payload }: IsSaving) {
+  isSaving(ctx: StateContext<CounterUserStateModel>, { payload }: IsSaving) {
     produce(ctx, (draft: CounterUserStateModel) => {
       draft.isSaving = payload;
     });
