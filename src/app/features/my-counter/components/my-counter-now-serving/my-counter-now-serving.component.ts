@@ -26,7 +26,7 @@ export class MyCounterNowServingComponent implements OnInit {
   }
 
   callAgainToken(token: TokenModel) {
-    this.facade.callAgainToken(token.id);
+    this.facade.callAgainToken(token.id, token.ticket_number);
   }
 
   serveToken(token: TokenModel) {
@@ -42,7 +42,7 @@ export class MyCounterNowServingComponent implements OnInit {
   }
 
   backToQueue(token: TokenModel) {
-    this.facade.backToQueue(token.id, token.priority);
+    this.facade.backToQueue(token.id, token.priority, token.ticket_number);
   }
 
   ngOnInit() {}
@@ -51,5 +51,7 @@ export class MyCounterNowServingComponent implements OnInit {
     this.nowServing$ = this.facade.nowServing$;
     this.isServing$ = this.facade.isServing$;
     this.timer$ = this.facade.timer$;
+
+    this.facade.getUserLastTransaction();
   }
 }

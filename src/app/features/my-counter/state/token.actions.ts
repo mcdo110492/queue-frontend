@@ -34,6 +34,11 @@ export class CallToken {
   constructor(public payload: { id: number; priority: number }) {}
 }
 
+export class NowServing {
+  static readonly type = "[Token] Now Serving";
+  constructor(public id: number) {}
+}
+
 export class CallNextToken {
   static readonly type = "[Token] Call Next Token";
 }
@@ -61,6 +66,11 @@ export class StopToken {
 export class BackToQueueToken {
   static readonly type = "[Token] Back To Queue Token";
   constructor(public payload: { id: number; priority: number }) {}
+}
+
+export class LastUserTransaction {
+  static readonly type = "[Token] Last User Trasanction";
+  constructor(public payload: { token: TokenModel; status: number }) {}
 }
 
 export class OnServerError {

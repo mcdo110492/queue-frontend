@@ -10,7 +10,9 @@ import {
   CallToken,
   ServeToken,
   FinishToken,
-  StopToken
+  StopToken,
+  NowServing,
+  LastUserTransaction
 } from "./token.actions";
 
 import { TokenModel } from "../models";
@@ -104,7 +106,7 @@ export class TokenState {
     });
     produce(ctx, (draft: TokenStateModel) => {
       draft.tokens = Object.assign(
-        {},
+        draft.tokens,
         ...tokens.map(entity => ({ [entity.id]: entity }))
       );
       draft.priorityIds = priorityIds;
@@ -144,6 +146,23 @@ export class TokenState {
       }
       draft.nowServing = id;
       draft.isCalling = true;
+    });
+  }
+
+  @Action(NowServing)
+  nowServing(ctx: StateContext<TokenStateModel>, { id }: NowServing) {
+    produce(ctx, (draft: TokenStateModel) => {
+      if (id <= 0) {
+        draft.nowServing = 0;
+      } else {
+        if (draft.priorityIds.length > 0) {
+          const firstId = draft.priorityIds[0];
+          draft.nowServing = firstId;
+        } else {
+          const firstId = draft.normalIds[0];
+          draft.nowServing = firstId;
+        }
+      }
     });
   }
 
@@ -203,6 +222,25 @@ export class TokenState {
       draft.isServing = false;
       draft.isCalling = false;
       draft.nowServing = 0;
+    });
+  }
+
+  @Action(LastUserTransaction)
+  lastUserTransaction(
+    ctx: StateContext<TokenStateModel>,
+    { payload: { token, status } }: LastUserTransaction
+  ) {
+    produce(ctx, (draft: TokenStateModel) => {
+      const entity = { [token.id]: token };
+      draft.tokens = Object.assign(draft.tokens, entity);
+
+      if (status === 1) {
+        draft.isCalling = true;
+        draft.nowServing = token.id;
+      } else if (status === 2) {
+        draft.isServing = true;
+        draft.nowServing = token.id;
+      }
     });
   }
 }

@@ -25,51 +25,57 @@ export class MyCounterApiService {
     );
   }
 
-  callToken(ticket_id: number) {
-    const data = { ticket_id };
+  callToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/call`,
       data
     );
   }
 
-  callAgainToken(ticket_id: number) {
-    const data = { ticket_id };
+  callAgainToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/call/again`,
       data
     );
   }
 
-  serveToken(ticket_id: number) {
-    const data = { ticket_id };
+  serveToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/serving`,
       data
     );
   }
 
-  completeToken(ticket_id: number) {
-    const data = { ticket_id };
+  completeToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/complete`,
       data
     );
   }
 
-  stopToken(ticket_id: number) {
-    const data = { ticket_id };
+  stopToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/stop`,
       data
     );
   }
 
-  backToQueueToken(ticket_id: number) {
-    const data = { ticket_id };
+  backToQueueToken(ticket_id: number, served_time: string) {
+    const data = { ticket_id, served_time };
     return this.http.post<ResponseResource>(
       `${this.baseApi}/tickets/backToQueue`,
       data
+    );
+  }
+
+  lastUserTrasanction() {
+    return this.http.get<{ token: ActivityLogModel }>(
+      `${this.baseApi}/tickets/last/user/transaction`
     );
   }
 

@@ -25,7 +25,7 @@ export class MyCounterPendingComponent {
   }
 
   callToken(token: TokenModel) {
-    this.facade.callToken(token.id, token.priority);
+    this.facade.callToken(token.id, token.priority, token.ticket_number);
   }
 
   constructor(private facade: TokenFacadeService) {
