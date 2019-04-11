@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  baseApi: "http://localhost:8000/api"
+  serverUrl: "http://localhost:8000",
+  baseApi: "http://localhost:8000/api",
+  pusher: {
+    key: "f630319ba09a2fc10e69",
+    cluster: "mt1",
+    authEndpoint: "http://localhost:8000/broadcasting/auth"
+  }
 };
 
 /*

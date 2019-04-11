@@ -23,8 +23,7 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> {
     return this.service.backendRouteGuard().pipe(
       map(() => true),
-      catchError(() => {
-        console.log("Error Triggered");
+      catchError(e => {
         this.authFacade.revertToDefaultUser();
         this.routeFacade.navigate(["/login"]);
         return of(false);

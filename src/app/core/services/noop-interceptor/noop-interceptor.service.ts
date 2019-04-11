@@ -19,8 +19,14 @@ export class NoopInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token = this.facade.tokenSnapshot();
+    const socketId = this.facade.socketIdSnapShot();
     const authRequest = !!token
-      ? request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+      ? request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+            "X-Socket-ID": socketId || "1"
+          }
+        })
       : request;
 
     return next.handle(authRequest);

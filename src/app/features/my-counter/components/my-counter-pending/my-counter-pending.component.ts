@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 
 import { Observable } from "rxjs";
 
 import { TokenModel } from "@features/my-counter/models";
 import { TokenFacadeService } from "@features/my-counter/facades/token-facade.service";
+import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.service";
 
 @Component({
   selector: "csab-my-counter-pending",
@@ -11,7 +12,7 @@ import { TokenFacadeService } from "@features/my-counter/facades/token-facade.se
   styleUrls: ["./my-counter-pending.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyCounterPendingComponent {
+export class MyCounterPendingComponent implements OnInit {
   normalTokens$: Observable<TokenModel[]>;
   priorityTokens$: Observable<TokenModel[]>;
   isCalling$: Observable<boolean>;
@@ -26,6 +27,12 @@ export class MyCounterPendingComponent {
 
   callToken(token: TokenModel) {
     this.facade.callToken(token.id, token.priority, token.ticket_number);
+  }
+
+  ngOnInit() {
+    window.LEcho.private("ticket-call").listen("ProcessTicketCall", e => {
+      console.log(e);
+    });
   }
 
   constructor(private facade: TokenFacadeService) {

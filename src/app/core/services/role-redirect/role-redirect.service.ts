@@ -20,5 +20,9 @@ export class RoleRedirectService {
     }
   }
 
+  redirectToLogin() {
+    this.routeFacade.navigate(["/login"]);
+  }
+
   constructor(private routeFacade: RouteFacadesService) {}
 }

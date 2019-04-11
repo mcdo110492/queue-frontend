@@ -24,7 +24,7 @@ import {
   catchError,
   combineLatest,
   concatMap,
-  switchMap
+  filter
 } from "rxjs/operators";
 
 import { TokenModel } from "../models";
@@ -303,10 +303,16 @@ export class TokenFacadeService {
     return this.api.lastUserTrasanction().pipe(
       map(response => {
         this.dialogLoader.closeLoader();
-        this.startTimer();
-        const { ticket, status } = response.token;
-        const payload = { token: ticket, status };
-        return new LastUserTransaction(payload);
+        if (response.token) {
+          const { ticket, status } = response.token;
+          if (status === 1 || status === 2) {
+            this.startTimer();
+          }
+          const payload = { token: ticket, status };
+          return new LastUserTransaction(payload);
+        }
+
+        return new OnServerSuccess(true);
       }),
       catchError(err => {
         this.dialogLoader.closeLoader();

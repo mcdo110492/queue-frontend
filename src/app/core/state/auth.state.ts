@@ -1,24 +1,19 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 
 import {
-  Authenticate,
   Logout,
-  AuthFailed,
-  RevertToDefaultUser
+  RevertToDefaultUser,
+  AddSocketId,
+  AuthenticateSuccess
 } from "./auth.actions";
 import { UserStateModel } from "@core/models";
 
-import { UserService } from "@core/services/user/user.service";
-import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
-
-import { tap, catchError } from "rxjs/operators";
 import { produce } from "@ngxs-labs/immer-adapter";
-import { of } from "rxjs";
-import { RoleRedirectService } from "@core/services/role-redirect/role-redirect.service";
 
 export class AuthStateModel {
   isAuthenticating: boolean;
   user: UserStateModel;
+  socket_id: string | null;
 }
 
 const defaultUserState: UserStateModel = {
@@ -34,7 +29,8 @@ const defaultUserState: UserStateModel = {
   name: "auth",
   defaults: {
     isAuthenticating: false,
-    user: defaultUserState
+    user: defaultUserState,
+    socket_id: "1"
   }
 })
 export class AuthState {
@@ -44,12 +40,22 @@ export class AuthState {
   }
 
   @Selector()
+  static socketId(state: AuthStateModel) {
+    return state.socket_id;
+  }
+
+  @Selector()
   static role(state: AuthStateModel) {
     return state.user.role;
   }
 
   @Selector()
-  static getUser(state: AuthStateModel): UserStateModel {
+  static userId(state: AuthStateModel) {
+    return state.user.id;
+  }
+
+  @Selector()
+  static getUser(state: AuthStateModel) {
     const { id, name, username, role, image_path } = state.user;
     return { id, name, username, role, image_path };
   }
@@ -66,47 +72,27 @@ export class AuthState {
     });
   }
 
-  @Action(Authenticate)
-  authenticate(ctx: StateContext<AuthStateModel>, { payload }: Authenticate) {
+  @Action(AddSocketId)
+  addSocketId(ctx: StateContext<AuthStateModel>, { id }: AddSocketId) {
     produce(ctx, (draft: AuthStateModel) => {
-      draft.isAuthenticating = true;
+      draft.socket_id = id;
     });
-
-    return this.service.authenticate(payload).pipe(
-      tap(result => {
-        produce(ctx, (draft: AuthStateModel) => {
-          draft.user = result;
-          draft.isAuthenticating = false;
-        });
-        this.roleRedirect.redirect(result.role);
-      }),
-      catchError(err => of(ctx.dispatch(new AuthFailed(err.status))))
-    );
   }
 
-  @Action(AuthFailed)
-  authFailed(ctx: StateContext<AuthStateModel>, { errStatus }: AuthFailed) {
-    this.snackService.authSnackBarError(errStatus);
-
+  @Action(AuthenticateSuccess)
+  authenticateSuccess(
+    ctx: StateContext<AuthStateModel>,
+    { payload: { user } }: AuthenticateSuccess
+  ) {
     produce(ctx, (draft: AuthStateModel) => {
-      draft.isAuthenticating = false;
+      draft.user = user;
     });
   }
 
   @Action(Logout)
   Logout(ctx: StateContext<AuthStateModel>) {
-    return this.service.backEndLogout().pipe(
-      tap(() => {
-        produce(ctx, (draft: AuthStateModel) => {
-          draft.user = defaultUserState;
-        });
-      })
-    );
+    produce(ctx, (draft: AuthStateModel) => {
+      draft.user = defaultUserState;
+    });
   }
-
-  constructor(
-    private service: UserService,
-    private snackService: SnackBarService,
-    private roleRedirect: RoleRedirectService
-  ) {}
 }
