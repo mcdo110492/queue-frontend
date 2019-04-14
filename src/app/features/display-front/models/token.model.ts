@@ -1,4 +1,4 @@
-export interface TicketModel {
+export interface TokenModel {
   id: number;
   ticket_number: number;
   priority: number;

@@ -2,12 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 import { Observable } from "rxjs";
 
-import { Store } from "@ngrx/store";
-import * as fromMediaReducer from "@features/display-front/state/reducers/media.reducer";
-import * as fromMediaSelectors from "@features/display-front/state/selectors/media.selectors";
-import * as fromMediaActions from "@features/display-front/state/actions/media.actions";
-
 import { MediaModel } from "@features/display-front/models/media.model";
+import { DisplayFrontFacadeService } from "@features/display-front/facades";
 
 @Component({
   selector: "csab-display-media",
@@ -18,15 +14,13 @@ import { MediaModel } from "@features/display-front/models/media.model";
 export class DisplayMediaComponent implements OnInit {
   sources$: Observable<MediaModel[]>;
   isLoading$: Observable<boolean>;
-  isLoaded$: Observable<boolean>;
 
   ngOnInit() {
-    this.store.dispatch(new fromMediaActions.LoadMedias());
+    this.facade.loadMedia();
   }
 
-  constructor(private store: Store<fromMediaReducer.State>) {
-    this.isLoading$ = this.store.select(fromMediaSelectors.selectIsLoading);
-    this.isLoaded$ = this.store.select(fromMediaSelectors.selectIsLoaded);
-    this.sources$ = this.store.select(fromMediaSelectors.selectSources);
+  constructor(private facade: DisplayFrontFacadeService) {
+    this.sources$ = this.facade.medias$;
+    this.isLoading$ = this.facade.isMediaLoading$;
   }
 }

@@ -9,9 +9,48 @@
   color: #ffffff;
 }
 
-.live-text {
-  flex: 1;
-  font-size: 3vw;
-  font-weight: 500;
-  letter-spacing: 3px;
+.marquee {
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 800px;
+}
+
+.marquee p {
+  display: inline-block;
+  padding-left: 100%;
+  text-indent: 0;
+  font-size: 2vw;
+  /*border: 1px red solid;*/
+  -webkit-animation: flashnews_today 45s linear infinite;
+  animation: flashnews_today 45s linear infinite;
+}
+
+@keyframes flashnews_today {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 768px) {
+  .marquee {
+    width: 350px;
+  }
+}
+
+@media only screen and (min-width: 1224px) {
+  .marquee {
+    width: 500px;
+  }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+  .marquee {
+    width: 800px;
+  }
 }

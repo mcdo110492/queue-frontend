@@ -1,4 +1,4 @@
-export interface NewsModel {
+export interface AnnouncementModel {
   id: number;
   title: string;
   details: string;

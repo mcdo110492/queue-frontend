@@ -5,13 +5,12 @@ import { SharedModule } from "@shared/shared.module";
 
 import { DisplayFrontRoutingModule } from "./display-front-routing.module";
 
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-
 import * as fromComponents from "./components";
 import * as fromServices from "./services";
-import * as fromStoreReducers from "./state/reducers";
-import * as fromStoreEffects from "./state/effects";
+import * as fromFacades from "./facades";
+
+import { NgxsModule } from "@ngxs/store";
+import { DisplayFrontState } from "./state/display-front.state";
 
 @NgModule({
   declarations: [...fromComponents.components],
@@ -19,9 +18,8 @@ import * as fromStoreEffects from "./state/effects";
     CommonModule,
     DisplayFrontRoutingModule,
     SharedModule,
-    StoreModule.forFeature("display", fromStoreReducers.reducers),
-    EffectsModule.forFeature([...fromStoreEffects.effects])
+    NgxsModule.forFeature([DisplayFrontState])
   ],
-  providers: [...fromServices.services]
+  providers: [...fromServices.services, ...fromFacades.facades]
 })
 export class DisplayFrontModule {}

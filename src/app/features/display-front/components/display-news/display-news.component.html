@@ -1,8 +1,25 @@
 <div class="container">
-  <marquee class="live-text">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi sit corrupti
-    corporis dolores, doloremque provident sint accusantium odio accusamus
-    laboriosam consectetur nam minus explicabo voluptatum rem nesciunt sunt vel
-    eius?
-  </marquee>
+  <ng-container *ngIf="!(isLoading$ | async); else loading">
+    <div class="marquee">
+      <div>
+        <p>
+          <ng-container *ngFor="let text of (announcements$ | async)">
+            {{ text.details }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;
+          </ng-container>
+        </p>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loader-overlay">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        strokeWidth="5"
+        diameter="70"
+      >
+      </mat-progress-spinner>
+    </div>
+  </ng-template>
 </div>
