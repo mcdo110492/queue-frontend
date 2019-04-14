@@ -20,7 +20,6 @@ import { UserStateModel } from "@core/models";
 import { UserService } from "@core/services/user/user.service";
 import { RoleRedirectService } from "@core/services/role-redirect/role-redirect.service";
 import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
-import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.service";
 
 @Injectable({
   providedIn: "root"
@@ -58,7 +57,6 @@ export class AuthFacadesService {
     const payload = { username, password };
     return this.service.authenticate(payload).pipe(
       map(user => {
-        this.laravelEcho.authLaravelEcho(user.token);
         this.roleRedirect.redirect(user.role);
         return new AuthenticateSuccess({ user });
       }),
@@ -73,8 +71,6 @@ export class AuthFacadesService {
     return this.service.backEndLogout().pipe(
       map(() => {
         this.roleRedirect.redirectToLogin();
-        this.laravelEcho.isAuthenticated = false;
-        window.LEcho = {};
         return new Logout();
       }),
       catchError(err => {
@@ -85,8 +81,6 @@ export class AuthFacadesService {
   };
 
   @Dispatch() revertToDefaultUser = () => {
-    this.laravelEcho.isAuthenticated = false;
-    window.LEcho = {};
     return new RevertToDefaultUser();
   };
 
@@ -98,7 +92,6 @@ export class AuthFacadesService {
     private store: Store,
     private service: UserService,
     private roleRedirect: RoleRedirectService,
-    private snackService: SnackBarService,
-    private laravelEcho: LaravelEchoService
+    private snackService: SnackBarService
   ) {}
 }

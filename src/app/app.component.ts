@@ -4,8 +4,6 @@ import { Router, Event, NavigationStart } from "@angular/router";
 import { Observable, of } from "rxjs";
 
 import { fadeAnimation } from "@animations/fade.animation";
-import { AuthFacadesService } from "@core/facades/auth-facades.service";
-import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.service";
 
 @Component({
   selector: "csab-root",
@@ -27,11 +25,7 @@ import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.s
 export class AppComponent {
   isRouteLoader: Observable<boolean>;
 
-  constructor(
-    private router: Router,
-    private authFacade: AuthFacadesService,
-    private laravel: LaravelEchoService
-  ) {
+  constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.isRouteLoader = of(true);
@@ -39,7 +33,5 @@ export class AppComponent {
         this.isRouteLoader = of(false);
       }
     });
-    const token = this.authFacade.tokenSnapshot();
-    this.laravel.authLaravelEcho(token);
   }
 }

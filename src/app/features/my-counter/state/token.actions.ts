@@ -21,12 +21,12 @@ export class AddToken {
 
 export class RemoveIdToken {
   static readonly type = "[Token] Remove Id Token";
-  constructor(public id: number) {}
+  constructor(public payload: { id: number; priority: number }) {}
 }
 
 export class AddIdToken {
   static readonly type = "[Token] Add Id Token";
-  constructor(public id: number) {}
+  constructor(public payload: { id: number; priority: number }) {}
 }
 
 export class CallToken {

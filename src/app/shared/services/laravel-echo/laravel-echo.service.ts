@@ -6,15 +6,14 @@ import { environment } from "@env/environment";
 
 declare global {
   interface Window {
-    LEcho: any;
+    Laravel: any;
   }
 }
 
-window.LEcho = window.LEcho || {};
+window.Laravel = window.Laravel || {};
 
 @Injectable()
 export class LaravelEchoService {
-  isAuthenticated: boolean = false;
   authLaravelEcho(token: string) {
     const options: any = {
       broadcaster: "pusher",
@@ -30,10 +29,7 @@ export class LaravelEchoService {
         }
       }
     };
-    if (!this.isAuthenticated) {
-      window.LEcho = new Echo(options);
-    }
 
-    this.isAuthenticated = true;
+    window.Laravel = new Echo(options);
   }
 }

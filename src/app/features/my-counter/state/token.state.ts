@@ -12,7 +12,9 @@ import {
   FinishToken,
   StopToken,
   NowServing,
-  LastUserTransaction
+  LastUserTransaction,
+  RemoveIdToken,
+  AddIdToken
 } from "./token.actions";
 
 import { TokenModel } from "../models";
@@ -123,7 +125,7 @@ export class TokenState {
       const entity = { [token.id]: token };
       draft.tokens = Object.assign(draft.tokens, entity);
 
-      if (token.priority === 0) {
+      if (token.priority === 1) {
         draft.priorityIds.push(token.id);
       } else {
         draft.normalIds.push(token.id);
@@ -222,6 +224,36 @@ export class TokenState {
       draft.isServing = false;
       draft.isCalling = false;
       draft.nowServing = 0;
+    });
+  }
+
+  @Action(AddIdToken)
+  addIdToken(
+    ctx: StateContext<TokenStateModel>,
+    { payload: { id, priority } }: AddIdToken
+  ) {
+    produce(ctx, (draft: TokenStateModel) => {
+      if (priority === 1) {
+        draft.priorityIds.push(id);
+      } else {
+        draft.normalIds.push(id);
+      }
+    });
+  }
+
+  @Action(RemoveIdToken)
+  removeIdToken(
+    ctx: StateContext<TokenStateModel>,
+    { payload: { id, priority } }: RemoveIdToken
+  ) {
+    produce(ctx, (draft: TokenStateModel) => {
+      if (priority === 1) {
+        const index = draft.priorityIds.indexOf(id);
+        draft.priorityIds.splice(index, 1);
+      } else {
+        const index = draft.normalIds.indexOf(id);
+        draft.normalIds.splice(index, 1);
+      }
     });
   }
 

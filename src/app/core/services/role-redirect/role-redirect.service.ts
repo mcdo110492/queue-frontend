@@ -12,7 +12,7 @@ export class RoleRedirectService {
         break;
 
       case 2:
-        this.routeFacade.navigate(["/queue/my/counter"]);
+        this.routeFacade.navigate(["/app/queue/my/counter"]);
         break;
       default:
         this.routeFacade.navigate(["/app"]);

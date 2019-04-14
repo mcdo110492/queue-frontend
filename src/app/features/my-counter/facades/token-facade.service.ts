@@ -14,18 +14,15 @@ import {
   StopToken,
   OnServerSuccess,
   NowServing,
-  LastUserTransaction
+  LastUserTransaction,
+  AddToken,
+  RemoveIdToken,
+  AddIdToken
 } from "./../state/token.actions";
 import { TokenState } from "./../state/token.state";
 
 import { of, Observable } from "rxjs";
-import {
-  map,
-  catchError,
-  combineLatest,
-  concatMap,
-  filter
-} from "rxjs/operators";
+import { map, catchError, combineLatest, concatMap } from "rxjs/operators";
 
 import { TokenModel } from "../models";
 
@@ -34,6 +31,7 @@ import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
 import { AlertDialogService } from "@shared/services/alert-dialog/alert-dialog.service";
 import { MyCounterTimerService } from "../services/my-counter-timer.service";
 import { DialogLoaderService } from "@shared/services/dialog-loader/dialog-loader.service";
+import { AuthFacadesService } from "@core/facades/auth-facades.service";
 
 @Injectable({
   providedIn: "root"
@@ -81,12 +79,23 @@ export class TokenFacadeService {
     );
   };
 
+  @Dispatch() addIssueTokenWS = (token: TokenModel) => new AddToken({ token });
+
+  @Dispatch() backToQueueWS = (id: number, priority: number) =>
+    new BackToQueueToken({ id, priority });
+
+  @Dispatch() addTokenWS = (id: number, priority: number) =>
+    new AddIdToken({ id, priority });
+
+  @Dispatch() removeTokenWS = (id: number, priority: number) =>
+    new RemoveIdToken({ id, priority });
+
   @Dispatch() callToken = (id: number, priority: number, token: any) => {
     const dialog = this.alertDialog.open({
       title: `Calling Token #${token}`,
       content: `Would you like to start calling this token?`
     });
-
+    this.authFacade.addSocketId(window.Laravel.socketId());
     return dialog.afterClosed().pipe(
       concatMap(isYes => {
         if (isYes) {
@@ -118,6 +127,7 @@ export class TokenFacadeService {
       content: "Token is called based on the queue list"
     });
     this.nowServing(1);
+    this.authFacade.addSocketId(window.Laravel.socketId());
 
     return dialog.afterClosed().pipe(
       combineLatest(this.nowServing$),
@@ -149,6 +159,8 @@ export class TokenFacadeService {
       title: `Token #${token}`,
       content: "Would you like to return this token to queue?"
     });
+
+    this.authFacade.addSocketId(window.Laravel.socketId());
 
     return dialog.afterClosed().pipe(
       combineLatest(this.timer$),
@@ -327,6 +339,7 @@ export class TokenFacadeService {
     private snackBar: SnackBarService,
     private alertDialog: AlertDialogService,
     private timerService: MyCounterTimerService,
-    private dialogLoader: DialogLoaderService
+    private dialogLoader: DialogLoaderService,
+    private authFacade: AuthFacadesService
   ) {}
 }

@@ -1,10 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy
+} from "@angular/core";
 
 import { Observable } from "rxjs";
 
 import { TokenModel } from "@features/my-counter/models";
 import { TokenFacadeService } from "@features/my-counter/facades/token-facade.service";
-import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.service";
 
 @Component({
   selector: "csab-my-counter-pending",
@@ -12,7 +16,7 @@ import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.s
   styleUrls: ["./my-counter-pending.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyCounterPendingComponent implements OnInit {
+export class MyCounterPendingComponent implements OnInit, OnDestroy {
   normalTokens$: Observable<TokenModel[]>;
   priorityTokens$: Observable<TokenModel[]>;
   isCalling$: Observable<boolean>;
@@ -30,9 +34,34 @@ export class MyCounterPendingComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.LEcho.private("ticket-call").listen("ProcessTicketCall", e => {
-      console.log(e);
-    });
+    window.Laravel.private("ticket-call").listen(
+      "ProcessTicketCall",
+      (e: { id: number; priority: number }) => {
+        const { id, priority } = e;
+        this.facade.removeTokenWS(id, priority);
+      }
+    );
+
+    window.Laravel.private("ticket-back-to-queue").listen(
+      "ProcessTicketBackToQueue",
+      (e: { id: number; priority: number }) => {
+        const { id, priority } = e;
+        this.facade.addTokenWS(id, priority);
+      }
+    );
+
+    window.Laravel.private("issue-ticket").listen(
+      "ProcessIssueToken",
+      (e: { token: TokenModel }) => {
+        this.facade.addIssueTokenWS(e.token);
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    window.Laravel.leave("ticket-call");
+    window.Laravel.leave("ticket-back-to-queue");
+    window.Laravel.leave("issue-ticket");
   }
 
   constructor(private facade: TokenFacadeService) {

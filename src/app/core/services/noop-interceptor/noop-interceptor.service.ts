@@ -20,16 +20,26 @@ export class NoopInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.facade.tokenSnapshot();
     const socketId = this.facade.socketIdSnapShot();
+
     const authRequest = !!token
       ? request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-            "X-Socket-ID": socketId || "1"
-          }
+          setHeaders: this.setCustomHeaders(token, socketId)
         })
       : request;
 
     return next.handle(authRequest);
+  }
+
+  private setCustomHeaders(token: any, socketId: any) {
+    if (socketId) {
+      return {
+        Authorization: `Bearer ${token}`,
+        "X-Socket-ID": socketId
+      };
+    }
+    return {
+      Authorization: `Bearer ${token}`
+    };
   }
   constructor(private facade: AuthFacadesService) {}
 }
