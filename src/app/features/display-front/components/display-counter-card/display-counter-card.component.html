@@ -1,55 +1,27 @@
 <div class="container">
-  <div class="counter-card ">
+  <mat-toolbar class="title-toolbar primary-card">Past Queue</mat-toolbar>
+  <div
+    class="counter-card"
+    *ngFor="let token of (pastTokens$ | async); trackBy: trackById"
+  >
     <mat-card class="card-1 ">
       <div class="header">
         Token Number
       </div>
       <div class="body">
-        559
+        {{ token.ticket_number }}
       </div>
     </mat-card>
-    <mat-card class="card-2 primary-card">
+    <mat-card [ngClass]="[generateCardBg(), 'card-2']">
       <div class="header">
         Counter
       </div>
       <div class="body">
-        2
-      </div>
-    </mat-card>
-  </div>
-  <div class="counter-card">
-    <mat-card class="card-1 ">
-      <div class="header">
-        Token Number
-      </div>
-      <div class="body">
-        558
-      </div>
-    </mat-card>
-    <mat-card class="card-2 accent-card">
-      <div class="header">
-        Counter
-      </div>
-      <div class="body">
-        3
-      </div>
-    </mat-card>
-  </div>
-  <div class="counter-card">
-    <mat-card class="card-1 ">
-      <div class="header">
-        Token Number
-      </div>
-      <div class="body">
-        557
-      </div>
-    </mat-card>
-    <mat-card class="card-2 warn-card">
-      <div class="header">
-        Counter
-      </div>
-      <div class="body">
-        4
+        {{
+          getCounterNumber(
+            token?.latest_user?.user_counter?.counter?.counter_name
+          )
+        }}
       </div>
     </mat-card>
   </div>

@@ -71,7 +71,7 @@ export class DisplayFrontState {
 
   @Selector()
   static getPastToken(state: DisplayFrontStateModel) {
-    const firstThree = state.tokenIds.slice(1, 3);
+    const firstThree = state.tokenIds.slice(1, 4);
     return firstThree.map(id => state.tokens[id]);
   }
 
@@ -117,8 +117,15 @@ export class DisplayFrontState {
     { payload: { token } }: AddToken
   ) {
     produce(ctx, (draft: DisplayFrontStateModel) => {
-      const entity = { [token.id]: token };
-      draft.tokens = Object.assign(draft.tokens, entity);
+      const isIdExist = draft.tokenIds.includes(token.id);
+
+      if (!isIdExist) {
+        const entity = { [token.id]: token };
+        draft.tokens = Object.assign(draft.tokens, entity);
+      } else {
+        const index = draft.tokenIds.indexOf(token.id);
+        draft.tokenIds.splice(index, 1);
+      }
       draft.tokenIds.unshift(token.id);
     });
   }

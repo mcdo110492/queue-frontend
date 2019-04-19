@@ -82,6 +82,8 @@ export class DisplayFrontFacadeService {
     );
   };
 
+  @Dispatch() addNewToken = (token: TokenModel) => new AddToken({ token });
+
   constructor(
     private mediaApi: MediaApiService,
     private announcementApi: AnnouncementApiService,

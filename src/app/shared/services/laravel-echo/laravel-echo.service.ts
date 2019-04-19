@@ -32,4 +32,8 @@ export class LaravelEchoService {
 
     window.Laravel = new Echo(options);
   }
+
+  disconnect() {
+    window.Laravel.disconnect();
+  }
 }

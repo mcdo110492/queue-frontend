@@ -114,7 +114,7 @@ export class TokenFacadeService {
             })
           );
         }
-        return of();
+        return of(new OnServerSuccess(false));
       })
     );
   };

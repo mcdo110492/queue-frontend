@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
 
 import { Observable } from "rxjs";
 
@@ -12,12 +12,16 @@ import { LaravelEchoService } from "@shared/services/laravel-echo/laravel-echo.s
   styleUrls: ["./my-counter-container.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyCounterContainerComponent {
+export class MyCounterContainerComponent implements OnDestroy {
   pendingTokenCount$: Observable<number>;
   isCalling$: Observable<boolean>;
 
   callNext() {
     this.facade.callNext();
+  }
+
+  ngOnDestroy() {
+    this.echo.disconnect();
   }
 
   constructor(

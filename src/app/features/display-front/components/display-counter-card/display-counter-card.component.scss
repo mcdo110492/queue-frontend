@@ -25,6 +25,12 @@ $white-text: #ffffff;
   text-align: center;
 }
 
+.title-toolbar {
+  text-transform: uppercase;
+  font-size: 2vw;
+  justify-content: center;
+}
+
 .card-1 {
   flex: 0 0 50%;
 }

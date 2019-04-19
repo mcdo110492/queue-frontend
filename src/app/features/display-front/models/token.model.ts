@@ -2,8 +2,15 @@ export interface TokenModel {
   id: number;
   ticket_number: number;
   priority: number;
-  counter: {
+  status: number;
+  latest_user: {
     id: number;
-    counter_name: string;
+    status: number;
+    user_counter: {
+      id: number;
+      counter: {
+        counter_name: string;
+      };
+    };
   };
 }
