@@ -4,7 +4,7 @@
       <div>
         <p>
           <ng-container *ngFor="let text of (announcements$ | async)">
-            {{ text.details }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;
+            {{ text.message }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;
           </ng-container>
         </p>
       </div>

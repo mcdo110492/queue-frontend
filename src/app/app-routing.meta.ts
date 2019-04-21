@@ -37,6 +37,11 @@ export const APP_ROUTES: Routes = [
         loadChildren:
           "src/app/features/my-counter/my-counter.module#MyCounterModule"
       },
+      {
+        path: "announcement/list",
+        loadChildren:
+          "src/app/features/announcements/announcements.module#AnnouncementsModule"
+      },
       { path: "**", component: PageNotFoundComponent }
     ]
   },

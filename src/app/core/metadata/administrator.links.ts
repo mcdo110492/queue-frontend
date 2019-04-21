@@ -55,7 +55,7 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
   { isHeader: true, link: "", title: "Advertisement" },
   {
     isHeader: false,
-    link: "/app/announcements",
+    link: "/app/announcement/list",
     title: "Announcements",
     icon: "announcement"
   },

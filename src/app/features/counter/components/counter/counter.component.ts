@@ -43,7 +43,9 @@ export class CounterComponent implements OnInit {
   searchTerms: string;
   isLoading$: Observable<boolean>;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.facade.loadCounters();
+  }
 
   onkeyup(ev: string) {
     this.searchTerms = ev;
@@ -70,7 +72,6 @@ export class CounterComponent implements OnInit {
   }
 
   constructor(private facade: CounterFacadeService, private dialog: MatDialog) {
-    this.facade.loadCounters();
     this.datas$ = this.facade.entities$;
     this.isLoading$ = this.facade.isLoading$;
   }
