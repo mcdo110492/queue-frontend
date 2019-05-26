@@ -1,4 +1,5 @@
 import { CounterModel } from "../models";
+import { DepartmentModel } from "../models/department.model";
 
 export class AddCounter {
   static readonly type = "[Counter] Add Counter";
@@ -28,4 +29,13 @@ export class UpdateCounter {
 export class SelectCounter {
   static readonly type = "[Counter] Select Counter";
   constructor(public payload: number | string) {}
+}
+
+export class AddDepartmentOptions {
+  static readonly type = "[Counter] Add Department Options";
+  constructor(public payload: { departments: DepartmentModel[] }) {}
+}
+
+export class DoNothingActions {
+  static readonly type = "[Counter] Do Nothing Actions";
 }

@@ -8,7 +8,9 @@ import {
   UpdateCounter,
   AddCounters,
   IsSaving,
-  IsLoading
+  IsLoading,
+  AddDepartmentOptions,
+  DoNothingActions
 } from "./../state/counter.actions";
 import { CounterState } from "./../state/counter.state";
 import { CounterModel } from "../models";
@@ -20,6 +22,7 @@ import { EntityService } from "@core/services/entity/entity.service";
 import { CounterService } from "../services";
 import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
 import { MatDialog } from "@angular/material/dialog";
+import { DepartmentModel } from "../models/department.model";
 
 @Injectable()
 export class CounterFacadeService {
@@ -30,6 +33,7 @@ export class CounterFacadeService {
   @Select(CounterState.selectedCounter) selectedCounter$: Observable<
     CounterModel
   >;
+  @Select(CounterState.departments) departments$: Observable<DepartmentModel[]>;
 
   @Dispatch() loading = (loading: boolean) => new IsLoading(loading);
 
@@ -50,6 +54,18 @@ export class CounterFacadeService {
         return of();
       })
     );
+  };
+
+  @Dispatch() loadDepartmentOptions = () => {
+    const count = this.store.selectSnapshot(CounterState.departmentCount);
+
+    if (count === 0) {
+      return this.api
+        .loadDepartments()
+        .pipe(map(departments => new AddDepartmentOptions({ departments })));
+    }
+
+    return of(new DoNothingActions());
   };
 
   @Dispatch() createCounter = (payload: { counter: CounterModel }) => {

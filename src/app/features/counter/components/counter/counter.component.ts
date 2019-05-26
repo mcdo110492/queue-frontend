@@ -18,19 +18,19 @@ import { CounterFormComponent } from "@features/counter/components/counter-form/
 })
 export class CounterComponent implements OnInit {
   datas$: Observable<CounterModel[]>;
-  displayedColumns: string[] = ["counter_name", "position", "update"];
+  displayedColumns: string[] = ["department", "position", "update"];
   columns: CustomMatTableModel[] = [
     {
-      name: "counter_name",
-      label: "Name",
+      name: "department",
+      label: "Department",
       isBtn: false,
-      cell: (elem: any) => `${elem.counter_name}`
+      cell: (elem: CounterModel) => `${elem.department.name}`
     },
     {
       name: "position",
       label: "Position",
       isBtn: false,
-      cell: (elem: any) => `${elem.position}`
+      cell: (elem: CounterModel) => `${elem.position}`
     },
     {
       name: "update",

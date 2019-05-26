@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
-import { FormControl } from "@angular/forms";
 
 import { FormlyFieldConfig } from "@ngx-formly/core";
 
-import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 import { UniqueValidatorService } from "@core/services/unique-validator/unique-validator.service";
+import { DepartmentModel } from "@features/counter/models/department.model";
 
 @Injectable()
 export class CounterFormConfigService {
-  generateFields(id: number | string): FormlyFieldConfig[] {
-    const url: string = "counters/validate";
+  generateFields(
+    id: number | string,
+    options: { departments$: Observable<DepartmentModel[]> }
+  ): FormlyFieldConfig[] {
     const fields: FormlyFieldConfig[] = [
       {
         key: "id",
@@ -22,25 +24,16 @@ export class CounterFormConfigService {
         hide: true
       },
       {
-        key: "counter_name",
-        type: "input",
+        key: "department_id",
+        type: "select",
         templateOptions: {
-          label: "Name",
-          placeholder: "Input you' re name here",
+          label: "Departments",
+          valueProp: "id",
+          labelProp: "name",
+          placeholder: "Select",
+          options: options.departments$,
           required: true,
-          appearance: "outline",
-          minLength: 2
-        },
-        modelOptions: {
-          updateOn: "blur"
-        },
-        asyncValidators: {
-          validation: [
-            (control: FormControl) =>
-              this.service
-                .backendValidate(url, "counter_name", control.value, id)
-                .pipe(map(isUnique => (isUnique ? null : { isUnique: false })))
-          ]
+          appearance: "outline"
         },
         focus: true
       },
@@ -54,17 +47,6 @@ export class CounterFormConfigService {
           type: "number",
           appearance: "outline",
           min: 1
-        },
-        modelOptions: {
-          updateOn: "blur"
-        },
-        asyncValidators: {
-          validation: [
-            (control: FormControl) =>
-              this.service
-                .backendValidate(url, "position", control.value, id)
-                .pipe(map(isUnique => (isUnique ? null : { isUnique: false })))
-          ]
         }
       }
     ];

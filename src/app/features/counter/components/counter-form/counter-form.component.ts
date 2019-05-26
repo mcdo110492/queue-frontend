@@ -9,6 +9,7 @@ import { take, filter } from "rxjs/operators";
 
 import { CounterModel } from "@features/counter/models/counter.model";
 import { CounterFacadeService } from "@features/counter/facades/counter-facade.service";
+import { DepartmentModel } from "@features/counter/models/department.model";
 
 @Component({
   selector: "csab-counter-form",
@@ -19,11 +20,12 @@ export class CounterFormComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   model: CounterModel = {
     id: null,
-    counter_name: null,
+    department_id: null,
     position: null
   };
   fields: FormlyFieldConfig[];
   isSaving$: Observable<boolean>;
+  departments$: Observable<DepartmentModel[]>;
 
   save() {
     if (this.form.valid) {
@@ -37,16 +39,18 @@ export class CounterFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.facade.loadDepartmentOptions();
+    const options = { departments$: this.departments$ };
     this.facade.selectedCounter$
       .pipe(
         take(1),
         filter(Boolean)
       )
       .subscribe(data => {
-        const { id, counter_name, position } = data;
-        this.model = { ...this.model, id, counter_name, position };
+        const { id, department_id, position } = data;
+        this.model = { ...this.model, id, department_id, position };
       });
-    this.fields = this.fieldService.generateFields(this.model.id);
+    this.fields = this.fieldService.generateFields(this.model.id, options);
   }
 
   constructor(
@@ -54,5 +58,6 @@ export class CounterFormComponent implements OnInit {
     private facade: CounterFacadeService
   ) {
     this.isSaving$ = this.facade.isSaving$;
+    this.departments$ = this.facade.departments$;
   }
 }

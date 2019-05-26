@@ -10,6 +10,8 @@ import {
   CounterReponseGetModel,
   CounterResponseCreateUpdateModel
 } from "@features/counter/models";
+import { DepartmentModel } from "@features/counter/models/department.model";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class CounterService {
@@ -31,6 +33,14 @@ export class CounterService {
       `${this.baseApi}/counters/${model.id}`,
       model
     );
+  }
+
+  loadDepartments(): Observable<DepartmentModel[]> {
+    return this.http
+      .get<{ payload: { count: number; data: DepartmentModel[] } }>(
+        `${this.baseApi}/departments`
+      )
+      .pipe(map(response => response.payload.data));
   }
 
   constructor(private http: HttpClient) {}

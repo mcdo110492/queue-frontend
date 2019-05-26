@@ -7,16 +7,19 @@ import {
   UpdateCounter,
   AddCounters,
   IsLoading,
-  IsSaving
+  IsSaving,
+  AddDepartmentOptions
 } from "./counter.actions";
 
 import { CounterModel } from "./../models";
+import { DepartmentModel } from "../models/department.model";
 
 export class CounterStateModel {
   isLoading: boolean;
   isSaving: boolean;
   selectedCounterId: number | string;
   entities: { [id: number]: CounterModel };
+  departments: DepartmentModel[];
 }
 
 @State<CounterStateModel>({
@@ -25,7 +28,8 @@ export class CounterStateModel {
     isLoading: false,
     isSaving: false,
     selectedCounterId: 0,
-    entities: {}
+    entities: {},
+    departments: []
   }
 })
 export class CounterState {
@@ -49,6 +53,17 @@ export class CounterState {
     return state.selectedCounterId != 0
       ? state.entities[state.selectedCounterId]
       : null;
+  }
+
+  @Selector()
+  static departments(state: CounterStateModel) {
+    return state.departments;
+  }
+
+  @Selector()
+  static departmentCount(state: CounterStateModel) {
+    const { departments } = state;
+    return departments ? departments.length : 0;
   }
 
   @Action(IsLoading)
@@ -104,6 +119,16 @@ export class CounterState {
     produce(ctx, (draft: CounterStateModel) => {
       draft.entities[counter.id] = counter;
       draft.isSaving = false;
+    });
+  }
+
+  @Action(AddDepartmentOptions)
+  addDepartmentOptions(
+    ctx: StateContext<CounterStateModel>,
+    { payload: { departments } }: AddDepartmentOptions
+  ) {
+    produce(ctx, (draft: CounterStateModel) => {
+      draft.departments = departments;
     });
   }
 }
