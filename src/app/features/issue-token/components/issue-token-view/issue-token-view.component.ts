@@ -1,13 +1,24 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
+
+import { Observable } from "rxjs";
+
+import { IssueTokenFacadeService } from "@features/issue-token/facades/issue-token-facade.service";
+import { DepartmentModel } from "@features/issue-token/models";
 
 @Component({
   selector: "csab-issue-token-view",
-  template: `
-    <div class="token-view-bg">
-      <csab-issue-token-form></csab-issue-token-form>
-    </div>
-  `,
+  templateUrl: "issue-token-view.html",
   styleUrls: ["./issue-token-view.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IssueTokenViewComponent {}
+export class IssueTokenViewComponent implements OnInit {
+  departments$: Observable<DepartmentModel[]>;
+
+  ngOnInit() {
+    this.facade.loadDepartments();
+  }
+
+  constructor(private facade: IssueTokenFacadeService) {
+    this.departments$ = this.facade.departments$;
+  }
+}

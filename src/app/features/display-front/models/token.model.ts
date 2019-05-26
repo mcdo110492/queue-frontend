@@ -9,7 +9,13 @@ export interface TokenModel {
     user_counter: {
       id: number;
       counter: {
-        counter_name: string;
+        id: number;
+        position: number;
+        department: {
+          id: number;
+          name: string;
+          code: string;
+        };
       };
     };
   };

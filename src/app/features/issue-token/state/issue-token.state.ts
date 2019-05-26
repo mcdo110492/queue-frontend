@@ -1,19 +1,25 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { produce } from "@ngxs-labs/immer-adapter";
 
-import { IssueTokenSuccess, IsSaving } from "./issue-token.actions";
-import { IssueTokenModel } from "../models";
+import {
+  IssueTokenSuccess,
+  IsSaving,
+  AddDepartmentOptions
+} from "./issue-token.actions";
+import { IssueTokenModel, DepartmentModel } from "../models";
 
 export class IssueTokenStateModel {
   isSaving: boolean;
   generatedToken: IssueTokenModel;
+  departments: DepartmentModel[];
 }
 
 @State<IssueTokenStateModel>({
   name: "issueToken",
   defaults: {
     isSaving: false,
-    generatedToken: null
+    generatedToken: null,
+    departments: []
   }
 })
 export class IssueTokenState {
@@ -23,6 +29,10 @@ export class IssueTokenState {
 
   @Selector() static generatedToken(state: IssueTokenStateModel) {
     return state.generatedToken;
+  }
+
+  @Selector() static departments(state: IssueTokenStateModel) {
+    return state.departments;
   }
 
   @Action(IsSaving)
@@ -39,6 +49,16 @@ export class IssueTokenState {
   ) {
     produce(ctx, (draft: IssueTokenStateModel) => {
       draft.generatedToken = payload;
+    });
+  }
+
+  @Action(AddDepartmentOptions)
+  addDepartmentOptions(
+    ctx: StateContext<IssueTokenStateModel>,
+    { payload: { departments } }: AddDepartmentOptions
+  ) {
+    produce(ctx, (draft: IssueTokenStateModel) => {
+      draft.departments = departments;
     });
   }
 }

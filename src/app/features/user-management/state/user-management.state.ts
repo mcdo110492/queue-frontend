@@ -37,7 +37,7 @@ export class UserManagementStateModel {
     entities: {},
     departments: [],
     status: [{ id: 0, status: "Inactive" }, { id: 1, status: "Active" }],
-    roles: [{ id: 2, role: "Counter" }]
+    roles: [{ id: 1, role: "Administrator" }, { id: 2, role: "Counter" }]
   }
 })
 export class UserManagementState {

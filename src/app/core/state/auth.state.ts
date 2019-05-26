@@ -22,7 +22,8 @@ const defaultUserState: UserStateModel = {
   role: 0,
   token: null,
   image_path: "default.jpg",
-  name: null
+  name: null,
+  department_id: null
 };
 
 @State<AuthStateModel>({
@@ -50,14 +51,19 @@ export class AuthState {
   }
 
   @Selector()
+  static department_id(state: AuthStateModel) {
+    return state.user.department_id;
+  }
+
+  @Selector()
   static userId(state: AuthStateModel) {
     return state.user.id;
   }
 
   @Selector()
   static getUser(state: AuthStateModel) {
-    const { id, name, username, role, image_path } = state.user;
-    return { id, name, username, role, image_path };
+    const { id, name, username, role, image_path, department_id } = state.user;
+    return { id, name, username, role, image_path, department_id };
   }
 
   @Selector()

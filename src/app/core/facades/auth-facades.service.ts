@@ -28,6 +28,7 @@ export class AuthFacadesService {
   @Select(AuthState.token) token$: Observable<string>;
   @Select(AuthState.getUser) user$: Observable<UserStateModel>;
   @Select(AuthState.isAuthenticating) isAuthenticating$: Observable<boolean>;
+  @Select(AuthState.department_id) department_id$: Observable<number>;
 
   tokenSnapshot() {
     return this.store.selectSnapshot(AuthState.token);
@@ -43,6 +44,10 @@ export class AuthFacadesService {
 
   socketIdSnapShot() {
     return this.store.selectSnapshot(AuthState.socketId);
+  }
+
+  departmentIdSnapShot() {
+    return this.store.selectSnapshot(AuthState.department_id);
   }
 
   @Dispatch() isAuthenticating = (isYes: boolean) =>

@@ -1,7 +1,7 @@
 <div
   id="print-area"
   class="print-content"
-  *ngIf="(issueTokenData$ | async) as token"
+  *ngIf="issueTokenData$ | async as token"
 >
   <p class="date-text">{{ token.created_at | date: "medium" }}</p>
   <div mat-dialog-content>
@@ -15,11 +15,11 @@
         <p class="footer-text">People in waiting</p>
         <p class="footer-number">{{ token.people_in_waiting }}</p>
       </div>
-      <div class="footer-content">
+      <!-- <div class="footer-content">
         <mat-icon class="footer-icon">access_time</mat-icon>
         <p class="footer-text">waiting time</p>
         <p class="footer-number">{{ token.estimated_waiting_time }}</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

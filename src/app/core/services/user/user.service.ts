@@ -3,8 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { environment } from "@env/environment";
 
-import { Observable, of } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { UserStateModel } from "@core/models";
 
@@ -21,8 +20,8 @@ export class UserService {
       .pipe(
         map(result => {
           const { user, token } = result.payload;
-          const { id, username, name, role, image_path } = user;
-          return { id, username, name, role, image_path, token };
+          const { id, username, name, role, image_path, department_id } = user;
+          return { id, username, name, role, image_path, token, department_id };
         })
       );
   }

@@ -30,10 +30,11 @@ import { UserStateModel } from "@core/models";
 export class CounterUserFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   form: FormGroup = new FormGroup({});
-  model: CounterUserModel = {
+  model: any = {
     id: null,
     counter_id: null,
-    user_id: null
+    user_id: null,
+    department_id: null
   };
   fields: FormlyFieldConfig[];
   isSaving$: Observable<boolean>;
@@ -59,8 +60,14 @@ export class CounterUserFormComponent implements OnInit, OnDestroy {
         filter(Boolean)
       )
       .subscribe(data => {
-        const { id, counter_id, user_id } = data;
-        this.model = { ...this.model, id, counter_id, user_id };
+        const {
+          id,
+          counter_id,
+          user_id,
+          user: { department_id }
+        } = data;
+        this.model = { ...this.model, id, counter_id, user_id, department_id };
+        this.loadOptionsbyDepartment(department_id);
       });
 
     this.fields = this.service.generateFields(this.model.id, options);
@@ -69,10 +76,9 @@ export class CounterUserFormComponent implements OnInit, OnDestroy {
       this.subscription = this.form
         .get("department_id")
         .valueChanges.subscribe(department_id => {
-          this.facade.loadCounterOptions(department_id);
-          this.facade.loadUserOptions(department_id);
+          this.loadOptionsbyDepartment(department_id);
         });
-    }, 100);
+    }, 0);
   }
 
   save() {
@@ -85,6 +91,11 @@ export class CounterUserFormComponent implements OnInit, OnDestroy {
         this.facade.create({ counterUser: formData });
       }
     }
+  }
+
+  loadOptionsbyDepartment(department_id) {
+    this.facade.loadCounterOptions(department_id);
+    this.facade.loadUserOptions(department_id);
   }
 
   ngOnDestroy() {

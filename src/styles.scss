@@ -1,5 +1,133 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$md-mcgpalette1: (
+  50: #e9e6e3,
+  100: #c8c1ba,
+  200: #a4988c,
+  300: #7f6e5d,
+  400: #634f3b,
+  500: #483018,
+  600: #412b15,
+  700: #382411,
+  800: #301e0e,
+  900: #211308,
+  A100: #ff9d5f,
+  A200: #ff7e2c,
+  A400: #f86100,
+  A700: #df5700,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff
+  )
+);
+
+$md-mcgpalette2: (
+  50: #fefee2,
+  100: #fcfcb6,
+  200: #fafb86,
+  300: #f8f956,
+  400: #f7f731,
+  500: #f5f60d,
+  600: #f4f50b,
+  700: #f2f309,
+  800: #f0f207,
+  900: #eeef03,
+  A100: #ffffff,
+  A200: #ffffe3,
+  A400: #feffb0,
+  A700: #feff96,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$md-mcgpalette3: (
+  50: #f9e3e2,
+  100: #f1b9b7,
+  200: #e78a87,
+  300: #dd5b56,
+  400: #d63732,
+  500: #cf140e,
+  600: #ca120c,
+  700: #c30e0a,
+  800: #bd0b08,
+  900: #b20604,
+  A100: #ffdbdb,
+  A200: #ffa9a8,
+  A400: #ff7675,
+  A700: #ff5d5c,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$candy-app-primary: mat-palette($md-mcgpalette1, 500);
+$candy-app-accent: mat-palette($md-mcgpalette2, 500);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn: mat-palette($md-mcgpalette3, 500);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme(
+  $candy-app-primary,
+  $candy-app-accent,
+  $candy-app-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+
 html,
 body {
   display: block;
@@ -13,8 +141,6 @@ body {
   background: #fafafa;
   padding: 0;
 }
-
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 router-outlet ~ * {
   position: absolute;
@@ -78,13 +204,31 @@ router-outlet ~ * {
 }
 
 .primary-text {
-  color: #3f51b5;
+  color: #483018;
 }
 
 .accent-text {
-  color: #ff4081;
+  color: #f5f60d;
 }
 
 .warn-text {
-  color: #f44336;
+  color: #cf140e;
+}
+
+.token-view-bg {
+  background-image: linear-gradient(
+    to left bottom,
+    #f5f60d,
+    #fad000,
+    #f9aa00,
+    #f38300,
+    #e65c00,
+    #d14d02,
+    #bd3e03,
+    #a82f03,
+    #8d3503,
+    #743608,
+    #5d3410,
+    #483018
+  );
 }

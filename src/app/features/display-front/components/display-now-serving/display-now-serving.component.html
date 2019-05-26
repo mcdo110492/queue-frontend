@@ -1,4 +1,4 @@
-<div class="container" *ngIf="(latestToken$ | async) as token">
+<div class="container" *ngIf="latestToken$ | async as token">
   <div class="now-serving">Now Serving</div>
   <div class="ticket">Token</div>
   <div class="number">#{{ token.ticket_number }}</div>
@@ -9,6 +9,7 @@
 
   <div class="counter">
     proceed to
-    {{ token?.latest_user?.user_counter?.counter?.counter_name }}
+    {{ token?.latest_user?.user_counter?.counter?.department.code }}
+    {{ token?.latest_user?.user_counter?.counter?.position }}
   </div>
 </div>

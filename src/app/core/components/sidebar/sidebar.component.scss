@@ -39,15 +39,42 @@ $bg3: rgba(66, 175, 145, 1);
 }
 
 .mat-nav-list a:hover {
-  background: linear-gradient(90deg, $bg1 0%, $bg2 43%, $bg3 100%);
+  background-image: linear-gradient(
+    to left bottom,
+    #f5f60d,
+    #fad000,
+    #f9aa00,
+    #f38300,
+    #e65c00,
+    #d14d02,
+    #bd3e03,
+    #a82f03,
+    #8d3503,
+    #743608,
+    #5d3410,
+    #483018
+  );
   * {
     color: $text-white-color;
   }
 }
 
 .mat-nav-list a.active {
-  background: rgb(23, 119, 205);
-  background: linear-gradient(90deg, $bg1 0%, $bg2 43%, $bg3 100%);
+  background-image: linear-gradient(
+    to left bottom,
+    #f5f60d,
+    #fad000,
+    #f9aa00,
+    #f38300,
+    #e65c00,
+    #d14d02,
+    #bd3e03,
+    #a82f03,
+    #8d3503,
+    #743608,
+    #5d3410,
+    #483018
+  );
   * {
     color: $text-white-color;
   }

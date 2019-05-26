@@ -5,4 +5,5 @@ export interface UserStateModel {
   role: number;
   token?: string;
   image_path: string | null;
+  department_id?: number;
 }

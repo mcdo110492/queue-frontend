@@ -1,17 +1,49 @@
-.token-view-bg {
-  background-image: linear-gradient(
-    to left bottom,
-    #f5f60d,
-    #fad000,
-    #f9aa00,
-    #f38300,
-    #e65c00,
-    #d14d02,
-    #bd3e03,
-    #a82f03,
-    #8d3503,
-    #743608,
-    #5d3410,
-    #483018
-  );
+.issue-token-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.issue-token {
+  max-width: 1000px;
+  height: 400px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.issue-logo {
+  width: 90px;
+  height: 90px;
+}
+
+.issue-text {
+  text-transform: uppercase;
+  font-family: "Google Sans", arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.3333;
+  letter-spacing: 5px;
+}
+
+.issue-form {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.issue-btn {
+  height: 80px;
+  width: auto;
+  margin-right: 20px;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
 }

@@ -2,7 +2,7 @@
   <mat-toolbar class="title-toolbar primary-card">Past Queue</mat-toolbar>
   <div
     class="counter-card"
-    *ngFor="let token of (pastTokens$ | async); trackBy: trackById"
+    *ngFor="let token of pastTokens$ | async; trackBy: trackById"
   >
     <mat-card class="card-1 ">
       <div class="header">
@@ -14,14 +14,10 @@
     </mat-card>
     <mat-card [ngClass]="[generateCardBg(), 'card-2']">
       <div class="header">
-        Counter
+        {{ token?.latest_user?.user_counter?.counter?.department.code }}
       </div>
       <div class="body">
-        {{
-          getCounterNumber(
-            token?.latest_user?.user_counter?.counter?.counter_name
-          )
-        }}
+        {{ token?.latest_user?.user_counter?.counter?.position }}
       </div>
     </mat-card>
   </div>

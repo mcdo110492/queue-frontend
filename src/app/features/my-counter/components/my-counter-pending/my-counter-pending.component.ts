@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { TokenModel } from "@features/my-counter/models";
 import { TokenFacadeService } from "@features/my-counter/facades/token-facade.service";
 import { NotificationSoundService } from "@shared/services/notification-sound/notification-sound.service";
+import { AuthFacadesService } from "@core/facades/auth-facades.service";
 
 @Component({
   selector: "csab-my-counter-pending",
@@ -35,7 +36,8 @@ export class MyCounterPendingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    window.Laravel.private("ticket-call").listen(
+    const department_id = this.authFacade.departmentIdSnapShot();
+    window.Laravel.private(`ticket-call.${department_id}`).listen(
       "ProcessTicketCall",
       (e: { id: number; priority: number }) => {
         const { id, priority } = e;
@@ -43,7 +45,7 @@ export class MyCounterPendingComponent implements OnInit, OnDestroy {
       }
     );
 
-    window.Laravel.private("ticket-back-to-queue").listen(
+    window.Laravel.private(`ticket-back-to-queue.${department_id}`).listen(
       "ProcessTicketBackToQueue",
       (e: { id: number; priority: number }) => {
         const { id, priority } = e;
@@ -52,7 +54,7 @@ export class MyCounterPendingComponent implements OnInit, OnDestroy {
       }
     );
 
-    window.Laravel.private("issue-ticket").listen(
+    window.Laravel.private(`issue-ticket.${department_id}`).listen(
       "ProcessIssueToken",
       (e: { token: TokenModel }) => {
         this.facade.addIssueTokenWS(e.token);
@@ -69,7 +71,8 @@ export class MyCounterPendingComponent implements OnInit, OnDestroy {
 
   constructor(
     private facade: TokenFacadeService,
-    private notif: NotificationSoundService
+    private notif: NotificationSoundService,
+    private authFacade: AuthFacadesService
   ) {
     this.normalTokens$ = this.facade.normalTokens$;
     this.priorityTokens$ = this.facade.priorityTokens$;

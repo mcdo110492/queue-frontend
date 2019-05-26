@@ -1,42 +1,57 @@
-<div class="issue-token-container no-print">
-  <mat-card class="issue-token mat-elevation-z8">
-    <img class="issue-logo" src="./assets/csab-logo.png" alt="Logo Text" />
-    <h3 class="issue-text">Welcome to Colegio San Agustin - Bacolod</h3>
-    <h4 class="issue-text">Get token here</h4>
-    <div class="issue-form">
+<div class="token-view-bg">
+  <div class="issue-token-container no-print">
+    <mat-card class="issue-token mat-elevation-z8">
       <button
         mat-raised-button
-        color="primary"
-        class="issue-btn"
-        (click)="generateTicket(0)"
+        color="warn"
+        class="back-btn"
+        routerLink="/display/issue/token"
       >
-        GET TOKEN
+        <mat-icon>arrow_back</mat-icon>Back
       </button>
+      <img class="issue-logo" src="./assets/csab-logo.png" alt="Logo Text" />
+      <h3 class="issue-text">Welcome to Colegio San Agustin - Bacolod</h3>
+      <h4 class="issue-text">
+        Get Token For
+      </h4>
+      <h5 class="issue-text" *ngIf="routerParams$ | async; let param">
+        {{ param.department_name }}
+      </h5>
+      <div class="issue-form">
+        <button
+          mat-raised-button
+          color="primary"
+          class="issue-btn"
+          (click)="generateTicket(0)"
+        >
+          GET TOKEN
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="issue-btn"
+          (click)="generateTicket(1)"
+        >
+          GET PRIORITY TOKEN
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+  <ng-template #alertIssueDialog>
+    <div mat-dialog-content>
+      <p>{{ ticketTypeText | uppercase }}?</p>
+    </div>
+    <div mat-dialog-actions align="center">
+      <button mat-button [mat-dialog-close]="false" color="warn">No</button>
       <button
         mat-raised-button
-        color="accent"
-        class="issue-btn"
-        (click)="generateTicket(1)"
+        [color]="priorityColor"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
       >
-        GET PRIORITY TOKEN
+        Yes
       </button>
     </div>
-  </mat-card>
+  </ng-template>
 </div>
-
-<ng-template #alertIssueDialog>
-  <div mat-dialog-content>
-    <p>{{ ticketTypeText | uppercase }}?</p>
-  </div>
-  <div mat-dialog-actions align="center">
-    <button mat-button [mat-dialog-close]="false" color="warn">No</button>
-    <button
-      mat-raised-button
-      [color]="priorityColor"
-      [mat-dialog-close]="true"
-      cdkFocusInitial
-    >
-      Yes
-    </button>
-  </div>
-</ng-template>

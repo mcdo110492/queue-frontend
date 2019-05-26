@@ -8,7 +8,6 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 import { IssueTokenFacadeService } from "@features/issue-token/facades/issue-token-facade.service";
 
@@ -20,6 +19,7 @@ import { IssueTokenFacadeService } from "@features/issue-token/facades/issue-tok
 })
 export class IssueTokenFormComponent {
   isSaving$: Observable<boolean>;
+  routerParams$: Observable<any>;
   priorityColor: string = "primary";
   ticketTypeText: string = "Would you like to get a ticket";
 
@@ -50,5 +50,6 @@ export class IssueTokenFormComponent {
     private facade: IssueTokenFacadeService
   ) {
     this.isSaving$ = this.facade.isSaving$;
+    this.routerParams$ = this.facade.routerParams$;
   }
 }

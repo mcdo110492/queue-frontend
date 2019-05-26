@@ -55,7 +55,8 @@ export class UserManagementTableComponent implements OnInit {
       name: "department",
       label: "Department",
       isBtn: false,
-      cell: (elem: UserManagementModel) => `${elem.department.name}`
+      cell: (elem: UserManagementModel) =>
+        elem.department ? elem.department.name : ""
     },
     {
       name: "update",

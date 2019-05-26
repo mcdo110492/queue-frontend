@@ -1,8 +1,3 @@
-$primary-color: #22252c;
-$accent-color: #3f3250;
-$warn-color: #e14658;
-$white-text: #ffffff;
-
 .container {
   box-sizing: border-box;
   position: relative;
@@ -37,6 +32,8 @@ $white-text: #ffffff;
 
 .card-2 {
   flex: 0 0 50%;
+  background-color: #cf140e;
+  color: #fffaff;
 }
 
 .header {
@@ -45,21 +42,6 @@ $white-text: #ffffff;
 
 .body {
   font-size: 8vw;
-}
-
-.primary-card {
-  background-color: $primary-color;
-  color: $white-text;
-}
-
-.accent-card {
-  background-color: $accent-color;
-  color: $white-text;
-}
-
-.warn-card {
-  background-color: $warn-color;
-  color: $white-text;
 }
 
 /* Desktops and laptops ----------- */

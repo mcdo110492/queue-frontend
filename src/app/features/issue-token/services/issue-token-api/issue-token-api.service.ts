@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { environment } from "@env/environment";
 import { Observable } from "rxjs";
-import { IssueTokenModel } from "@features/issue-token/models";
+import { IssueTokenModel, DepartmentModel } from "@features/issue-token/models";
 import { MatDialog } from "@angular/material/dialog";
 import { IssueTokenPrintDialogComponent } from "@features/issue-token/components/issue-token-print-dialog/issue-token-print-dialog.component";
 
@@ -35,6 +35,12 @@ export class IssueTokenApiService {
       height: "288px",
       hasBackdrop: false
     });
+  }
+
+  loadDepartments() {
+    return this.http.get<{
+      payload: { count: number; data: DepartmentModel[] };
+    }>(`${this.baseApi}/departments`);
   }
 
   constructor(private http: HttpClient, private dialog: MatDialog) {}
