@@ -1,13 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { FormlyFieldConfig } from "@ngx-formly/core";
 import { CounterUserFormConfigService } from "@features/counter-user/services";
 
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { take, filter } from "rxjs/operators";
 
-import { CounterUserModel } from "@features/counter-user/models";
+import {
+  CounterUserModel,
+  DepartmentModel
+} from "@features/counter-user/models";
 import { CounterUserFacadeService } from "@features/counter-user/facades/counter-user-facade.service";
 
 import { CounterModel } from "@features/counter/models";
@@ -19,7 +27,8 @@ import { UserStateModel } from "@core/models";
   styleUrls: ["./counter-user-form.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CounterUserFormComponent implements OnInit {
+export class CounterUserFormComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   form: FormGroup = new FormGroup({});
   model: CounterUserModel = {
     id: null,
@@ -30,13 +39,19 @@ export class CounterUserFormComponent implements OnInit {
   isSaving$: Observable<boolean>;
   counters$: Observable<CounterModel[]>;
   users$: Observable<UserStateModel[]>;
+  departments$: Observable<DepartmentModel[]>;
 
   ngOnInit() {
     this.isSaving$ = this.facade.isSaving$;
     this.counters$ = this.facade.counters$;
     this.users$ = this.facade.users$;
+    this.departments$ = this.facade.departments$;
 
-    let options = { counters$: this.counters$, users$: this.users$ };
+    const options = {
+      counters$: this.counters$,
+      users$: this.users$,
+      departments$: this.departments$
+    };
 
     this.facade.selectedCounterUser$
       .pipe(
@@ -49,6 +64,15 @@ export class CounterUserFormComponent implements OnInit {
       });
 
     this.fields = this.service.generateFields(this.model.id, options);
+
+    setTimeout(() => {
+      this.subscription = this.form
+        .get("department_id")
+        .valueChanges.subscribe(department_id => {
+          this.facade.loadCounterOptions(department_id);
+          this.facade.loadUserOptions(department_id);
+        });
+    }, 100);
   }
 
   save() {
@@ -63,11 +87,14 @@ export class CounterUserFormComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   constructor(
     private service: CounterUserFormConfigService,
     private facade: CounterUserFacadeService
   ) {
-    this.facade.loadCounterOptions();
-    this.facade.loadUserOptions();
+    this.facade.loadDepartments();
   }
 }

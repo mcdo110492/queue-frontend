@@ -1,4 +1,4 @@
-import { CounterUserModel } from "../models";
+import { CounterUserModel, DepartmentModel } from "../models";
 import { CounterModel } from "@features/counter/models";
 import { UserStateModel } from "@core/models";
 
@@ -40,6 +40,11 @@ export class AddCounterOptions {
 export class AddUserOptions {
   static readonly type = "[CounterUser] User Options";
   constructor(public payload: { users: UserStateModel[] }) {}
+}
+
+export class AddDepartmentOptions {
+  static readonly type = "[CounterUser] Department Options";
+  constructor(public payload: { departments: DepartmentModel[] }) {}
 }
 
 export class DoNothingActions {

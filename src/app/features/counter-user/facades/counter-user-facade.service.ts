@@ -12,10 +12,11 @@ import {
   UpdateCounterUser,
   AddCounterOptions,
   AddUserOptions,
-  DoNothingActions
+  DoNothingActions,
+  AddDepartmentOptions
 } from "./../state/counter-user.actions";
 import { CounterUserState } from "../state/counter-user.state";
-import { CounterUserModel } from "../models";
+import { CounterUserModel, DepartmentModel } from "../models";
 
 import { Observable, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
@@ -40,32 +41,29 @@ export class CounterUserFacadeService {
   selectedCounterUser$: Observable<CounterUserModel>;
   @Select(CounterUserState.counters) counters$: Observable<CounterModel[]>;
   @Select(CounterUserState.users) users$: Observable<UserStateModel[]>;
+  @Select(CounterUserState.departments) departments$: Observable<
+    DepartmentModel[]
+  >;
 
   @Dispatch() loading = (loading: boolean) => new IsLoading(loading);
   @Dispatch() saving = (saving: boolean) => new IsSaving(saving);
 
-  @Dispatch() loadCounterOptions = () => {
-    const count = this.store.selectSnapshot(CounterUserState.counterCount);
-
-    if (count === 0) {
-      return this.api
-        .loadCounters()
-        .pipe(map(counters => new AddCounterOptions({ counters })));
-    }
-
-    return of(new DoNothingActions());
+  @Dispatch() loadDepartments = () => {
+    return this.api
+      .loadDepartments()
+      .pipe(map(departments => new AddDepartmentOptions({ departments })));
   };
 
-  @Dispatch() loadUserOptions = () => {
-    const count = this.store.selectSnapshot(CounterUserState.userCount);
+  @Dispatch() loadCounterOptions = (department_id: number) => {
+    return this.api
+      .loadCounters(department_id)
+      .pipe(map(counters => new AddCounterOptions({ counters })));
+  };
 
-    if (count === 0) {
-      return this.api
-        .loadUsers()
-        .pipe(map(users => new AddUserOptions({ users })));
-    }
-
-    return of(new DoNothingActions());
+  @Dispatch() loadUserOptions = (department_id: number) => {
+    return this.api
+      .loadUsers(department_id)
+      .pipe(map(users => new AddUserOptions({ users })));
   };
 
   @Dispatch() loadCountersUser = () => {

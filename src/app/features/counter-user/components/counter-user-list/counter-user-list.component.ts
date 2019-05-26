@@ -23,7 +23,8 @@ export class CounterUserListComponent {
       name: "counter_name",
       label: "Counter",
       isBtn: false,
-      cell: (elem: any) => `${elem.counter.counter_name}`
+      cell: (elem: any) =>
+        `${elem.counter.department.code} - ${elem.counter.position}`
     },
     {
       name: "username",

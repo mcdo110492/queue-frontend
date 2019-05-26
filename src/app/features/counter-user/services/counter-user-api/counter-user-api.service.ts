@@ -9,7 +9,8 @@ import { map } from "rxjs/operators";
 import {
   CounterUserModel,
   CounterUserReponseGetModel,
-  CounterUserResponseCreateUpdateModel
+  CounterUserResponseCreateUpdateModel,
+  DepartmentModel
 } from "@features/counter-user/models";
 import { CounterModel, CounterReponseGetModel } from "@features/counter/models";
 import { UserStateModel } from "@core/models";
@@ -20,7 +21,7 @@ export class CounterUserApiService {
 
   getCountersUser(): Observable<CounterUserReponseGetModel> {
     return this.http.get<CounterUserReponseGetModel>(
-      `${this.baseApi}/counters/users`
+      `${this.baseApi}/counters/users/all`
     );
   }
 
@@ -42,15 +43,25 @@ export class CounterUserApiService {
     );
   }
 
-  loadCounters(): Observable<CounterModel[]> {
+  loadDepartments(): Observable<DepartmentModel[]> {
     return this.http
-      .get<CounterReponseGetModel>(`${this.baseApi}/counters`)
+      .get<{ payload: { count: number; data: DepartmentModel[] } }>(
+        `${this.baseApi}/departments`
+      )
       .pipe(map(response => response.payload.data));
   }
 
-  loadUsers(): Observable<UserStateModel[]> {
+  loadCounters(department_id: number): Observable<CounterModel[]> {
     return this.http
-      .get<{ payload: { data: UserStateModel[] } }>(`${this.baseApi}/users`)
+      .get<CounterReponseGetModel>(`${this.baseApi}/counters/${department_id}`)
+      .pipe(map(response => response.payload.data));
+  }
+
+  loadUsers(department_id: number): Observable<UserStateModel[]> {
+    return this.http
+      .get<{ payload: { data: UserStateModel[] } }>(
+        `${this.baseApi}/users/all/${department_id}`
+      )
       .pipe(map(response => response.payload.data));
   }
 

@@ -10,6 +10,7 @@ import { UniqueValidatorService } from "@core/services/unique-validator/unique-v
 
 import { CounterModel } from "@features/counter/models";
 import { UserStateModel } from "@core/models";
+import { DepartmentModel } from "@features/counter-user/models";
 
 @Injectable()
 export class CounterUserFormConfigService {
@@ -18,6 +19,7 @@ export class CounterUserFormConfigService {
     options: {
       counters$: Observable<CounterModel[]>;
       users$: Observable<UserStateModel[]>;
+      departments$: Observable<DepartmentModel[]>;
     }
   ): FormlyFieldConfig[] {
     const url: string = "counters/users/validate";
@@ -32,12 +34,26 @@ export class CounterUserFormConfigService {
         hide: true
       },
       {
+        key: "department_id",
+        type: "select",
+        templateOptions: {
+          label: "Department",
+          valueProp: "id",
+          labelProp: "name",
+          placeholder: "Select",
+          options: options.departments$,
+          required: true,
+          appearance: "outline"
+        },
+        focus: true
+      },
+      {
         key: "counter_id",
         type: "select",
         templateOptions: {
           label: "Counter",
           valueProp: "id",
-          labelProp: "counter_name",
+          labelProp: "position",
           placeholder: "Select",
           options: options.counters$,
           required: true,
@@ -57,8 +73,7 @@ export class CounterUserFormConfigService {
                   )
                 )
           ]
-        },
-        focus: true
+        }
       },
       {
         key: "user_id",
