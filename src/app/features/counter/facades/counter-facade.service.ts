@@ -57,15 +57,9 @@ export class CounterFacadeService {
   };
 
   @Dispatch() loadDepartmentOptions = () => {
-    const count = this.store.selectSnapshot(CounterState.departmentCount);
-
-    if (count === 0) {
-      return this.api
-        .loadDepartments()
-        .pipe(map(departments => new AddDepartmentOptions({ departments })));
-    }
-
-    return of(new DoNothingActions());
+    return this.api
+      .loadDepartments()
+      .pipe(map(departments => new AddDepartmentOptions({ departments })));
   };
 
   @Dispatch() createCounter = (payload: { counter: CounterModel }) => {

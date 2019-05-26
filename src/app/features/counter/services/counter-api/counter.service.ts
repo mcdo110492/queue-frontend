@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "@env/environment";
 
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 import {
   CounterModel,
@@ -11,7 +12,6 @@ import {
   CounterResponseCreateUpdateModel
 } from "@features/counter/models";
 import { DepartmentModel } from "@features/counter/models/department.model";
-import { map } from "rxjs/operators";
 
 @Injectable()
 export class CounterService {

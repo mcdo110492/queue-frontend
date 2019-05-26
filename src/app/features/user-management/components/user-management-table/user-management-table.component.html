@@ -1,3 +1,19 @@
-<p>
-  user-management-table works!
-</p>
+<csab-page-title pageTitle="User List">
+  <button type="button" mat-raised-button color="primary" (click)="create()">
+    <mat-icon>add</mat-icon>Add New User
+  </button>
+</csab-page-title>
+
+<mat-card class="mat-elevation-z8">
+  <csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
+  </csab-search-bar>
+</mat-card>
+
+<csab-custom-mat-table
+  [displayedColumns]="displayedColumns"
+  [columns]="columns"
+  [data]="datas$ | async"
+  [searchTerms]="searchTerms"
+  [isLoading]="isLoading$ | async"
+  (btnClick)="update($event)"
+></csab-custom-mat-table>

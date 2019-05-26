@@ -1,11 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { UserManagementContainerComponent } from "./components/user-management-container/user-management-container.component";
+import { UserManagementTableComponent } from "./components";
 
-const routes: Routes = [
-  { path: "", component: UserManagementContainerComponent }
-];
+const routes: Routes = [{ path: "", component: UserManagementTableComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
