@@ -7,6 +7,12 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
     title: "Dashboard",
     icon: "dashboard"
   },
+  {
+    isHeader: false,
+    link: "/app/departments",
+    title: "Departments",
+    icon: "view_list"
+  },
   { isHeader: true, link: "", title: "Counter" },
   {
     isHeader: false,
@@ -64,6 +70,13 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
     link: "/app/media/ads",
     title: "Media Ads",
     icon: "live_tv"
+  },
+  { isHeader: true, link: "", title: "User Settings" },
+  {
+    isHeader: false,
+    link: "/app/user/manage",
+    title: "User Management",
+    icon: "supervised_user_circle"
   },
   { isHeader: true, link: "", title: "Settings" },
 

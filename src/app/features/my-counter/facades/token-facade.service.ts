@@ -190,7 +190,7 @@ export class TokenFacadeService {
   @Dispatch() callAgainToken = (id: number, token: any) => {
     const dialog = this.alertDialog.open({
       title: `Calling Token #${token}`,
-      content: "Would you like to call again this token?"
+      content: "Would you like to recall this token?"
     });
 
     return dialog.afterClosed().pipe(

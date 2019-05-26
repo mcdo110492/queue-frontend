@@ -24,6 +24,11 @@ export const APP_ROUTES: Routes = [
           "src/app/features/dashboard/dashboard.module#DashboardModule"
       },
       {
+        path: "departments",
+        loadChildren:
+          "src/app/features/departments/departments.module#DepartmentsModule"
+      },
+      {
         path: "counter/list",
         loadChildren: "src/app/features/counter/counter.module#CounterModule"
       },
@@ -41,6 +46,15 @@ export const APP_ROUTES: Routes = [
         path: "announcement/list",
         loadChildren:
           "src/app/features/announcements/announcements.module#AnnouncementsModule"
+      },
+      {
+        path: "media/ads",
+        loadChildren: "src/app/features/media/media.module#MediaModule"
+      },
+      {
+        path: "user/manage",
+        loadChildren:
+          "src/app/features/user-management/user-management.module#UserManagementModule"
       },
       { path: "**", component: PageNotFoundComponent }
     ]

@@ -1,0 +1,30 @@
+<form [formGroup]="form" (submit)="save()" novalidate>
+  <h2 mat-dialog-title>Department Form</h2>
+  <mat-dialog-content>
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <ng-container *ngIf="!(isSaving$ | async)">
+      <button type="button" mat-button mat-dialog-close tabindex="-1">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        mat-raised-button
+        [disabled]="form.invalid"
+        color="primary"
+      >
+        Save
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isSaving$ | async">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        strokeWidth="3"
+        diameter="50"
+      >
+      </mat-progress-spinner>
+    </ng-container>
+  </mat-dialog-actions>
+</form>
