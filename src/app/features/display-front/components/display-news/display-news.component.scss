@@ -10,7 +10,7 @@
 }
 
 .marquee {
-  margin: 0 auto;
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   max-width: 800px;
@@ -38,19 +38,19 @@
 /* Desktops and laptops ----------- */
 @media only screen and (min-width: 768px) {
   .marquee {
-    width: 350px;
+    width: 250px;
   }
 }
 
 @media only screen and (min-width: 1224px) {
   .marquee {
-    width: 500px;
+    width: 430px;
   }
 }
 
 /* Large screens ----------- */
 @media only screen and (min-width: 1824px) {
   .marquee {
-    width: 800px;
+    width: 600px;
   }
 }

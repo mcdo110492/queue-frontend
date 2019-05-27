@@ -7,7 +7,7 @@
     <mat-chip color="accent" selected>priority</mat-chip>
   </mat-chip-list>
 
-  <div class="counter">
+  <div class="counter" *ngIf="token.latest_user">
     proceed to
     {{ token?.latest_user?.user_counter?.counter?.department.code }}
     {{ token?.latest_user?.user_counter?.counter?.position }}

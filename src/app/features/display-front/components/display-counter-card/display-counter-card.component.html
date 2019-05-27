@@ -1,24 +1,38 @@
 <div class="container">
-  <mat-toolbar class="title-toolbar primary-card">Past Queue</mat-toolbar>
-  <div
-    class="counter-card"
-    *ngFor="let token of pastTokens$ | async; trackBy: trackById"
-  >
-    <mat-card class="card-1 ">
-      <div class="header">
-        Token Number
-      </div>
-      <div class="body">
-        {{ token.ticket_number }}
-      </div>
-    </mat-card>
-    <mat-card [ngClass]="[generateCardBg(), 'card-2']">
-      <div class="header">
+  <mat-grid-list cols="2" rowHeight="3:1">
+    <mat-grid-tile class="card-1 mat-elevation-z6 normal-token">
+      <span class="title-text">TOKEN NUMBER</span>
+    </mat-grid-tile>
+    <mat-grid-tile class="card-2 mat-elevation-z6 normal-token">
+      <span class="title-text">COUNTER</span>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="2" rowHeight="3:1" class="counter-card">
+    <ng-container *ngFor="let token of pastTokens$ | async; trackBy: trackById">
+      <mat-grid-tile
+        [ngClass]="{
+          'card-1': true,
+          'mat-elevation-z6': true,
+          'number-text': true,
+          'normal-token': token.priority === 0,
+          'priority-token': token.priority === 1
+        }"
+      >
+        #{{ token.ticket_number }}
+      </mat-grid-tile>
+      <mat-grid-tile
+        [ngClass]="{
+          'card-1': true,
+          'mat-elevation-z6': true,
+          'counter-text': true,
+          'normal-token': token.priority === 0,
+          'priority-token': token.priority === 1
+        }"
+      >
         {{ token?.latest_user?.user_counter?.counter?.department.code }}
-      </div>
-      <div class="body">
         {{ token?.latest_user?.user_counter?.counter?.position }}
-      </div>
-    </mat-card>
-  </div>
+      </mat-grid-tile>
+    </ng-container>
+  </mat-grid-list>
 </div>

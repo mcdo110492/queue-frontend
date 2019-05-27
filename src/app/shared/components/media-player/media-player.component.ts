@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy, Input } from "@angular/core";
 import { VgAPI } from "videogular2/core";
 
 import { MediaPlayerModel } from "./models/media-player.model";
+import { environment } from "@env/environment";
 
 @Component({
   selector: "csab-media-player",
@@ -10,6 +11,7 @@ import { MediaPlayerModel } from "./models/media-player.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaPlayerComponent {
+  private ftpLink: string = environment.ftp;
   @Input() sources: MediaPlayerModel[];
   api: VgAPI;
   currentIndex: number = 0;
@@ -28,6 +30,10 @@ export class MediaPlayerComponent {
 
   playVideo() {
     this.api.play();
+  }
+
+  getSourcesLink(src: string) {
+    return `${this.ftpLink}${src}`;
   }
 
   nextVideo() {

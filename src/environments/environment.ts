@@ -6,7 +6,7 @@ const url: string = "localhost";
 
 export const environment = {
   production: false,
-  serverUrl: `http://${url}:8000`,
+  ftp: `http://${url}:8000/storage/`,
   baseApi: `http://${url}:8000/api`,
   pusher: {
     key: "f630319ba09a2fc10e69",

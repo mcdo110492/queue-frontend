@@ -19,6 +19,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatGridListModule } from "@angular/material/grid-list";
 
 import { VgCoreModule } from "videogular2/core";
 import { VgControlsModule } from "videogular2/controls";
@@ -45,7 +46,8 @@ const MATERIAL_MODULES: any[] = [
   MatToolbarModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatGridListModule
 ];
 
 const VIDEOGULAR_MODULES: any[] = [

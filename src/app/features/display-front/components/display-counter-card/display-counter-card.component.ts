@@ -11,15 +11,6 @@ import { DisplayFrontFacadeService } from "@features/display-front/facades";
 })
 export class DisplayCounterCardComponent {
   pastTokens$: Observable<TokenModel[]>;
-  cardBg: any[] = ["primary-card", "accent-card", "warn-card"];
-
-  generateCardBg() {
-    return this.cardBg[(Math.random() * this.cardBg.length) | 0];
-  }
-
-  getCounterNumber(counter: string) {
-    return counter.replace(/\D/g, "");
-  }
 
   trackById(index: any, token: TokenModel) {
     return token ? token.id : undefined;

@@ -3,31 +3,30 @@
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
 
 .counter-card {
-  flex: 0 0 80%;
-  width: 420px;
-  margin-top: 20px;
-  height: 150px;
-  display: flex;
-  flex-direction: row;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   text-align: center;
 }
 
-.title-toolbar {
-  text-transform: uppercase;
-  font-size: 2vw;
-  justify-content: center;
-}
-
 .card-1 {
   flex: 0 0 50%;
+}
+
+.title-text {
+  font-size: 2vw;
+  letter-spacing: 2px;
+}
+
+.number-text {
+  font-size: 6vw;
+}
+
+.counter-text {
+  font-size: 5vw;
 }
 
 .card-2 {
@@ -36,12 +35,14 @@
   color: #fffaff;
 }
 
-.header {
-  font-size: 2vw;
+.normal-token {
+  background: #22252c;
+  color: #ffffffea;
 }
 
-.body {
-  font-size: 8vw;
+.priority-token {
+  background: #f5f60d;
+  color: rgb(0, 0, 0);
 }
 
 /* Desktops and laptops ----------- */

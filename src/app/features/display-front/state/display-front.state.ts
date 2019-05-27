@@ -71,8 +71,8 @@ export class DisplayFrontState {
 
   @Selector()
   static getPastToken(state: DisplayFrontStateModel) {
-    const firstThree = state.tokenIds.slice(1, 4);
-    return firstThree.map(id => state.tokens[id]);
+    const firstFive = state.tokenIds.slice(1, 6);
+    return firstFive.map(id => state.tokens[id]);
   }
 
   @Action(AddAnnouncements)
