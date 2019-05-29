@@ -1,1 +1,12 @@
-<button mat-raised-button (click)="openUploadDialog()">Upload</button>
+<csab-page-title pageTitle="Media List">
+  <button
+    type="button"
+    mat-raised-button
+    color="primary"
+    (click)="openUploadDialog()"
+  >
+    <mat-icon>add</mat-icon>Upload New Media
+  </button>
+</csab-page-title>
+
+<csab-media-list-table></csab-media-list-table>

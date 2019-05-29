@@ -3,11 +3,14 @@ import {
   HttpClient,
   HttpRequest,
   HttpEventType,
-  HttpResponse
+  HttpResponse,
+  HttpErrorResponse
 } from "@angular/common/http";
 
 import { Observable, Subject } from "rxjs";
 import { environment } from "@env/environment";
+import { SnackBarService } from "@core/services/snack-bar/snack-bar.service";
+import { MatDialog } from "@angular/material";
 
 @Injectable()
 export class UploadService {
@@ -27,13 +30,21 @@ export class UploadService {
 
       const progress = new Subject<number>();
 
-      this.http.request(req).subscribe(event => {
+      this.http.request(req).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round((100 * event.loaded) / event.total);
 
           progress.next(percentDone);
         } else if (event instanceof HttpResponse) {
           progress.complete();
+        }
+
+        if (event.status === 422) {
+          this.snack.customSnackBar(
+            "info",
+            "Error uploading your file(s). Make sure you have a correct file format"
+          );
+          this.dialog.getDialogById("file-upload-dialog").close();
         }
       });
 
@@ -43,5 +54,9 @@ export class UploadService {
     });
     return status;
   }
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private snack: SnackBarService,
+    private dialog: MatDialog
+  ) {}
 }
