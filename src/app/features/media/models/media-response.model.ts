@@ -7,3 +7,7 @@ export interface MediaGetReponseModel {
 export interface MediaUpdateResponseModel {
   payload: { data: MediaModel };
 }
+
+export interface MediaRemoveResponseModel {
+  payload: { status: number; message: string };
+}

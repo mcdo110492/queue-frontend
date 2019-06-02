@@ -1,14 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ChangeDetectionStrategy
-} from "@angular/core";
+import { Component, Inject, ChangeDetectionStrategy } from "@angular/core";
 
 import { MAT_DIALOG_DATA } from "@angular/material";
 
-import { MediaPlayerModel } from "@shared/components/media-player/models/media-player.model";
 import { MediaModel } from "@features/media/models/media.model";
+
+import { environment } from "@env/environment";
 
 @Component({
   selector: "csab-media-view-modal",
@@ -16,17 +12,7 @@ import { MediaModel } from "@features/media/models/media.model";
   styleUrls: ["./media-view-modal.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MediaViewModalComponent implements OnInit {
-  sources: MediaPlayerModel[];
+export class MediaViewModalComponent {
+  ftpServer: string = environment.ftp;
   constructor(@Inject(MAT_DIALOG_DATA) public data: MediaModel) {}
-
-  ngOnInit() {
-    this.sources = [
-      {
-        id: this.data.id,
-        media_type: this.data.media_type,
-        source: this.data.source
-      }
-    ];
-  }
 }

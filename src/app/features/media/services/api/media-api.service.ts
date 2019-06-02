@@ -7,7 +7,8 @@ import { Observable } from "rxjs";
 
 import {
   MediaGetReponseModel,
-  MediaUpdateResponseModel
+  MediaUpdateResponseModel,
+  MediaRemoveResponseModel
 } from "@features/media/models/media-response.model";
 import { MediaModel } from "@features/media/models/media.model";
 
@@ -21,8 +22,14 @@ export class MediaApiService {
 
   update(model: MediaModel): Observable<MediaUpdateResponseModel> {
     return this.http.put<MediaUpdateResponseModel>(
-      `${this.baseApi}/counters/${model.id}`,
+      `${this.baseApi}/media/${model.id}`,
       model
+    );
+  }
+
+  remove(model: MediaModel): Observable<MediaRemoveResponseModel> {
+    return this.http.delete<MediaRemoveResponseModel>(
+      `${this.baseApi}/media/${model.id}`
     );
   }
 

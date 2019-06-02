@@ -6,7 +6,8 @@ import {
   UpdateMedia,
   SelectMedia,
   IsLoading,
-  IsSaving
+  IsSaving,
+  RemoveMedia
 } from "./media.actions";
 
 import { MediaModel } from "./../models/media.model";
@@ -89,6 +90,17 @@ export class MediaState {
     produce(ctx, (draft: MediaStateModel) => {
       draft.entities[media.id] = media;
       draft.isSaving = false;
+    });
+  }
+
+  @Action(RemoveMedia)
+  removeMedia(
+    ctx: StateContext<MediaStateModel>,
+    { payload: { media } }: RemoveMedia
+  ) {
+    produce(ctx, (draft: MediaStateModel) => {
+      delete draft.entities[media.id];
+      draft.isLoading = false;
     });
   }
 }

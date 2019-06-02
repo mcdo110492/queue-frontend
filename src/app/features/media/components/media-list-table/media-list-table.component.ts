@@ -17,6 +17,10 @@ import { MediaFacadeService } from "@features/media/facades/media-facade.service
 
 import { MediaViewModalComponent } from "./../media-view-modal/media-view-modal.component";
 
+import { environment } from "@env/environment";
+import { MediaFormComponent } from "../media-form/media-form.component";
+import { AlertDialogService } from "@shared/services/alert-dialog/alert-dialog.service";
+
 @Component({
   selector: "csab-media-list-table",
   templateUrl: "./media-list-table.component.html",
@@ -28,15 +32,16 @@ export class MediaListTableComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   displayedColumns: string[] = [
     "id",
+    "source",
     "title",
     "media_type",
     "weight",
     "visibility",
-    "source",
     "actions"
   ];
   dataSource: MatTableDataSource<MediaModel> = new MatTableDataSource();
   searchTerms: string = "";
+  ftpServer: string = environment.ftp;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -86,14 +91,43 @@ export class MediaListTableComponent implements OnInit, OnDestroy {
   }
 
   viewMedia(model: MediaModel) {
-    const dialog = this.dialog.open(MediaViewModalComponent, {
-      id: "media-view-player-modal",
+    this.dialog.open(MediaViewModalComponent, {
+      id: "media-view-player-dialog",
       width: "auto",
+      height: "auto",
       data: model
     });
   }
 
-  constructor(private facade: MediaFacadeService, private dialog: MatDialog) {
+  update(id: number) {
+    this.dialog.open(MediaFormComponent, {
+      id: "media-form-dialog",
+      width: "auto",
+      height: "auto",
+      data: { id }
+    });
+    this.facade.selectMedia(id);
+  }
+
+  delete(media: MediaModel) {
+    const data: any = {
+      title: "You clicked a remove action",
+      content: `Would you like to remove this media with an id of ${media.id}?`
+    };
+    const dialog = this.alert.open(data);
+
+    dialog.afterClosed().subscribe(isYes => {
+      if (isYes) {
+        this.facade.removeMedia({ media });
+      }
+    });
+  }
+
+  constructor(
+    private facade: MediaFacadeService,
+    private dialog: MatDialog,
+    private alert: AlertDialogService
+  ) {
     this.isLoading$ = this.facade.isLoading$;
     this.facade.loadMedias();
   }

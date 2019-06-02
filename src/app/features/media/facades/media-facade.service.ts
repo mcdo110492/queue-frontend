@@ -8,7 +8,8 @@ import {
   SelectMedia,
   IsSaving,
   IsLoading,
-  DoNothingActions
+  DoNothingActions,
+  RemoveMedia
 } from "./../state/media.actions";
 import { MediaState } from "./../state/media.state";
 import { MediaModel } from "../models/media.model";
@@ -59,11 +60,36 @@ export class MediaFacadeService {
       map(media => {
         this.saving(false);
         this.snackBar.customSnackBar("success", "Updated", "OK");
-        this.dialog.getDialogById("counter-form-dialog").close();
+        this.dialog.getDialogById("media-form-dialog").close();
         return new UpdateMedia({ media });
       }),
       catchError(err => {
         this.saving(false);
+        this.snackBar.globalSnackBarError(err.status);
+        return of(new DoNothingActions());
+      })
+    );
+  };
+
+  @Dispatch() removeMedia = (payload: { media: MediaModel }) => {
+    this.loading(true);
+    return this.api.remove(payload.media).pipe(
+      map(result => result.payload),
+      map(response => {
+        if (response.status === 200) {
+          this.snackBar.customSnackBar(
+            "success",
+            `Media with an id of ${payload.media.id} has been deleted.`,
+            "OK"
+          );
+          return new RemoveMedia({ media: payload.media });
+        } else {
+          this.snackBar.customSnackBar("danger", "Something went wrong", "OK");
+          return new DoNothingActions();
+        }
+      }),
+      catchError(err => {
+        this.loading(false);
         this.snackBar.globalSnackBarError(err.status);
         return of(new DoNothingActions());
       })

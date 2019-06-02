@@ -20,6 +20,11 @@ export class UpdateMedia {
   constructor(public payload: { media: MediaModel }) {}
 }
 
+export class RemoveMedia {
+  static readonly type = "[Media] Remove Media";
+  constructor(public payload: { media: MediaModel }) {}
+}
+
 export class SelectMedia {
   static readonly type = "[Media] Select Media";
   constructor(public payload: number | string) {}

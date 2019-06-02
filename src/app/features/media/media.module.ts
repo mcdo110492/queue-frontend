@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { SharedModule } from "@shared/shared.module";
+import { UiFormlyModule } from "@ui-formly/ui-formly.module";
 
 import { MediaRoutingModule } from "./media-routing.module";
 
@@ -18,6 +19,7 @@ import { MediaState } from "./state/media.state";
     CommonModule,
     MediaRoutingModule,
     SharedModule,
+    UiFormlyModule,
     NgxsModule.forFeature([MediaState])
   ],
   providers: [...fromServices.services, ...fromFacades.facades],

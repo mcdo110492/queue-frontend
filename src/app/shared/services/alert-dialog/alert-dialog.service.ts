@@ -10,7 +10,8 @@ export class AlertDialogService {
     return this.dialog.open(AlertDialogComponent, {
       data,
       width: "auto",
-      height: "auto"
+      height: "auto",
+      id: "alert-dialog"
     });
   }
   constructor(private dialog: MatDialog) {}

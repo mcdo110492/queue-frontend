@@ -1,6 +1,12 @@
 <h2 mat-dialog-title>Media ID: {{ data.id }}</h2>
 <mat-dialog-content>
-  <csab-media-player [sources]="sources"></csab-media-player>
+  <video width="900" height="400" controls>
+    <source
+      src="{{ ftpServer }}{{ data.source }}"
+      type="{{ data.media_type }}"
+    />
+    Your browser does not support HTML5 video.
+  </video>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button type="button" mat-button mat-dialog-close tabindex="-1">

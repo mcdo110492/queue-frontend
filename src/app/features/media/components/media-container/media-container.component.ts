@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 
 import { FileUploadComponent } from "./../file-upload/file-upload.component";
+import { MediaFacadeService } from "@features/media/facades/media-facade.service";
 
 @Component({
   selector: "csab-media-container",
@@ -12,12 +13,16 @@ import { FileUploadComponent } from "./../file-upload/file-upload.component";
 })
 export class MediaContainerComponent {
   openUploadDialog() {
-    let dialogRef = this.dialog.open(FileUploadComponent, {
+    const dialog = this.dialog.open(FileUploadComponent, {
       width: "800px",
       height: "auto",
       id: "file-upload-dialog"
     });
+
+    dialog.afterClosed().subscribe(() => {
+      this.facade.loadMedias();
+    });
   }
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private facade: MediaFacadeService) {}
 }
