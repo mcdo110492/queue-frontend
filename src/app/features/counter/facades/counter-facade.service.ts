@@ -51,7 +51,7 @@ export class CounterFacadeService {
       catchError(err => {
         this.loading(false);
         this.snackBar.globalSnackBarError(err.status);
-        return of();
+        return of(new DoNothingActions());
       })
     );
   };
@@ -74,7 +74,7 @@ export class CounterFacadeService {
       catchError(err => {
         this.saving(false);
         this.snackBar.globalSnackBarError(err.status);
-        return of();
+        return of(new DoNothingActions());
       })
     );
   };
@@ -94,7 +94,7 @@ export class CounterFacadeService {
       catchError(err => {
         this.saving(false);
         this.snackBar.globalSnackBarError(err.status);
-        return of();
+        return of(new DoNothingActions());
       })
     );
   };

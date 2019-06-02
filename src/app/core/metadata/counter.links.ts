@@ -16,12 +16,6 @@ export const COUNTER_LINKS: SideBarLinksModel[] = [
   },
   {
     isHeader: false,
-    link: "/app/queue/token/list",
-    title: "Token List",
-    icon: "assignment"
-  },
-  {
-    isHeader: false,
     link: "/app/queue/token/reports",
     title: "Reports",
     icon: "assessment"

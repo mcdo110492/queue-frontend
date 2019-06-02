@@ -43,6 +43,11 @@ export const APP_ROUTES: Routes = [
           "src/app/features/my-counter/my-counter.module#MyCounterModule"
       },
       {
+        path: "queue/token/list",
+        loadChildren:
+          "src/app/features/token-list/token-list.module#TokenListModule"
+      },
+      {
         path: "announcement/list",
         loadChildren:
           "src/app/features/announcements/announcements.module#AnnouncementsModule"

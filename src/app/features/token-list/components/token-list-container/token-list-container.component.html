@@ -1,0 +1,26 @@
+<csab-page-title pageTitle="Token List"> </csab-page-title>
+
+<mat-card class="mat-elevation-z8">
+  <csab-search-bar placeholder="Search by Name" (searchTerms)="onkeyup($event)">
+  </csab-search-bar>
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select>
+      <mat-option
+        *ngFor="let stat of status"
+        [value]="stat.id"
+        (click)="changedStatus(stat.id)"
+      >
+        {{ stat.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<csab-custom-mat-table
+  [displayedColumns]="displayedColumns"
+  [columns]="columns"
+  [data]="datas$ | async"
+  [searchTerms]="searchTerms"
+  [isLoading]="isLoading$ | async"
+></csab-custom-mat-table>
