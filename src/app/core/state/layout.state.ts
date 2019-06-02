@@ -43,7 +43,8 @@ export class LayoutState {
     const links = this.service.createLinks(role);
 
     produce(ctx, (draft: LayoutStateModel) => {
-      links.forEach(link => draft.sidebarLinks.push(link));
+      draft.sidebarLinks = links;
+      //links.forEach(link => draft.sidebarLinks.push(link));
     });
   }
 
