@@ -181,8 +181,16 @@ router-outlet ~ * {
   }
 }
 
+@media print {
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+}
+
 @page {
-  size: 4in 4in;
+  size: 76mm 45mm;
   margin: 0;
 }
 

@@ -2,16 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const url: string = "localhost";
+const url: string = "localhost:8000";
 
 export const environment = {
   production: false,
-  ftp: `http://${url}:8000/storage/`,
-  baseApi: `http://${url}:8000/api`,
+  ftp: `http://${url}/storage/`,
+  baseApi: `http://${url}/api`,
   pusher: {
     key: "f630319ba09a2fc10e69",
     cluster: "mt1",
-    authEndpoint: `http://${url}:8000/broadcasting/auth`
+    authEndpoint: `http://${url}/broadcasting/auth`
   }
 };
 

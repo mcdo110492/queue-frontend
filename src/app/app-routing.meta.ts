@@ -48,6 +48,10 @@ export const APP_ROUTES: Routes = [
           "src/app/features/token-list/token-list.module#TokenListModule"
       },
       {
+        path: "queue/token/reports",
+        loadChildren: "src/app/features/reports/reports.module#ReportsModule"
+      },
+      {
         path: "announcement/list",
         loadChildren:
           "src/app/features/announcements/announcements.module#AnnouncementsModule"
@@ -56,6 +60,7 @@ export const APP_ROUTES: Routes = [
         path: "media/ads",
         loadChildren: "src/app/features/media/media.module#MediaModule"
       },
+
       {
         path: "user/manage",
         loadChildren:

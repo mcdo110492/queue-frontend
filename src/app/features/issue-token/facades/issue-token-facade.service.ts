@@ -36,6 +36,7 @@ export class IssueTokenFacadeService {
       state => state.router.state.params.department_id
     );
     const data = { priority, department_id };
+
     return this.service.generateToken(data).pipe(
       map(response => {
         this.saving(false);

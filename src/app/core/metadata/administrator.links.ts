@@ -1,12 +1,12 @@
 import { SideBarLinksModel } from "../models";
 
 export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
-  {
-    isHeader: false,
-    link: "/app/dashboard",
-    title: "Dashboard",
-    icon: "dashboard"
-  },
+  // {
+  //   isHeader: false,
+  //   link: "/app/dashboard",
+  //   title: "Dashboard",
+  //   icon: "dashboard"
+  // },
   {
     isHeader: false,
     link: "/app/departments",
@@ -80,12 +80,12 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
   },
   { isHeader: true, link: "", title: "Settings" },
 
-  {
-    isHeader: false,
-    link: "/app/settings/system",
-    title: "System Settings",
-    icon: "power_settings_new"
-  },
+  // {
+  //   isHeader: false,
+  //   link: "/app/settings/system",
+  //   title: "System Settings",
+  //   icon: "power_settings_new"
+  // },
   {
     isHeader: false,
     link: "/app/settings/profile",
