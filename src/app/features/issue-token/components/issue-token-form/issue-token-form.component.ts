@@ -31,7 +31,7 @@ export class IssueTokenFormComponent {
       this.ticketTypeText = "Would you like to get a priority token";
     } else {
       this.priorityColor = "primary";
-      this.ticketTypeText = "Would you like to get a token";
+      this.ticketTypeText = "Would you like to get a regular token";
     }
 
     const dialogRef = this.dialog.open(this.alertIssueDialog, {

@@ -58,7 +58,7 @@ export class MediaFormComponent implements OnInit {
   }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private dialogData: any,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private facade: MediaFacadeService,
     private fieldService: MediaFormConfigService
   ) {

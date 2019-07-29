@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 
+import Pusher from "pusher-js";
 import Echo from "laravel-echo";
 
 import { environment } from "@env/environment";
@@ -7,9 +8,11 @@ import { environment } from "@env/environment";
 declare global {
   interface Window {
     Laravel: any;
+    Pusher: any;
   }
 }
 
+window.Pusher = Pusher || {};
 window.Laravel = window.Laravel || {};
 
 @Injectable()

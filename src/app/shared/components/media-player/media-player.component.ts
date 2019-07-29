@@ -33,7 +33,7 @@ export class MediaPlayerComponent {
   }
 
   getSourcesLink(src: string) {
-    return `${this.ftpLink}${src}`;
+    return `${this.ftpLink}/${src}`;
   }
 
   nextVideo() {

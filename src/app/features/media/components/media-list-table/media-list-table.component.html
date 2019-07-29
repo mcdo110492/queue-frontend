@@ -4,7 +4,7 @@
 </mat-card>
 
 <div class="table-container mat-elevation-z8">
-  <div class="loader-overlay" *ngIf="isLoading">
+  <div class="loader-overlay" *ngIf="isLoading$ | async">
     <mat-progress-spinner
       color="primary"
       mode="indeterminate"

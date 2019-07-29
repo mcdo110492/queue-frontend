@@ -25,6 +25,7 @@ export class TokenListContainerComponent {
     "date_completed",
     "served_time",
     "department",
+    "counter",
     "user"
   ];
   columns: CustomMatTableModel[] = this.service.columns;

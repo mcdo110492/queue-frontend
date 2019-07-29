@@ -47,7 +47,7 @@ export class FileUploadComponent {
       allProgressObservables.push(this.progress[key].progress);
     }
 
-    this.primaryButtonText = "Finnish";
+    this.primaryButtonText = "Finish";
 
     this.canBeClosed = false;
     this.dialogRef.disableClose = true;

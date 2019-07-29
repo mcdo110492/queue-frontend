@@ -9,6 +9,10 @@ export interface TokenListModel {
     id: number;
     code: string;
     name: string;
+    counter: {
+      id: number;
+      position: number;
+    }
   };
   latest_user?: {
     id: number;

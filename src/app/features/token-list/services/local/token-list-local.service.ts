@@ -8,14 +8,14 @@ export class TokenListLocalService {
   getPriority(priority: number) {
     switch (priority) {
       case 0:
-        return "Normal";
+        return "Regular";
         break;
       case 1:
         return "Priority";
         break;
 
       default:
-        return "Normal";
+        return "Regular";
         break;
     }
   }
@@ -96,7 +96,14 @@ export class TokenListLocalService {
       label: "Department",
       isBtn: false,
       cell: (elem: TokenListModel) =>
-        elem.department ? `${elem.department.code}` : ""
+        elem.department ? `${elem.department.name}` : ""
+    },
+    {
+      name: "counter",
+      label: "Counter",
+      isBtn: false,
+      cell: (elem: TokenListModel) =>
+        elem.department ? `${elem.department.code} ${elem.department.counter.position}` : ""
     },
     {
       name: "user",
