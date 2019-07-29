@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  angular:
+    image: csab-queue-frontend
+    container_name: angular_container
+    build: .
+    ports:
+      - "80:80"
