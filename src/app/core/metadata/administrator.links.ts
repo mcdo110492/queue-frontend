@@ -24,7 +24,7 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
     isHeader: false,
     link: "/app/counter/assigned/user",
     title: "Assigned User",
-    icon: "supervised_user_circle"
+    icon: "person"
   },
   { isHeader: true, link: "", title: "Queueing" },
   {
@@ -76,7 +76,7 @@ export const ADMINISTRATOR_LINKS: SideBarLinksModel[] = [
     isHeader: false,
     link: "/app/user/manage",
     title: "User Management",
-    icon: "supervised_user_circle"
+    icon: "person_circle"
   },
   { isHeader: true, link: "", title: "Settings" },
 

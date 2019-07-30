@@ -2,6 +2,7 @@ export interface TokenModel {
   id: number;
   ticket_number: number;
   priority: number;
+  priority_type: string;
   status: number;
   latest_user: {
     id: number;

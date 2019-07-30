@@ -35,7 +35,8 @@ export class IssueTokenFacadeService {
     const department_id = this.store.selectSnapshot(
       state => state.router.state.params.department_id
     );
-    const data = { priority, department_id };
+    const priority_type = priority === 1 ? "pwd/senior citizen" : null;
+    const data = { priority, department_id, priority_type };
 
     return this.service.generateToken(data).pipe(
       map(response => {

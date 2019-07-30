@@ -8,13 +8,12 @@
     <h1 class="page-title">Colegio San Agustin - Bacolod</h1>
     <h2 class="ticket-title">Token Number</h2>
     <p class="ticket-number">{{ token.ticket_number }}</p>
-    <h3 class="ticket-priority-text" *ngIf="token.priority == 1">Priority</h3>
+    <h3 class="ticket-priority-text" *ngIf="token.priority == 1">
+      Priority
+    </h3>
     <h3 class="ticket-priority-text" *ngIf="token.priority == 0">Regular</h3>
     <div class="footer">
-      <div class="footer-content">
-        <p class="footer-text">People in waiting</p>
-        <p class="footer-number">{{ token.people_in_waiting }}</p>
-      </div>
+      <p class="footer-text">In waiting: {{ token.people_in_waiting }}</p>
     </div>
   </div>
 </div>

@@ -28,7 +28,8 @@ export class IssueTokenFormComponent {
   generateTicket(status: number) {
     if (status === 1) {
       this.priorityColor = "accent";
-      this.ticketTypeText = "Would you like to get a priority token";
+      this.ticketTypeText =
+        "Would you like to get a priority token for PWD/SENIOR CITIZEN";
     } else {
       this.priorityColor = "primary";
       this.ticketTypeText = "Would you like to get a regular token";

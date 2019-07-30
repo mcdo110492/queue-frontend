@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~material-design-icons/iconfont/material-icons.css';
+@import "~material-design-icons/iconfont/material-icons.css";
 
 @import "~@angular/material/theming";
 // Plus imports for other components in your app.
@@ -191,7 +191,7 @@ router-outlet ~ * {
 
 @page {
   size: 76.2mm 45.4mm;
-  margin:0;
+  margin: 0;
 }
 
 #print-issue-token-dialog {
