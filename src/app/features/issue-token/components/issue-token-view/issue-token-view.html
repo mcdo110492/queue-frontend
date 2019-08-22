@@ -3,16 +3,16 @@
     <mat-card class="issue-token mat-elevation-z8">
       <img class="issue-logo" src="./assets/csab-logo.png" alt="Logo Text" />
       <h3 class="issue-text">Welcome to Colegio San Agustin - Bacolod</h3>
-      <h4 class="issue-text">Select Department</h4>
+      <h4 class="issue-text">Select Transaction</h4>
       <div class="issue-form">
         <button
           *ngFor="let dept of departments$ | async"
           mat-raised-button
           color="accent"
           class="issue-btn"
-          routerLink="select/{{ dept.id }}/{{ dept.name }}"
+          routerLink="select/{{ dept.id }}/{{ dept.code }}"
         >
-          {{ dept.name }}
+          {{ dept.code }}
         </button>
       </div>
     </mat-card>
