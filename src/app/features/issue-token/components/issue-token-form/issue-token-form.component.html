@@ -12,7 +12,7 @@
       <img class="issue-logo" src="./assets/csab-logo.png" alt="Logo Text" />
       <h3 class="issue-text">Welcome to Colegio San Agustin - Bacolod</h3>
       <h4 class="issue-text">
-        Get Token For
+        Get Your Token Number
       </h4>
       <h5 class="issue-text" *ngIf="routerParams$ | async; let param">
         {{ param.department_name }}
@@ -32,7 +32,7 @@
           class="issue-btn"
           (click)="generateTicket(1)"
         >
-          PRIORITY TOKEN (PWD/SENIOR CITIZEN) ONLY
+          PRIORITY TOKEN (PWD/SENIOR CITIZEN/PREGNANT WOMEN) ONLY
         </button>
       </div>
     </mat-card>
@@ -43,14 +43,14 @@
       <p>{{ ticketTypeText | uppercase }}?</p>
     </div>
     <div mat-dialog-actions align="center">
-      <button mat-button [mat-dialog-close]="false" color="warn">No</button>
+      <button mat-button [mat-dialog-close]="false" color="warn">CANCEL</button>
       <button
         mat-raised-button
         [color]="priorityColor"
         [mat-dialog-close]="true"
         cdkFocusInitial
       >
-        Yes
+        YES
       </button>
     </div>
   </ng-template>

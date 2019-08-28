@@ -21,7 +21,7 @@ export class IssueTokenFormComponent {
   isSaving$: Observable<boolean>;
   routerParams$: Observable<any>;
   priorityColor: string = "primary";
-  ticketTypeText: string = "Would you like to get a ticket";
+  ticketTypeText: string = "GET YOUR TOKEN NUMBER";
 
   @ViewChild("alertIssueDialog") alertIssueDialog: TemplateRef<any>;
 
@@ -29,10 +29,10 @@ export class IssueTokenFormComponent {
     if (status === 1) {
       this.priorityColor = "accent";
       this.ticketTypeText =
-        "Would you like to get a priority token for PWD/SENIOR CITIZEN";
+        "GET YOUR PRIORITY TOKEN NUMBER";
     } else {
       this.priorityColor = "primary";
-      this.ticketTypeText = "Would you like to get a regular token";
+      this.ticketTypeText = "GET YOUR REGULAR TOKEN NUMBER";
     }
 
     const dialogRef = this.dialog.open(this.alertIssueDialog, {
