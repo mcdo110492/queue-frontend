@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Router } from '@angular/router';
 
 import { Select, Store } from "@ngxs/store";
+import { Navigate } from "@ngxs/router-plugin";
 import { Dispatch } from "@ngxs-labs/dispatch-decorator";
 
 import { Observable, of } from "rxjs";
@@ -44,10 +44,7 @@ export class IssueTokenFacadeService {
       map(response => {
         this.saving(false);
         this.service.openPrintDialog();
-        setTimeout(() => {
-          this.router.navigate(["/display/issue/token"]);
-        }, 500);
-        
+        this.store.dispatch(new Navigate(["/display/issue/token"])); 
         return new IssueTokenSuccess(response.payload);
       }),
       catchError(err => {
@@ -67,8 +64,7 @@ export class IssueTokenFacadeService {
   constructor(
     private service: IssueTokenApiService,
     private snackBar: SnackBarService,
-    private store: Store,
-    private router: Router
+    private store: Store
   ) {
     this.routerParams$ = this.store.select(state => state.router.state.params);
   }
