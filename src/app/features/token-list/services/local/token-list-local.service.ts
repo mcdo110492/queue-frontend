@@ -25,14 +25,8 @@ export class TokenListLocalService {
       case 0:
         return "Pending";
         break;
-      case 1:
-        return "Called";
-        break;
-      case 2:
-        return "Serving";
-        break;
       case 3:
-        return "Completed";
+        return "Done"; // Completed
         break;
       case 4:
         return "Stopped";
@@ -46,9 +40,7 @@ export class TokenListLocalService {
 
   status: any = [
     { id: 0, name: "Pending" },
-    { id: 1, name: "Called" },
-    { id: 2, name: "Served" },
-    { id: 3, name: "Completed" },
+    { id: 3, name: "Done"  }, //Completed
     { id: 4, name: "Stopped" }
   ];
 
@@ -103,7 +95,7 @@ export class TokenListLocalService {
       label: "Counter",
       isBtn: false,
       cell: (elem: TokenListModel) =>
-        elem.department ? `${elem.department.code} ${elem.department.counter.position}` : ""
+        elem.department ? `${elem.department.counter.position}` : ""
     },
     {
       name: "user",
