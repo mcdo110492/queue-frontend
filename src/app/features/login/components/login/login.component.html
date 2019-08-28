@@ -20,7 +20,7 @@
         [model]="model"
       ></formly-form>
       <button
-        [disabled]="loginForm.invalid"
+        [disabled]="loginForm.invalid || (isAuthenticating$ | async) === true"
         type="submit"
         mat-raised-button
         color="primary"

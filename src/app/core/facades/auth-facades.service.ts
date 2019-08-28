@@ -62,10 +62,12 @@ export class AuthFacadesService {
     const payload = { username, password };
     return this.service.authenticate(payload).pipe(
       map(user => {
+        this.isAuthenticating(false);
         this.roleRedirect.redirect(user.role);
         return new AuthenticateSuccess({ user });
       }),
       catchError(err => {
+        this.isAuthenticating(false);
         this.snackService.authSnackBarError(err.status);
         return of(new AuthFailed(err.status));
       })

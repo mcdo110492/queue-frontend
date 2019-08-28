@@ -4,7 +4,8 @@ import {
   Logout,
   RevertToDefaultUser,
   AddSocketId,
-  AuthenticateSuccess
+  AuthenticateSuccess,
+  IsAuthenticating
 } from "./auth.actions";
 import { UserStateModel } from "@core/models";
 
@@ -75,6 +76,13 @@ export class AuthState {
   revertToDefaultUser(ctx: StateContext<AuthStateModel>) {
     produce(ctx, (draft: AuthStateModel) => {
       draft.user = defaultUserState;
+    });
+  }
+
+  @Action(IsAuthenticating)
+  isAuthenticating(ctx: StateContext<AuthStateModel>, { payload }: IsAuthenticating){
+    produce(ctx, (draft: AuthStateModel) => {
+      draft.isAuthenticating = payload;
     });
   }
 
