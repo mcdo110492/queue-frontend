@@ -9,7 +9,6 @@ import {
   CallNextToken,
   BackToQueueToken,
   CallToken,
-  ServeToken,
   FinishToken,
   StopToken,
   OnServerSuccess,
@@ -216,41 +215,11 @@ export class TokenFacadeService {
     );
   };
 
-  @Dispatch() serveToken = (id: number, token: any) => {
-    const dialog = this.alertDialog.open({
-      title: `Called Token #${token}`,
-      content: "Would you like to start serving this token?"
-    });
-
-    return dialog.afterClosed().pipe(
-      combineLatest(this.timer$),
-      concatMap(([isYes, servedTime]) => {
-        if (isYes) {
-          this.dialogLoader.openLoader();
-          return this.api.serveToken(id, servedTime).pipe(
-            map(response => {
-              this.dialogLoader.closeLoader();
-              this.snackBar.customSnackBar("info", response.payload.message);
-              this.resetTimer();
-              this.startTimer();
-              return new ServeToken(id);
-            }),
-            catchError(err => {
-              this.dialogLoader.closeLoader();
-              this.snackBar.customSnackBar("danger", err.error.payload.message);
-              return of(new OnServerError(err.status));
-            })
-          );
-        }
-        return of();
-      })
-    );
-  };
 
   @Dispatch() completeToken = (id: number, token: any) => {
     const dialog = this.alertDialog.open({
       title: `Serving Token #${token}`,
-      content: "Would you like to complete or finish this token transaction?"
+      content: "Done Serving this token?"
     });
 
     return dialog.afterClosed().pipe(
@@ -281,7 +250,7 @@ export class TokenFacadeService {
   @Dispatch() stopToken = (id: number, token: any) => {
     const dialog = this.alertDialog.open({
       title: `Serving Token #${token}`,
-      content: "Would you like to stop this token transaction?"
+      content: "Stop this transaction"
     });
 
     return dialog.afterClosed().pipe(

@@ -29,9 +29,6 @@ export class MyCounterNowServingComponent implements OnInit {
     this.facade.callAgainToken(token.id, token.ticket_number);
   }
 
-  serveToken(token: TokenModel) {
-    this.facade.serveToken(token.id, token.ticket_number);
-  }
 
   completeToken(token: TokenModel) {
     this.facade.completeToken(token.id, token.ticket_number);

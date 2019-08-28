@@ -8,7 +8,6 @@ import {
   CallNextToken,
   BackToQueueToken,
   CallToken,
-  ServeToken,
   FinishToken,
   StopToken,
   NowServing,
@@ -148,6 +147,7 @@ export class TokenState {
       }
       draft.nowServing = id;
       draft.isCalling = true;
+      draft.isServing = true;
     });
   }
 
@@ -183,6 +183,7 @@ export class TokenState {
         draft.nowServing = firstId;
       }
       draft.isCalling = true;
+      draft.isServing = true;
     });
   }
 
@@ -199,13 +200,6 @@ export class TokenState {
       }
       draft.nowServing = 0;
       draft.isCalling = false;
-    });
-  }
-
-  @Action(ServeToken)
-  serveToken(ctx: StateContext<TokenStateModel>) {
-    produce(ctx, (draft: TokenStateModel) => {
-      draft.isServing = true;
     });
   }
 

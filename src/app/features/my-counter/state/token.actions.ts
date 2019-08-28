@@ -48,10 +48,7 @@ export class CallAgainToken {
   constructor(public id: number) {}
 }
 
-export class ServeToken {
-  static readonly type = "[Token] Serve Token";
-  constructor(public id: number) {}
-}
+
 
 export class FinishToken {
   static readonly type = "[Token] Finish Token";
