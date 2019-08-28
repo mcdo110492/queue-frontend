@@ -1,17 +1,17 @@
 <div class="container" *ngIf="latestToken$ | async as token">
   <div class="now-serving">Now Serving</div>
   <div class="ticket">Token</div>
-  <div class="number">{{ token.ticket_number }}</div>
+  <div [ngClass]="{'number': true, 'number-priority': token.priority}" >#{{ token.ticket_number }}</div>
 
   <mat-chip-list class="priority" *ngIf="token.priority === 1">
     <mat-chip color="accent" selected
-      >priority for {{ token.priority_type }}</mat-chip
+      >PRIORITY</mat-chip
     >
   </mat-chip-list>
 
   <div class="counter" *ngIf="token.latest_user">
     proceed to
-    {{ token?.latest_user?.user_counter?.counter?.department.code }}
+    WINDOW
     {{ token?.latest_user?.user_counter?.counter?.position }}
   </div>
 </div>

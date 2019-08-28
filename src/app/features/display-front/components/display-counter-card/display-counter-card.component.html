@@ -1,10 +1,10 @@
 <div class="container">
   <mat-grid-list cols="2" rowHeight="3:1">
     <mat-grid-tile class="card-1 mat-elevation-z6 normal-token">
-      <span class="title-text">TOKEN NUMBER</span>
+      <span class="title-text">TOKEN</span>
     </mat-grid-tile>
     <mat-grid-tile class="card-2 mat-elevation-z6 normal-token">
-      <span class="title-text">COUNTER</span>
+      <span class="title-text">WINDOW</span>
     </mat-grid-tile>
   </mat-grid-list>
 
@@ -30,7 +30,6 @@
           'priority-token': token.priority === 1
         }"
       >
-        {{ token?.latest_user?.user_counter?.counter?.department.code }}
         {{ token?.latest_user?.user_counter?.counter?.position }}
       </mat-grid-tile>
     </ng-container>
