@@ -9,10 +9,7 @@
     </mat-progress-spinner>
   </div>
   <div class="now-serving-title">
-    <ng-container *ngIf="!(isServing$ | async)">
-      Calling
-    </ng-container>
-    <ng-container *ngIf="(isServing$ | async)">
+    <ng-container >
       Now Serving
     </ng-container>
   </div>
@@ -31,7 +28,7 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="(isServing$ | async) || btnDisabled(serving)"
+      [disabled]="!(isServing$ | async) || btnDisabled(serving)"
       (click)="callAgainToken(serving)"
     >
       <mat-icon>call</mat-icon>
@@ -58,7 +55,7 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="(isServing$ | async) || btnDisabled(serving)"
+      [disabled]="!(isServing$ | async) || btnDisabled(serving)"
       (click)="backToQueue(serving)"
     >
       <mat-icon>add_to_queue</mat-icon>

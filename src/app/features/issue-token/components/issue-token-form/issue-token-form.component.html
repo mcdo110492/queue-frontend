@@ -41,11 +41,12 @@
 
   <ng-template #alertIssueDialog>
     <div mat-dialog-content>
-      <p>{{ ticketTypeText | uppercase }}?</p>
+      <p class="fs-department">{{ ticketTypeText | uppercase }}?</p>
     </div>
     <div mat-dialog-actions align="center">
-      <button mat-button [mat-dialog-close]="false" color="warn">CANCEL</button>
-      <button
+      <button mat-button class="issue-btn" [mat-dialog-close]="false" color="warn">CANCEL</button>
+      <button 
+        class="issue-btn"
         mat-raised-button
         [color]="priorityColor"
         [mat-dialog-close]="true"
