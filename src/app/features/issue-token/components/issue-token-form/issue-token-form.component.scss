@@ -28,12 +28,16 @@
 
 .issue-text {
   text-transform: uppercase;
-  font-family: "Google Sans", arial, sans-serif;
   font-size: 15px;
   font-weight: 300;
   line-height: 1.3333;
   letter-spacing: 5px;
   margin-top: 10px;
+}
+
+.fs-department {
+  font-size: 20px !important;
+  font-weight: 500;
 }
 
 .issue-form {
@@ -46,6 +50,9 @@
   height: 80px;
   width: auto;
   margin-right: 20px;
+  font-size: 20px !important;
+  font-weight: 500;
+  letter-spacing: 2px;
 }
 
 @media print {
