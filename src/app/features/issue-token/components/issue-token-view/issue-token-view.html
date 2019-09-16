@@ -12,7 +12,7 @@
           class="issue-btn"
           routerLink="select/{{ dept.id }}/{{ dept.name }}"
         >
-          {{ dept.name }}
+          {{ dept.name | uppercase}}
         </button>
       </div>
     </mat-card>

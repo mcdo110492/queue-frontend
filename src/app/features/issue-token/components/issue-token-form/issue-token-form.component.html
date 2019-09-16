@@ -14,9 +14,10 @@
       <h4 class="issue-text">
         Get Your Token Number
       </h4>
-      <h5 class="issue-text" *ngIf="routerParams$ | async; let param">
+      <h5 class="issue-text fs-department" *ngIf="routerParams$ | async; let param">
         {{ param.department_name }}
       </h5>
+
       <div class="issue-form">
         <button
           mat-raised-button
@@ -32,7 +33,7 @@
           class="issue-btn"
           (click)="generateTicket(1)"
         >
-          PRIORITY TOKEN (PWD/SENIOR CITIZEN/PREGNANT WOMEN) ONLY
+          PRIORITY TOKEN <br>(PWD/SENIOR CITIZEN/PREGNANT WOMEN) ONLY
         </button>
       </div>
     </mat-card>
@@ -40,11 +41,12 @@
 
   <ng-template #alertIssueDialog>
     <div mat-dialog-content>
-      <p>{{ ticketTypeText | uppercase }}?</p>
+      <p class="fs-department">{{ ticketTypeText | uppercase }}?</p>
     </div>
     <div mat-dialog-actions align="center">
-      <button mat-button [mat-dialog-close]="false" color="warn">CANCEL</button>
-      <button
+      <button mat-button class="issue-btn" [mat-dialog-close]="false" color="warn">CANCEL</button>
+      <button 
+        class="issue-btn"
         mat-raised-button
         [color]="priorityColor"
         [mat-dialog-close]="true"
