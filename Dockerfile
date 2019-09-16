@@ -10,13 +10,9 @@ RUN npm install
 
 COPY . .
 
-<<<<<<< HEAD
 
 
 RUN npm run ng build -- --prod --output-path=dist
-=======
-RUN npm run ng build -- --prod
->>>>>>> 6115ea88986270af0ad488e9a38aa1e5d32bd995
 
 
 # Stage 2
