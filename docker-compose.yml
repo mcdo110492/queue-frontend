@@ -4,6 +4,8 @@ services:
   angular:
     image: csab-queue-frontend
     container_name: angular_container
+    restart: unless-stopped
+    tty: true
     build: .
     ports:
       - "80:80"

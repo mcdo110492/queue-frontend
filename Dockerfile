@@ -10,14 +10,16 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+
+
+RUN npm run ng build -- --prod --output-path=dist
 
 
 # Stage 2
 
 FROM nginx:stable-alpine
 
-COPY --from=node /usr/src/app/dist/queue-frontend /usr/share/nginx/html
+COPY --from=node /usr/src/app/dist /usr/share/nginx/html
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
